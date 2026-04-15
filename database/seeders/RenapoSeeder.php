@@ -14,56 +14,7 @@ class RenapoSeeder extends Seeder
      */
     public function run(): void
     {
-        $renapos = [
-            [
-                'curp' => 'JAFD040301HMSMLGA3',
-                'nombres' => 'DIEGO EDUARDO',
-                'apellidoPaterno' => 'JAIMEZ',
-                'apellidoMaterno' => 'FLORES',
-            ],
-            [
-                'curp' => 'JXSI331110HCMMEC58',
-                'nombres' => 'ABRAHAM',
-                'apellidoPaterno' => 'AVELINO',
-                'apellidoMaterno' => 'PICHARDO',
-            ],
-            [
-                'curp' => 'GORJ990215MMSLNA05',
-                'nombres' => 'JANETH',
-                'apellidoPaterno' => 'GONZALEZ',
-                'apellidoMaterno' => 'RIOS',
-            ],
-            [
-                'curp' => 'HESM010823HMSNRR09',
-                'nombres' => 'MARIO ALEJANDRO',
-                'apellidoPaterno' => 'HERNANDEZ',
-                'apellidoMaterno' => 'SERRANO',
-            ],
-            [
-                'curp' => 'LUPG030714MMSZNL04',
-                'nombres' => 'GLORIA ITZEL',
-                'apellidoPaterno' => 'LUNA',
-                'apellidoMaterno' => 'POZOS',
-            ],
-            [
-                'curp' => 'MARM971125HDFNRG07',
-                'nombres' => 'RODRIGO',
-                'apellidoPaterno' => 'MARTINEZ',
-                'apellidoMaterno' => 'ROMAN',
-            ],
-            [
-                'curp' => 'VACE050602MMSNRS02',
-                'nombres' => 'ESTEFANIA',
-                'apellidoPaterno' => 'VARGAS',
-                'apellidoMaterno' => 'CERVANTES',
-            ],
-            [
-                'curp' => 'TOZL880930HMSRPL06',
-                'nombres' => 'LUIS ENRIQUE',
-                'apellidoPaterno' => 'TORRES',
-                'apellidoMaterno' => 'ZAPATA',
-            ],
-        ];
+        $renapos = [];
 
         foreach ($renapos as $renapo) {
             Renapo::updateOrCreate(

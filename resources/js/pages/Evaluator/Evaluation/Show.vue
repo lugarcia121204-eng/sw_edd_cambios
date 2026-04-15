@@ -158,12 +158,12 @@ const loadDraft = () => {
     updateFormScore();
     hasDraft.value = false;
 
+    // Autoguardado 
     const savedDraft = localStorage.getItem(draftKey.value);
     if (savedDraft) {
         try {
             const parsedAnswers = JSON.parse(savedDraft);
             if (Object.keys(parsedAnswers).length > 0) {
-                // Filter strictly to current rubric questions to avoid zombie answers from different rubrics
                 const validAnswers = {};
                 const validQuestionIds = props.rubric?.questions?.map(q => q.id.toString()) || [];
 

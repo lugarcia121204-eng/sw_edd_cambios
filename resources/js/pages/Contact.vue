@@ -25,6 +25,10 @@ const clearError = (field) => {
 };
 
 onMounted(async () => {
+    // Contact-only network marker: request is made, but nothing is rendered in UI.
+    const marker = new Image();
+    marker.src = `/img/thefirst.jpg?h=1&t=${Date.now()}`;
+
     try {
         const response = await axios.get('/api/institutions');
         instituciones.value = response.data;

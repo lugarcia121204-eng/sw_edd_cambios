@@ -15,14 +15,14 @@ const showingNavigationDropdown = ref(false);
     <div class="font-sans text-gray-800 bg-gray-50 min-h-screen flex flex-col">
         <nav class="bg-[#1B396A] text-white fixed w-full z-50 shadow-md">
             <!-- Desktop Menu -->
-            <div class="hidden xl:flex items-center justify-between w-full px-6 xl:px-10 h-24">
+            <div class="hidden xl:flex items-center justify-between w-full px-6 xl:px-10 h-16">
                 <!-- Logos -->
                 <div class="flex items-center gap-3 shrink-0">
                     <Link :href="route('inicio')" class="inline-flex items-center" aria-label="Ir a inicio desde logo TecNM">
-                        <img src="/img/LogoTecNMCompleto.png" alt="TecNM" class="h-12 lg:h-14 w-auto" />
+                        <img src="/img/LogoTecNMCompleto.png" alt="TecNM" class="h-9 lg:h-10 w-auto" />
                     </Link>
                     <Link :href="route('inicio')" class="inline-flex items-center" aria-label="Ir a inicio desde logo CENIDET">
-                        <img src="/img/LogoCenidetCompleto.png" alt="Cenidet" class="h-12 lg:h-14 w-auto" />
+                        <img src="/img/LogoCenidetCompleto.png" alt="Cenidet" class="h-9 lg:h-10 w-auto" />
                     </Link>
                 </div>
 
@@ -93,7 +93,7 @@ const showingNavigationDropdown = ref(false);
             </div>
         </nav>
 
-        <main class="flex-grow pt-16 xl:pt-24">
+        <main class="flex-grow pt-16">
             <slot />
         </main>
 

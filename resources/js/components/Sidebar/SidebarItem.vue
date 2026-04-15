@@ -14,11 +14,11 @@
                             : 'text-white/80 hover:bg-white/5 hover:text-white before:bg-transparent'
                     ]"
                 >
-                    <div class="flex items-center">
+                    <div class="flex items-center min-w-0 flex-1">
                         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0">
                             <path fill="currentColor" :d="item.icon || mdiViewModule"/>
                         </svg>
-                        <span class="ml-3 text-sm font-medium">{{ item.label }}</span>
+                        <span class="ml-3 text-sm font-medium truncate" :title="item.label">{{ item.label }}</span>
                     </div>
                     <svg
                         viewBox="0 0 24 24"
@@ -83,7 +83,7 @@
             <svg v-if="item.icon" viewBox="0 0 24 24" :class="[isChild ? 'w-3.5 h-3.5' : 'w-4 h-4', 'flex-shrink-0']">
                 <path fill="currentColor" :d="item.icon"/>
             </svg>
-            <span v-show="!collapsed || isMobile || isChild" class="ml-3 text-sm font-medium">{{ item.label }}</span>
+            <span v-show="!collapsed || isMobile || isChild" class="ml-3 text-sm font-medium truncate" :title="item.label">{{ item.label }}</span>
         </Link>
     </div>
 </template>
