@@ -51,9 +51,7 @@ const parseDateLocal = (dateString) => {
     return new Date(year, month - 1, day);
 };
 
-// Helper para determinar la fase actual
 const getFase = (announcement) => {
-    // 1. Estado Cerrada
     if (announcement.status !== 'activa') {
         return { 
             nombre: 'Cerrada', 
@@ -62,9 +60,8 @@ const getFase = (announcement) => {
         };
     }
 
-    // 2. Estado Activa
     let canRegister = false;
-    let registrationStatus = 'upcoming'; // 'upcoming' | 'open' | 'ended'
+    let registrationStatus = 'upcoming';
     
     if (announcement.calendar) {
         const today = new Date();
@@ -85,7 +82,6 @@ const getFase = (announcement) => {
         }
     }
 
-    // Retornamos siempre "Activa" si el estado es activa
     return { 
         nombre: 'Activa', 
         color: 'bg-green-100 text-green-800', 

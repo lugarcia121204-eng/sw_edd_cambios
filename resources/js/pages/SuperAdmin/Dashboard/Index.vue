@@ -26,13 +26,11 @@ const statusOptions = [
     { label: 'Rechazadas', value: 'rejected' },
 ];
 
-// Cascading: filter institutions by selected state
 const filteredInstitutions = computed(() => {
     if (!stateId.value) return props.institutions;
     return props.institutions.filter(i => i.state_id === stateId.value);
 });
 
-// Chart Data Setup
 const chartData = computed(() => ({
     labels: props.chart.labels,
     datasets: [
