@@ -162,7 +162,7 @@ const getFase = (announcement) => {
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mt-0 mb-3 leading-tight">
                             {{ announcement.name }}
                         </h2>
-                        <div class="w-20 h-1.5 bg-[#1B396A] rounded-full mb-4"></div>
+                        <div class="w-20 h-1.5 bg-[var(--institutional-primary)] rounded-full mb-4"></div>
                         
                         <div class="text-gray-600 text-lg mb-6 leading-relaxed">
                             <span>{{ (() => {
@@ -174,7 +174,7 @@ const getFase = (announcement) => {
                             <button
                                 v-if="(announcement.description || '').length > DESCRIPTION_LIMIT"
                                 @click="toggleDescription(announcement.id)"
-                                class="ml-1.5 text-[#1B396A] font-semibold text-base hover:underline cursor-pointer focus:outline-none"
+                                class="ml-1.5 text-[var(--institutional-primary)] font-semibold text-base hover:underline cursor-pointer focus:outline-none"
                             >
                                 {{ expandedDescriptions[announcement.id] ? 'Ver menos' : 'Ver más' }}
                             </button>
@@ -202,7 +202,7 @@ const getFase = (announcement) => {
                                 v-if="announcement.file_url"
                                 type="button"
                                 @click="openDocumentModal(announcement.file_url, announcement.name)"
-                                class="text-[#1B396A] font-semibold hover:underline flex items-center gap-2 group/link cursor-pointer"
+                                class="text-[var(--institutional-primary)] font-semibold hover:underline flex items-center gap-2 group/link cursor-pointer"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -237,7 +237,7 @@ const getFase = (announcement) => {
                                 <Link 
                                     v-else-if="getFase(announcement).canRegister" 
                                     :href="route('teacher.announcements.apply', announcement.id)"
-                                    class="w-full flex items-center justify-center gap-2 py-3.5 bg-[#1B396A] text-white rounded-lg font-bold hover:bg-[#152d47] transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 px-6 cursor-pointer"
+                                    class="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--institutional-primary)] text-white rounded-lg font-bold hover:bg-[var(--institutional-primary-dark)] transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 px-6 cursor-pointer"
                                 >
                                     <span>Solicitar Beca</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -311,7 +311,7 @@ const getFase = (announcement) => {
                                 <a
                                     :href="currentDocumentUrl"
                                     target="_blank"
-                                    class="px-4 py-2 rounded-md bg-[#1B396A] text-white font-medium hover:bg-[#152d47]"
+                                    class="px-4 py-2 rounded-md bg-[var(--institutional-primary)] text-white font-medium hover:bg-[var(--institutional-primary-dark)]"
                                 >
                                     Abrir documento
                                 </a>

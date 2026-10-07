@@ -50,7 +50,7 @@
                         :class="[
                             'inline-flex items-center justify-center w-9 h-9 rounded-full font-medium text-sm transition-colors',
                             link.active 
-                                ? 'bg-[#1B396A] text-white shadow-md' 
+                                ? 'bg-[var(--institutional-primary)] text-white shadow-md' 
                                 : 'text-gray-700 hover:bg-gray-100 bg-gray-50'
                         ]" 
                         :href="link.url || '#'" 

@@ -110,7 +110,7 @@ const submit = () => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Module Selector -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Módulo: <span class="text-red-500">*</span></label>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Módulo: <span class="text-red-500">*</span></label>
                             <VueSelect
                                 v-model="form.module_key"
                                 :options="modules.map(m => ({ label: m.name, value: m.key }))"
@@ -133,8 +133,8 @@ const submit = () => {
                         
                          <!-- Permission Name (Key) -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Clave: <span class="text-red-500">*</span></label>
-                            <input v-model="form.name" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.name }" placeholder="Clave del permiso" @input="clearError('name')" />
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Clave: <span class="text-red-500">*</span></label>
+                            <input v-model="form.name" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.name }" placeholder="Clave del permiso" @input="clearError('name')" />
                             <div v-if="!form.errors.name" class="flex items-center gap-1 mt-1 text-xs text-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -146,8 +146,8 @@ const submit = () => {
 
                          <!-- Description -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Descripción: <span class="text-red-500">*</span></label>
-                            <textarea v-model="form.description" rows="4" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.description }" placeholder="Descripción" @input="clearError('description')"></textarea>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Descripción: <span class="text-red-500">*</span></label>
+                            <textarea v-model="form.description" rows="4" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.description }" placeholder="Descripción" @input="clearError('description')"></textarea>
                             <div class="flex items-center justify-between mt-1">
                                 <div v-if="!form.errors.description" class="flex items-center gap-1 text-xs text-gray-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -167,7 +167,7 @@ const submit = () => {
                         <Link :href="route(`${routeName}index`)" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition">
                             Cancelar
                         </Link>
-                        <button :disabled="form.processing" type="submit" class="px-6 py-2 cursor-pointer bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium">
+                        <button :disabled="form.processing" type="submit" class="px-6 py-2 cursor-pointer bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium">
                             <span v-if="!form.processing">Guardar</span>
                              <span v-else>Guardando...</span>
                         </button>

@@ -135,7 +135,7 @@ const resendCode = () => {
                 <div class="bg-white rounded-lg shadow-xl p-5 sm:p-8 md:p-10 space-y-6">
                     <!-- Título -->
                     <div class="text-center">
-                        <h2 class="text-2xl sm:text-3xl font-semibold text-[#1B396A] mb-3">Confirma tu Correo Electrónico</h2>
+                        <h2 class="text-2xl sm:text-3xl font-semibold text-[var(--institutional-primary)] mb-3">Confirma tu Correo Electrónico</h2>
                         <p class="text-gray-600 text-sm text-left">
                             Hemos enviado un código de verificación de 6 dígitos a tu dirección de email.
                             Por favor revisa tu bandeja de entrada e ingrésalo a continuación para activar tu cuenta.<br>
@@ -147,16 +147,16 @@ const resendCode = () => {
                     <!-- Email destacado -->
                     <!-- Email destacado (Banner Style) -->
                     <div v-if="email" 
-                        class="relative flex items-center gap-3 px-4 py-2 rounded-lg bg-white shadow-sm border border-gray-100 border-l-4 border-l-[#1B396A]"
+                        class="relative flex items-center gap-3 px-4 py-2 rounded-lg bg-white shadow-sm border border-gray-100 border-l-4 border-l-[var(--institutional-primary)]"
                     >
-                        <div class="flex-shrink-0 text-[#1B396A]">
+                        <div class="flex-shrink-0 text-[var(--institutional-primary)]">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                         <div class="flex items-center text-left">
                             <span class="text-[13px] font-medium text-gray-800">
-                                Código enviado a: <span class="text-[#1B396A] font-semibold">{{ email }}</span>
+                                Código enviado a: <span class="text-[var(--institutional-primary)] font-semibold">{{ email }}</span>
                             </span>
                         </div>
                     </div>
@@ -164,7 +164,7 @@ const resendCode = () => {
                     <!-- Inputs del código -->
                     <form @submit.prevent="submit" class="space-y-6">
                         <div>
-                            <label class="block mb-3 text-base text-[#1B396A] font-medium text-center">
+                            <label class="block mb-3 text-base text-[var(--institutional-primary)] font-medium text-center">
                                 Ingresa el Código de 6 dígitos
                             </label>
                             
@@ -177,7 +177,7 @@ const resendCode = () => {
                                     maxlength="1"
                                     inputmode="numeric"
                                     pattern="[0-9]"
-                                    class="w-10 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold bg-[#F3F4F6] border-t-0 border-x-0 rounded-lg focus:ring-0 border-b-2 border-b-gray-300 focus:border-b-[#1B396A] transition-all"
+                                    class="w-10 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold bg-[#F3F4F6] border-t-0 border-x-0 rounded-lg focus:ring-0 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)] transition-all"
                                     :class="{ 'border-b-red-500': form.errors.code }"
                                     @input="handleInput(index - 1, $event)"
                                     @keydown="handleKeydown(index - 1, $event)"
@@ -200,7 +200,7 @@ const resendCode = () => {
                         <button
                             type="submit"
                             :disabled="form.processing || form.code.length !== 6"
-                            class="w-full bg-[#1B396A] text-white py-2.5 px-4 rounded font-medium hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B396A] transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            class="w-full bg-[var(--institutional-primary)] text-white py-2.5 px-4 rounded font-medium hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--institutional-primary)] transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <span v-if="!form.processing">Verificar Código</span>
                             <span v-else class="flex items-center justify-center">
@@ -221,7 +221,7 @@ const resendCode = () => {
                         <button
                             @click="resendCode"
                             :disabled="resendForm.processing || isResending"
-                            class="text-[#1B396A] hover:text-[#0f2347] cursor-pointer font-medium text-sm disabled:text-gray-400 disabled:cursor-not-allowed hover:underline transition"
+                            class="text-[var(--institutional-primary)] hover:text-[#0f2347] cursor-pointer font-medium text-sm disabled:text-gray-400 disabled:cursor-not-allowed hover:underline transition"
                         >
                             {{ isResending ? 'Reenviando...' : 'Reenviar código' }}
                         </button>
@@ -229,9 +229,9 @@ const resendCode = () => {
 
                     <!-- Mensajes de estado (Banner Style) -->
                     <div v-if="status" 
-                        class="relative flex items-center gap-3 px-4 py-2 rounded-lg bg-white shadow-sm border border-gray-100 border-l-4 border-l-[#1B396A]"
+                        class="relative flex items-center gap-3 px-4 py-2 rounded-lg bg-white shadow-sm border border-gray-100 border-l-4 border-l-[var(--institutional-primary)]"
                     >
-                        <div class="flex-shrink-0 text-[#1B396A]">
+                        <div class="flex-shrink-0 text-[var(--institutional-primary)]">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>

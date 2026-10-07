@@ -199,14 +199,14 @@ const getProgressWidth = (count) => {
             <!-- Summary Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <!-- Total Solicitudes -->
-                <div class="bg-white rounded-lg shadow-md border-l-4 border-[#1B396A] p-4 hover:shadow-lg transition-shadow">
+                <div class="bg-white rounded-lg shadow-md border-l-4 border-[var(--institutional-primary)] p-4 hover:shadow-lg transition-shadow">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Total Solicitudes</p>
                             <p class="text-2xl font-bold text-gray-900">{{ stats.total }}</p>
                         </div>
                         <div class="p-2">
-                             <svg viewBox="0 0 24 24" class="w-8 h-8 text-[#1B396A]" style="fill: currentColor">
+                             <svg viewBox="0 0 24 24" class="w-8 h-8 text-[var(--institutional-primary)]" style="fill: currentColor">
                                 <path :d="mdiFileDocumentMultiple"/>
                              </svg>
                         </div>
@@ -269,7 +269,7 @@ const getProgressWidth = (count) => {
                             <p class="text-sm font-medium text-gray-700 mb-2">{{ institution.name }}</p>
                             <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
                                 <div 
-                                    class="h-full bg-gradient-to-r from-[#1B396A] to-[#2563eb] rounded-full transition-all duration-300 flex items-center justify-end pr-2"
+                                    class="h-full bg-gradient-to-r from-[var(--institutional-primary)] to-[#2563eb] rounded-full transition-all duration-300 flex items-center justify-end pr-2"
                                     :style="{ width: getProgressWidth(institution.applications_count) + '%' }"
                                 ></div>
                             </div>
@@ -278,7 +278,7 @@ const getProgressWidth = (count) => {
                             </div>
                         </div>
                         <div class="flex items-center justify-center bg-white rounded-full h-10 w-10 shadow-sm border border-gray-100 flex-shrink-0">
-                            <p class="text-lg font-bold text-[#1B396A]">{{ institution.applications_count }}</p>
+                            <p class="text-lg font-bold text-[var(--institutional-primary)]">{{ institution.applications_count }}</p>
                         </div>
                     </div>
 
@@ -337,7 +337,7 @@ const getProgressWidth = (count) => {
                             v-model="search" 
                             type="text" 
                             placeholder="Buscar por ID, nombre, institución..." 
-                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition text-sm"
+                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition text-sm"
                         />
                     </div>
                     <!-- Estado -->
@@ -391,7 +391,7 @@ const getProgressWidth = (count) => {
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-[920px] text-sm text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th scope="col" class="px-6 py-4 tracking-wider">ID</th>
                                 <th scope="col" class="px-6 py-4 tracking-wider">

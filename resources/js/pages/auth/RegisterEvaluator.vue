@@ -251,14 +251,14 @@ const buscarCurp = async () => {
                 <div class="bg-white rounded-lg shadow-xl p-5 sm:p-8 md:p-10 space-y-6 sm:space-y-7">
                     <!-- Title -->
                     <div class="text-center">
-                        <h2 class="text-2xl sm:text-3xl font-semibold text-[#1B396A]">Registro de Evaluador</h2>
+                        <h2 class="text-2xl sm:text-3xl font-semibold text-[var(--institutional-primary)]">Registro de Evaluador</h2>
                     </div>
 
                     <!-- Form -->
                     <form @submit.prevent="submit" class="space-y-5">
                         <!-- CURP -->
                         <div>
-                            <label for="curp" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label for="curp" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 CURP
                             </label>
                             <div class="flex gap-2">
@@ -269,7 +269,7 @@ const buscarCurp = async () => {
                                     autofocus
                                     maxlength="18"
                                     :disabled="curpEncontrado"
-                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A] disabled:bg-gray-100"
+                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)] disabled:bg-gray-100"
                                     :class="{ 'border-b-red-500': form.errors.curp || errorCurp, 'border-b-green-500': curpEncontrado }"
                                     placeholder="Tu curp"
                                     @input="form.curp = form.curp.toUpperCase(); clearError('curp'); errorCurp = ''"
@@ -278,7 +278,7 @@ const buscarCurp = async () => {
                                     type="button"
                                     @click="buscarCurp"
                                     :disabled="buscandoCurp || curpEncontrado"
-                                    class="bg-[#1B396A] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#0f2347] transition whitespace-nowrap flex items-center gap-2 disabled:bg-gray-400 cursor-pointer"
+                                    class="bg-[var(--institutional-primary)] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#0f2347] transition whitespace-nowrap flex items-center gap-2 disabled:bg-gray-400 cursor-pointer"
                                 >
                                     <svg v-if="buscandoCurp" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -315,7 +315,7 @@ const buscarCurp = async () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <!-- Nombre Completo -->
                             <div>
-                                <label for="name" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="name" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Nombre Completo:
                                 </label>
                                 <input
@@ -323,7 +323,7 @@ const buscarCurp = async () => {
                                     v-model="form.name"
                                     type="text"
                                     :readonly="curpEncontrado"
-                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                     :class="{ 'bg-gray-100': curpEncontrado, 'border-b-red-500': form.errors.name }"
                                     placeholder="Tu nombre"
                                     @input="clearError('name')"
@@ -341,7 +341,7 @@ const buscarCurp = async () => {
 
                             <!-- Correo Electrónico -->
                             <div>
-                                <label for="email" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="email" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Correo Electrónico:
                                 </label>
                                 <input
@@ -351,7 +351,7 @@ const buscarCurp = async () => {
                                     autocomplete="email"
                                     :readonly="usuarioExistente"
                                     :disabled="usuarioExistente"
-                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                     :class="{ 'border-b-red-500': form.errors.email, 'bg-gray-100 cursor-not-allowed': usuarioExistente }"
                                     placeholder="admin@example.com"
                                     @input="clearError('email')"
@@ -373,7 +373,7 @@ const buscarCurp = async () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <!-- Contraseña -->
                             <div>
-                                <label for="password" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="password" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Contraseña:
                                 </label>
                                 <div class="relative">
@@ -382,7 +382,7 @@ const buscarCurp = async () => {
                                         v-model="form.password"
                                         :type="showPassword ? 'text' : 'password'"
                                         autocomplete="new-password"
-                                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                         :class="{ 'border-b-red-500': form.errors.password }"
                                         placeholder="••••••••"
                                         @input="clearError('password')"
@@ -410,7 +410,7 @@ const buscarCurp = async () => {
 
                             <!-- Confirmar Contraseña -->
                             <div>
-                                <label for="password_confirmation" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="password_confirmation" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Confirmar Contraseña:
                                 </label>
                                 <div class="relative">
@@ -419,7 +419,7 @@ const buscarCurp = async () => {
                                         v-model="form.password_confirmation"
                                         :type="showPasswordConfirmation ? 'text' : 'password'"
                                         autocomplete="new-password"
-                                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                         :class="{ 'border-b-red-500': form.errors.password_confirmation }"
                                         placeholder="••••••••"
                                         @input="clearError('password_confirmation')"
@@ -448,7 +448,7 @@ const buscarCurp = async () => {
 
                         <!-- Nombre de la Institución de Procedencia -->
                         <div>
-                            <label for="institution_id" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label for="institution_id" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Nombre de la Institución de Procedencia:
                             </label>
                             <VueSelect
@@ -484,7 +484,7 @@ const buscarCurp = async () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <!-- Área Prioritaria -->
                             <div>
-                                <label for="priority_area_id" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="priority_area_id" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Área Prioritaria:
                                 </label>
                                 <VueSelect
@@ -518,7 +518,7 @@ const buscarCurp = async () => {
 
                             <!-- SubÁrea Prioritaria -->
                             <div>
-                                <label for="sub_area_id" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="sub_area_id" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     SubÁrea Prioritaria:
                                 </label>
                                 <VueSelect
@@ -555,7 +555,7 @@ const buscarCurp = async () => {
                         <button
                             type="submit"
                             :disabled="form.processing"
-                            class="w-full bg-[#1B396A] text-white py-2.5 px-4 rounded font-medium hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B396A] transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-6 cursor-pointer"
+                            class="w-full bg-[var(--institutional-primary)] text-white py-2.5 px-4 rounded font-medium hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--institutional-primary)] transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-6 cursor-pointer"
                         >
                             <span v-if="!form.processing">Crear una cuenta</span>
                             <span v-else class="flex items-center justify-center">
@@ -569,7 +569,7 @@ const buscarCurp = async () => {
                                 ¿Ya una cuenta?
                                 <Link
                                     :href="route('login')"
-                                    class="font-medium text-[#1B396A] hover:text-[#0f2347] hover:underline transition"
+                                    class="font-medium text-[var(--institutional-primary)] hover:text-[#0f2347] hover:underline transition"
                                 >
                                     Inicia Sesión
                                 </Link>

@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
-import { CheckCircle, Clock, AlertCircle, Calendar, ClipboardCheck, Award, FileText, X } from 'lucide-vue-next';
+import { CheckCircle, Clock, AlertCircle, Calendar, ClipboardCheck, Award, FileText, ArrowUpRight, X } from 'lucide-vue-next';
 import { ref, computed, onMounted } from 'vue';
 
 const props = defineProps({
@@ -200,32 +200,29 @@ onMounted(() => {
     <LandingLayout>
         <Head title="Inicio" />
 
-        <!-- Hero Section con imagen de fondo -->
-        <section class="relative bg-gradient-to-br from-[#2c5282] via-[#3d5a80] to-[#4a6fa5] py-24 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
-            <!-- Imagen de fondo -->
-            <div class="absolute inset-0 z-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1920&h=1080&fit=crop&q=80" 
-                    alt="Equipo de profesionales" 
-                    class="w-full h-full object-cover"
-                />
-                <div class="absolute inset-0 bg-gradient-to-r from-[#2c5282]/80 via-[#3d5a80]/75 to-[#4a6fa5]/70"></div>
-            </div>
-            
-            <div class="max-w-7xl mx-auto relative z-10">
-                <div class="text-center">
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-                        Programa de Estímulos al Desempeño<br />del Personal Docente
-                    </h1>
-                    <p class="text-base sm:text-lg md:text-xl text-blue-50 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-                        Tecnológico Nacional de México - Reconociendo la excelencia académica y el compromiso docente de nuestra comunidad educativa.
-                    </p>
+        <!-- Portada institucional -->
+        <section class="institutional-hero" aria-labelledby="hero-title">
+            <img class="hero-photo" src="/images/cenidet-campus-hero.jpg" alt="Instalaciones académicas del CENIDET en Cuernavaca" fetchpriority="high" />
+            <div class="hero-overlay" aria-hidden="true"></div>
+            <div class="hero-container">
+                <div class="hero-copy">
+                    <div class="hero-eyebrow hero-institution-badge">TECNOLÓGICO NACIONAL DE MÉXICO</div>
+                    <h1 id="hero-title">Programa de Estímulos al Desempeño del Personal Docente</h1>
+                    <p class="hero-description">Reconociendo la excelencia académica y el compromiso docente de nuestra comunidad educativa.</p>
+                    <div class="hero-actions">
+                        <Link :href="route('login')" class="hero-primary">Acceder al Sistema <ArrowUpRight :size="19" /></Link>
+                        <a href="#sobre-el-programa" class="hero-secondary">Más información</a>
+                    </div>
+                </div>
+                <div class="hero-bottom">
+                    <p>Tecnológico Nacional de México</p>
+                    <div class="hero-values"><span><Award :size="17" /> Excelencia académica</span><span><ClipboardCheck :size="17" /> Compromiso docente</span></div>
                 </div>
             </div>
         </section>
 
         <!-- Sección Sobre el Programa -->
-        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <section id="sobre-el-programa" class="py-20 px-4 sm:px-6 lg:px-8 bg-white scroll-mt-28">
             <div class="max-w-7xl mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <!-- Texto -->
@@ -269,13 +266,13 @@ onMounted(() => {
                     <div class="relative">
                         <div class="relative rounded-2xl overflow-hidden shadow-2xl">
                             <img 
-                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&q=80" 
+                                src="/images/proposito-docente-local.jpg" 
                                 alt="Profesionales colaborando" 
                                 class="w-full h-full object-cover"
                             />
                         </div>
                         <!-- Decoración -->
-                        <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-[#2c5282]/10 rounded-full -z-10"></div>
+                        <div class="absolute -bottom-6 right-0 sm:-right-6 w-72 h-72 bg-[#2c5282]/10 rounded-full -z-10"></div>
                         <div class="absolute -top-6 -left-6 w-48 h-48 bg-blue-200/30 rounded-full -z-10"></div>
                     </div>
                 </div>
@@ -283,7 +280,7 @@ onMounted(() => {
         </section>
 
         <!-- Sección de Etapas con fondo tecnológico -->
-        <section class="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#1B396A] via-[#2B4A7E] to-[#3B5C92] overflow-hidden">
+        <section class="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] overflow-hidden">
             <!-- Patrón de fondo tecnológico -->
             <div class="absolute inset-0 opacity-10">
                 <div class="absolute inset-0" style="background-image: linear-gradient(#5B8DEE 2px, transparent 2px), linear-gradient(90deg, #5B8DEE 2px, transparent 2px); background-size: 40px 40px;"></div>
@@ -416,7 +413,7 @@ onMounted(() => {
                                 <Link 
                                     v-else-if="getFase(convocatoria).canRegister"
                                     :href="route('teacher.dashboard')"
-                                    class="w-full block py-3 rounded-xl transition-all font-semibold cursor-pointer text-center bg-gradient-to-r from-[#2c5282] to-[#3d5a80] text-white hover:from-[#1e3a5f] hover:to-[#2c5282] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                                    class="w-full block py-3 rounded-xl transition-all font-semibold cursor-pointer text-center bg-gradient-to-r from-[#2c5282] to-[#3d5a80] text-white hover:from-[var(--institutional-primary)] hover:to-[#2c5282] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                                 >
                                     Ir a Panel Docente
                                 </Link>
@@ -498,7 +495,7 @@ onMounted(() => {
                                 <a
                                     :href="currentPdfUrl"
                                     target="_blank"
-                                    class="px-4 py-2 rounded-md bg-[#1B396A] text-white font-medium hover:bg-[#152d47]"
+                                    class="px-4 py-2 rounded-md bg-[var(--institutional-primary)] text-white font-medium hover:bg-[var(--institutional-primary-dark)]"
                                 >
                                     Abrir documento
                                 </a>
@@ -513,6 +510,32 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.institutional-hero { position:relative; isolation:isolate; overflow:hidden; background:var(--institutional-primary-dark); color:white; }
+.hero-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right 35%; z-index:-2; }
+.hero-overlay { position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(16,35,68,.99) 0%,rgba(16,35,68,.96) 30%,rgba(16,35,68,.85) 52%,rgba(16,35,68,.30) 78%,rgba(16,35,68,.18) 100%); }
+.hero-container { max-width:1280px; margin:auto; padding:88px 32px 28px; }
+.hero-copy { max-width:780px; }
+.hero-eyebrow { display:flex; align-items:center; gap:12px; font-size:12px; font-weight:700; letter-spacing:.18em; color:#dbeafe; margin-bottom:28px; }
+.hero-institution-badge { display:inline-flex; border:1px solid var(--institutional-accent); padding:10px 16px; border-radius:24px; color:var(--institutional-gold); letter-spacing:0; line-height:1.5; }
+.hero-eyebrow > span { width:32px; height:3px; background:var(--institutional-gold); }
+.hero-copy h1 { font-size:clamp(36px,4vw,60px); font-weight:750; line-height:1.12; letter-spacing:-.035em; margin-bottom:28px; text-wrap:balance; color:white; }
+.hero-copy h1 span { color:var(--institutional-gold); }
+.hero-program { max-width:640px; font-size:20px; line-height:1.5; font-weight:600; color:#f1f5f9; margin-bottom:16px; }
+.hero-description { max-width:650px; font-size:19px; line-height:1.7; color:#e2e8f0; border-left:3px solid var(--institutional-gold); padding-left:18px; text-wrap:pretty; }
+.hero-actions { display:flex; flex-wrap:wrap; gap:14px; margin-top:32px; }
+.hero-primary,.hero-secondary { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:46px; padding:12px 20px; border-radius:8px; font-size:14px; font-weight:650; transition:background .2s,transform .2s; }
+.hero-primary { background:var(--institutional-accent); color:white; }
+.hero-primary:hover { background:#b45309; transform:translateY(-2px); }
+.hero-secondary { border:1px solid #ffffff50; color:white; background:#ffffff08; }
+.hero-secondary:hover { background:#ffffff18; }
+.hero-actions a:focus-visible { outline:2px solid white; outline-offset:4px; }
+.hero-bottom { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:64px; padding-top:24px; border-top:1px solid #ffffff26; color:#cbd5e1; font-size:12px; }
+.hero-values { display:flex; gap:28px; }
+.hero-values span { display:flex; align-items:center; gap:8px; }
+.hero-values svg { color:var(--institutional-gold); }
+@media(max-width:767px) { .hero-container { padding:56px 24px 24px; } .hero-overlay { background:linear-gradient(90deg,rgba(16,35,68,.96),rgba(16,35,68,.80)); } .hero-program { font-size:17px; } .hero-description { font-size:14px; } .hero-bottom { align-items:flex-start; flex-direction:column; margin-top:44px; } .hero-values { flex-wrap:wrap; gap:16px; } }
+@media(max-width:479px) { .hero-container { padding-left:16px; padding-right:16px; } .hero-actions { flex-direction:column; align-items:stretch; } .hero-title-break { display:none; } }
+
 .modal-enter-active,
 .modal-leave-active {
     transition: opacity 0.3s ease;

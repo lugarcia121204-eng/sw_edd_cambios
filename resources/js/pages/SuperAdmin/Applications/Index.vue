@@ -220,7 +220,7 @@ watch(search, (value) => {
                             v-model="search" 
                             type="text" 
                             placeholder="Buscar por ID, nombre, campus..." 
-                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition"
+                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition"
                         />
                     </div>
                     <!-- Estado -->
@@ -274,7 +274,7 @@ watch(search, (value) => {
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th scope="col" class="px-6 py-4 tracking-wider">ID</th>
                                 <th scope="col" class="px-6 py-4 tracking-wider">

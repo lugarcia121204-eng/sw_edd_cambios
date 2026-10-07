@@ -31,7 +31,7 @@
                 class="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 max-h-[500px] overflow-hidden flex flex-col"
             >
                 <!-- Header with Brand Gradient -->
-                <div class="px-5 py-4 bg-gradient-to-r from-[#1B396A] to-[#2d5a9e] flex items-center justify-between shadow-sm">
+                <div class="px-5 py-4 bg-gradient-to-r from-[var(--institutional-primary)] to-[#2d5a9e] flex items-center justify-between shadow-sm">
                     <h3 class="text-white font-bold text-base flex items-center gap-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" style="fill: currentColor;">
                             <path :d="mdiBellOutline"/>
@@ -50,7 +50,7 @@
                 <!-- Notifications List -->
                 <div class="overflow-y-auto flex-1 bg-gray-50/50">
                     <div v-if="loading" class="p-10 text-center text-gray-400">
-                        <svg class="animate-spin h-6 w-6 mx-auto mb-2 text-[#1B396A]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg class="animate-spin h-6 w-6 mx-auto mb-2 text-[var(--institutional-primary)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -68,7 +68,7 @@
                             :class="{ 'bg-blue-50/30': !notification.read_at }"
                         >
                             <!-- Unread Indicator Marker -->
-                            <div v-if="!notification.read_at" class="absolute left-0 top-0 bottom-0 w-1 bg-[#1B396A]"></div>
+                            <div v-if="!notification.read_at" class="absolute left-0 top-0 bottom-0 w-1 bg-[var(--institutional-primary)]"></div>
 
                             <div class="flex items-start gap-4">
                                 <div class="flex-1 min-w-0">

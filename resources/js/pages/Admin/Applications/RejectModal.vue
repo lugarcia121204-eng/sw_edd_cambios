@@ -31,12 +31,12 @@
                 </div>
 
                 <div class="relative group">
-                    <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900 uppercase tracking-tight">
+                    <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900 uppercase tracking-tight">
                         Motivo del Rechazo: <span class="text-red-500">*</span>
                     </label>
                     <textarea 
                         v-model="form.comentario" 
-                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A] transition-all duration-300 min-h-[160px] leading-relaxed" 
+                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)] transition-all duration-300 min-h-[160px] leading-relaxed" 
                         :class="{ 'border-b-red-500': form.errors.comentario }"
                         placeholder="Escribe aquí los motivos detallados..."
                         maxlength="855"

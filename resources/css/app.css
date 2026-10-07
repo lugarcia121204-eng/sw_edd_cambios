@@ -170,3 +170,30 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* Paleta institucional compartida por las vistas p?blicas y los paneles. */
+@theme {
+    --color-blue-500: var(--institutional-primary-light, #2c5282);
+    --color-blue-600: var(--institutional-primary, #1b396a);
+    --color-blue-700: var(--institutional-primary-dark, #102344);
+    --color-blue-800: var(--institutional-primary-dark, #102344);
+    --color-blue-900: var(--institutional-primary-dark, #102344);
+    --color-indigo-500: var(--institutional-primary-light, #2c5282);
+    --color-indigo-600: var(--institutional-primary, #1b396a);
+    --color-indigo-700: var(--institutional-primary-dark, #102344);
+    --color-green-600: var(--institutional-success, #16a34a);
+    --color-emerald-500: var(--institutional-success, #16a34a);
+    --color-emerald-600: var(--institutional-success, #16a34a);
+    --color-amber-600: var(--institutional-accent, #d97706);
+}
+
+/* Tema oscuro institucional: superficies y textos del contenido p?blico. */
+.dark { --background: var(--institutional-dark-background, #1a1a2e); --card: var(--institutional-dark-surface, #24243b); --popover: var(--institutional-dark-surface, #24243b); color-scheme: dark; }
+.dark .landing-shell main :is(.bg-white, .bg-gray-50, .bg-gray-100) { background-color: var(--institutional-dark-background); }
+.dark .landing-shell main :is(.bg-white.rounded-xl, .bg-white.rounded-2xl) { background-color: var(--institutional-dark-surface); }
+.dark .landing-shell main :is(.text-black, .text-gray-800, .text-gray-900) { color: var(--institutional-dark-text, #e2e8f0); }
+.dark .landing-shell main :is(.text-gray-500, .text-gray-600, .text-gray-700) { color: var(--institutional-dark-text, #e2e8f0); }
+.dark .landing-shell main :is(.text-blue-900, .text-blue-800, .text-blue-700, .text-blue-600, .text-\[\#2c5282\]) { color: #b8d8ff; }
+.dark .landing-shell main :is(.border-gray-200, .border-gray-300) { border-color: #45455e; }
+
+.dark .landing-shell main { color: var(--institutional-dark-text, #e2e8f0); }

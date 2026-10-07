@@ -64,7 +64,7 @@ const submit = () => {
                 <div class="bg-white rounded-lg shadow-xl p-5 sm:p-8 md:p-10 space-y-6 sm:space-y-7">
                     <!-- Title -->
                     <div class="text-center">
-                        <h2 class="text-2xl sm:text-3xl text-[#1B396A] font-semibold">¿Olvidaste tu contraseña?</h2>
+                        <h2 class="text-2xl sm:text-3xl text-[var(--institutional-primary)] font-semibold">¿Olvidaste tu contraseña?</h2>
                         <p class="mt-2 text-sm text-gray-600">
                             No te preocupes, te enviaremos instrucciones para restablecerla
                         </p>
@@ -74,7 +74,7 @@ const submit = () => {
                     <form @submit.prevent="submit" class="space-y-5">
                         <!-- Email -->
                         <div>
-                            <label for="email" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label for="email" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Correo Electrónico:
                             </label>
                             <input
@@ -83,7 +83,7 @@ const submit = () => {
                                 type="email"
                                 autofocus
                                 autocomplete="email"
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                 :class="{ 'border-b-red-500': form.errors.email }"
                                 placeholder="tu.correo@ejemplo.com"
                                 @input="clearError('email')"
@@ -117,7 +117,7 @@ const submit = () => {
                                 ¿Recordaste tu contraseña?
                                 <Link 
                                     :href="route('login')" 
-                                    class="text-[#1B396A] hover:text-[#0f2347] font-medium hover:underline transition"
+                                    class="text-[var(--institutional-primary)] hover:text-[#0f2347] font-medium hover:underline transition"
                                 >
                                     Iniciar sesión
                                 </Link>

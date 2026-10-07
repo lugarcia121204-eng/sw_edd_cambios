@@ -139,7 +139,7 @@ const toggleReconocimiento = (userId, announcementId, currentStatus, application
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                             </svg>
                         </div>
-                        <input v-model="search" type="text" placeholder="Buscar..." class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition" />
+                        <input v-model="search" type="text" placeholder="Buscar..." class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition" />
                     </div>
                     <div class="w-full md:w-52 flex-shrink-0">
                         <VueSelect
@@ -160,7 +160,7 @@ const toggleReconocimiento = (userId, announcementId, currentStatus, application
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-[760px] text-sm text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th scope="col" class="px-6 py-4 tracking-wider">ID</th>
                                 <th scope="col" class="px-6 py-4 tracking-wider">
@@ -192,7 +192,7 @@ const toggleReconocimiento = (userId, announcementId, currentStatus, application
                                         <button
                                             @click="toggleReconocimiento(item.evaluator_id, item.announcement_id, item.active, item.applications_reviewed)"
                                             :class="[
-                                                'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#1B396A] focus:ring-offset-2',
+                                                'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--institutional-primary)] focus:ring-offset-2',
                                                 item.active ? 'bg-green-600' : 'bg-gray-300',
                                                 item.applications_reviewed === 0 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                                             ]"

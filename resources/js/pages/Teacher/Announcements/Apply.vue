@@ -331,7 +331,7 @@ const submit = async () => {
                         </svg>
                         <span class="text-gray-900 font-semibold">Solicitar Beca</span>
                     </div>
-                    <p class="text-gray-600 mt-3 text-sm">Convocatoria: <span class="font-semibold text-[#1B396A]">{{ announcement.name }}</span></p>
+                    <p class="text-gray-600 mt-3 text-sm">Convocatoria: <span class="font-semibold text-[var(--institutional-primary)]">{{ announcement.name }}</span></p>
                 </div>
                 <Link :href="route('teacher.announcements.index')" class="w-full sm:w-auto justify-center px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition flex items-center gap-2 font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
@@ -350,7 +350,7 @@ const submit = async () => {
                         <h2 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Información General</h2>
                         
                         <div>
-                            <label for="position_type_id" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Tipo de Plaza <span class="text-red-500">*</span></label>
+                            <label for="position_type_id" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Tipo de Plaza <span class="text-red-500">*</span></label>
                             <VueSelect
                                 v-model="form.position_type_id"
                                 :options="position_types"
@@ -368,13 +368,13 @@ const submit = async () => {
                             >
                                 <template #option="option">
                                     <div class="flex flex-col">
-                                        <span class="font-bold text-[#1B396A]">{{ option.code }}</span>
+                                        <span class="font-bold text-[var(--institutional-primary)]">{{ option.code }}</span>
                                         <span class="text-xs text-gray-500">{{ option.name }}</span>
                                     </div>
                                 </template>
                                 <template #selected-option="option">
                                     <div class="flex items-center gap-2">
-                                        <span class="font-bold text-[#1B396A]">{{ option.code }}</span>
+                                        <span class="font-bold text-[var(--institutional-primary)]">{{ option.code }}</span>
                                         <span class="truncate text-gray-700">- {{ option.name }}</span>
                                     </div>
                                 </template>
@@ -399,18 +399,18 @@ const submit = async () => {
                     <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6">
                         <h2 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Vía de Solicitud</h2>
                         <div :key="viaUiVersion" class="space-y-4 flex flex-col md:flex-row md:space-y-0 gap-4">
-                            <label class="flex-1 flex items-start gap-3 cursor-pointer p-4 border rounded-lg transition-all" :class="form.via === 'larga' ? 'border-[#1B396A] bg-blue-50/50' : 'border-gray-200 hover:bg-gray-50'">
+                            <label class="flex-1 flex items-start gap-3 cursor-pointer p-4 border rounded-lg transition-all" :class="form.via === 'larga' ? 'border-[var(--institutional-primary)] bg-blue-50/50' : 'border-gray-200 hover:bg-gray-50'">
                                 <div class="flex items-center h-5">
-                                    <input type="radio" name="via" :checked="form.via === 'larga'" value="larga" class="w-4 h-4 text-[#1B396A] bg-gray-100 border-gray-300 focus:ring-[#1B396A]" @click.prevent="handleViaChange('larga')" />
+                                    <input type="radio" name="via" :checked="form.via === 'larga'" value="larga" class="w-4 h-4 text-[var(--institutional-primary)] bg-gray-100 border-gray-300 focus:ring-[var(--institutional-primary)]" @click.prevent="handleViaChange('larga')" />
                                 </div>
                                 <div class="flex-1">
                                     <span class="block text-sm font-semibold text-gray-900 mb-1">Vía Larga (Evaluación Docente)</span>
                                     <span class="block text-xs text-gray-500">Deberás presentar todos los documentos probatorios requeridos en esta modalidad.</span>
                                 </div>
                             </label>
-                            <label class="flex-1 flex items-start gap-3 cursor-pointer p-4 border rounded-lg transition-all" :class="form.via === 'corta' ? 'border-[#1B396A] bg-blue-50/50' : 'border-gray-200 hover:bg-gray-50'">
+                            <label class="flex-1 flex items-start gap-3 cursor-pointer p-4 border rounded-lg transition-all" :class="form.via === 'corta' ? 'border-[var(--institutional-primary)] bg-blue-50/50' : 'border-gray-200 hover:bg-gray-50'">
                                 <div class="flex items-center h-5">
-                                    <input type="radio" name="via" :checked="form.via === 'corta'" value="corta" class="w-4 h-4 text-[#1B396A] bg-gray-100 border-gray-300 focus:ring-[#1B396A]" @click.prevent="handleViaChange('corta')" />
+                                    <input type="radio" name="via" :checked="form.via === 'corta'" value="corta" class="w-4 h-4 text-[var(--institutional-primary)] bg-gray-100 border-gray-300 focus:ring-[var(--institutional-primary)]" @click.prevent="handleViaChange('corta')" />
                                 </div>
                                 <div class="flex-1">
                                     <span class="block text-sm font-semibold text-gray-900 mb-1">Vía Corta (Promoción Docente)</span>
@@ -479,7 +479,7 @@ const submit = async () => {
                                                 type="button"
                                                 @click="togglePreview(doc.id)"
                                                 class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 border rounded-lg font-bold transition cursor-pointer text-sm whitespace-nowrap"
-                                                :class="documentState[doc.id].showPreview ? 'bg-[#1B396A] text-white border-[#1B396A]' : 'text-[#1B396A] border-[#1B396A] hover:bg-[#1B396A] hover:text-white'"
+                                                :class="documentState[doc.id].showPreview ? 'bg-[var(--institutional-primary)] text-white border-[var(--institutional-primary)]' : 'text-[var(--institutional-primary)] border-[var(--institutional-primary)] hover:bg-[var(--institutional-primary)] hover:text-white'"
                                                 :title="documentState[doc.id].showPreview ? 'Ocultar Vista Previa' : 'Ver Vista Previa'"
                                              >
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor">
@@ -489,7 +489,7 @@ const submit = async () => {
                                                 {{ documentState[doc.id].showPreview ? 'Ocultar' : 'Visualizar' }}
                                              </button>
 
-                                             <label :for="'doc-upload-' + doc.id" class="cursor-pointer px-4 py-2 bg-[#1B396A] text-white text-sm rounded hover:bg-[#0f2347] transition shadow-sm font-medium">
+                                             <label :for="'doc-upload-' + doc.id" class="cursor-pointer px-4 py-2 bg-[var(--institutional-primary)] text-white text-sm rounded hover:bg-[#0f2347] transition shadow-sm font-medium">
                                                 Cambiar Archivo
                                                 <input :id="'doc-upload-' + doc.id" type="file" class="hidden" @change="(e) => handleFileUpload(e, doc.id)" accept=".pdf" />
                                             </label>
@@ -509,7 +509,7 @@ const submit = async () => {
                                         <!-- Fallback -->
                                         <div v-else class="h-full flex items-center justify-center bg-gray-50 p-6">
                                             <div class="text-center">
-                                                <svg class="w-16 h-16 mx-auto text-[#1B396A] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg class="w-16 h-16 mx-auto text-[var(--institutional-primary)] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                                 </svg>
                                                 <p class="text-gray-900 font-bold mb-2 text-lg">Documento Cargado</p>
@@ -523,16 +523,16 @@ const submit = async () => {
                                 <div v-else class="flex items-center justify-center w-full">
                                     <label 
                                         :for="'doc-upload-' + doc.id" 
-                                        class="flex flex-col items-center justify-center w-full h-48 bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[#1B396A] transition-all relative"
+                                        class="flex flex-col items-center justify-center w-full h-48 bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[var(--institutional-primary)] transition-all relative"
                                         @dragover.prevent
                                         @drop.prevent="(e) => handleDrop(e, doc.id)"
                                     >
                                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                            <svg class="w-10 h-10 mb-3 text-[#1B396A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-10 h-10 mb-3 text-[var(--institutional-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                             </svg>
                                             <p class="mb-2 text-sm text-gray-700">
-                                                <span class="font-semibold text-[#1B396A]">Arrastra archivos aquí</span> o haz clic para seleccionar
+                                                <span class="font-semibold text-[var(--institutional-primary)]">Arrastra archivos aquí</span> o haz clic para seleccionar
                                             </p>
                                             <p class="text-xs text-gray-500">Formato PDF (Máx. 10MB)</p>
                                         </div>
@@ -571,7 +571,7 @@ const submit = async () => {
                                 </span>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-[#1B396A] h-2.5 rounded-full transition-all duration-500" :style="{ width: `${completionPercentage}%` }"></div>
+                                <div class="bg-[var(--institutional-primary)] h-2.5 rounded-full transition-all duration-500" :style="{ width: `${completionPercentage}%` }"></div>
                             </div>
                         </div>
 
@@ -592,7 +592,7 @@ const submit = async () => {
                         </div>
 
                         <button @click="submit" :disabled="form.processing"
-                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#1B396A] hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B396A] disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer">
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[var(--institutional-primary)] hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--institutional-primary)] disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer">
                             <span v-if="form.processing">Enviando...</span>
                             <span v-else>Enviar Solicitud</span>
                         </button>
@@ -639,7 +639,7 @@ const submit = async () => {
                                 <a
                                     :href="currentExampleUrl"
                                     target="_blank"
-                                    class="px-4 py-2 rounded-md bg-[#1B396A] text-white font-medium hover:bg-[#152d47]"
+                                    class="px-4 py-2 rounded-md bg-[var(--institutional-primary)] text-white font-medium hover:bg-[var(--institutional-primary-dark)]"
                                 >
                                     Abrir documento
                                 </a>

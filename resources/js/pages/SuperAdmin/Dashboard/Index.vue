@@ -168,14 +168,14 @@ const exportData = () => {
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Total -->
-                <div class="bg-white rounded-lg shadow-md border-l-4 border-[#1B396A] p-4 hover:shadow-lg transition-shadow">
+                <div class="bg-white rounded-lg shadow-md border-l-4 border-[var(--institutional-primary)] p-4 hover:shadow-lg transition-shadow">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
                             <p class="text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Solicitudes Totales</p>
                             <p class="text-2xl font-bold text-gray-900">{{ stats.total }}</p>
                         </div>
                         <div class="p-2">
-                             <svg viewBox="0 0 24 24" class="w-8 h-8 text-[#1B396A]" style="fill: currentColor"><path :d="mdiFileDocumentMultiple"/></svg>
+                             <svg viewBox="0 0 24 24" class="w-8 h-8 text-[var(--institutional-primary)]" style="fill: currentColor"><path :d="mdiFileDocumentMultiple"/></svg>
                         </div>
                     </div>
                 </div>
@@ -238,7 +238,7 @@ const exportData = () => {
                             v-model="search" 
                             type="text" 
                             placeholder="Buscar por ID, nombre..." 
-                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition text-sm"
+                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition text-sm"
                         />
                     </div>
 

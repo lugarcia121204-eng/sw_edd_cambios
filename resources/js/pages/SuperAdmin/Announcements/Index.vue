@@ -181,7 +181,7 @@ const closeViewer = (id) => {
                 </div>
                 <div class="flex items-center gap-2 group relative">
                     <Link v-if="useCan('announcements.create') && canCreate" :href="route(`${routeName}create`)"
-                        class="w-full sm:w-auto justify-center px-4 py-2.5 bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition flex items-center gap-2 font-medium">
+                        class="w-full sm:w-auto justify-center px-4 py-2.5 bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition flex items-center gap-2 font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                             fill="currentColor">
                             <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
@@ -308,7 +308,7 @@ const closeViewer = (id) => {
                             </svg>
                         </div>
                         <input v-model="search" type="text" placeholder="Buscar..."
-                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition" />
+                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition" />
                     </div>
                     <div class="w-full md:w-52 flex-shrink-0">
                         <VueSelect v-model="rows" :options="rowOptions" :reduce="option => option.value"
@@ -322,7 +322,7 @@ const closeViewer = (id) => {
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-[980px] text-sm text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th scope="col" class="px-6 py-4 text-center tracking-wider" style="width: 80px;">
                                     ID
@@ -387,7 +387,7 @@ const closeViewer = (id) => {
                                         <div v-if="announcement.file_path || announcement.image_path" class="flex items-center justify-center">
                                             <button @click="viewFile(announcement)"
                                                 class="inline-flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg font-bold transition cursor-pointer text-sm whitespace-nowrap"
-                                                :class="expandedRows[announcement.id] ? 'bg-[#1B396A] text-white border-[#1B396A]' : 'text-[#1B396A] border-[#1B396A] hover:bg-[#1B396A] hover:text-white'"
+                                                :class="expandedRows[announcement.id] ? 'bg-[var(--institutional-primary)] text-white border-[var(--institutional-primary)]' : 'text-[var(--institutional-primary)] border-[var(--institutional-primary)] hover:bg-[var(--institutional-primary)] hover:text-white'"
                                                 title="Visualizar archivo">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                                                     <path v-if="!expandedRows[announcement.id]" d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/>
@@ -409,7 +409,7 @@ const closeViewer = (id) => {
                                         <div class="flex items-center justify-center gap-2">
                                             <Link v-if="useCan('announcements.edit')"
                                                 :href="route(`${routeName}edit`, { announcement: announcement.id })"
-                                                class="p-2 text-[#1B396A] border border-[#1B396A] rounded-full hover:bg-[#1B396A] hover:text-white transition cursor-pointer" title="Editar">
+                                                class="p-2 text-[var(--institutional-primary)] border border-[var(--institutional-primary)] rounded-full hover:bg-[var(--institutional-primary)] hover:text-white transition cursor-pointer" title="Editar">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20px"
                                                     viewBox="0 -960 960 960" width="20px" fill="currentColor">
                                                     <path

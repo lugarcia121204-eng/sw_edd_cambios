@@ -549,7 +549,7 @@ const dayLabel = (day) => {
         <!-- Global Navigation -->
         <div class="flex items-center justify-center gap-8 bg-white py-3 px-6 rounded-xl border border-gray-200 shadow-sm">
             <button type="button" @click="prevMonth"
-                class="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-[#1B396A] transition font-bold border border-gray-100 hover:border-[#1B396A] cursor-pointer">
+                class="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-[var(--institutional-primary)] transition font-bold border border-gray-100 hover:border-[var(--institutional-primary)] cursor-pointer">
                 <svg class="w-5 h-5 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -557,7 +557,7 @@ const dayLabel = (day) => {
             </button>
             <div class="h-6 w-px bg-gray-200"></div>
             <button type="button" @click="nextMonth"
-                class="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-[#1B396A] transition font-bold border border-gray-100 hover:border-[#1B396A] cursor-pointer">
+                class="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-[var(--institutional-primary)] transition font-bold border border-gray-100 hover:border-[var(--institutional-primary)] cursor-pointer">
                 Siguiente
                 <svg class="w-5 h-5 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/>

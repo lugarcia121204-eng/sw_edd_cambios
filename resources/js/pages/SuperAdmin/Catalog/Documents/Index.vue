@@ -257,7 +257,7 @@ const viewDetails = (id) => {
                         <span class="text-gray-900 font-semibold">Documentos</span>
                     </div>
                 </div>
-                <Link v-if="useCan('documents.create') && currentTab === 'requeridos'" :href="route(`${routeName}create`)" class="w-full sm:w-auto justify-center px-4 py-2.5 bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition flex items-center gap-2 font-medium cursor-pointer">
+                <Link v-if="useCan('documents.create') && currentTab === 'requeridos'" :href="route(`${routeName}create`)" class="w-full sm:w-auto justify-center px-4 py-2.5 bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition flex items-center gap-2 font-medium cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                         <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
                     </svg>
@@ -272,7 +272,7 @@ const viewDetails = (id) => {
                         type="button"
                         @click="switchTab('requeridos')"
                         class="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold transition cursor-pointer"
-                        :class="currentTab === 'requeridos' ? 'text-[#1B396A] border-b-2 border-[#1B396A] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
+                        :class="currentTab === 'requeridos' ? 'text-[var(--institutional-primary)] border-b-2 border-[var(--institutional-primary)] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                             <path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Z"/>
@@ -283,7 +283,7 @@ const viewDetails = (id) => {
                         type="button"
                         @click="switchTab('docentes')"
                         class="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold transition cursor-pointer"
-                        :class="currentTab === 'docentes' ? 'text-[#1B396A] border-b-2 border-[#1B396A] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
+                        :class="currentTab === 'docentes' ? 'text-[var(--institutional-primary)] border-b-2 border-[var(--institutional-primary)] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
                     >
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <path :d="mdiAccountSchool"/>
@@ -317,7 +317,7 @@ const viewDetails = (id) => {
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                             </svg>
                         </div>
-                        <input v-model="search" type="text" :placeholder="currentTab === 'requeridos' ? 'Buscar por nombre o descripción...' : 'Buscar por profesor, campus o convocatoria...'" class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition" />
+                        <input v-model="search" type="text" :placeholder="currentTab === 'requeridos' ? 'Buscar por nombre o descripción...' : 'Buscar por profesor, campus o convocatoria...'" class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition" />
                     </div>
                     <div class="w-full md:w-52 flex-shrink-0">
                         <VueSelect
@@ -341,7 +341,7 @@ const viewDetails = (id) => {
                 <div v-if="currentTab === 'requeridos'">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
-                            <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                            <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                                 <tr>
                                     <th scope="col" class="px-6 py-4 tracking-wider">ID</th>
                                     <th scope="col" class="px-6 py-4 tracking-wider">
@@ -388,7 +388,7 @@ const viewDetails = (id) => {
                                                 v-if="document.file_path"
                                                 @click="viewFile(document)"
                                                 class="inline-flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg font-bold transition cursor-pointer text-sm whitespace-nowrap"
-                                                :class="expandedRows[document.id] ? 'bg-[#1B396A] text-white border-[#1B396A]' : 'text-[#1B396A] border-[#1B396A] hover:bg-[#1B396A] hover:text-white'"
+                                                :class="expandedRows[document.id] ? 'bg-[var(--institutional-primary)] text-white border-[var(--institutional-primary)]' : 'text-[var(--institutional-primary)] border-[var(--institutional-primary)] hover:bg-[var(--institutional-primary)] hover:text-white'"
                                                 title="Visualizar archivo"
                                             >
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
@@ -412,7 +412,7 @@ const viewDetails = (id) => {
                                         <td class="px-6 py-4 whitespace-nowrap text-center">
                                             <label class="relative inline-flex items-center cursor-pointer">
                                                 <input type="checkbox" :checked="document.active" @change="toggleActivo(document.id, document.active)" class="sr-only peer" />
-                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1B396A]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1B396A]"></div>
+                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[var(--institutional-primary)]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--institutional-primary)]"></div>
                                             </label>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -442,7 +442,7 @@ const viewDetails = (id) => {
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex items-center justify-center gap-2">
-                                                <Link v-if="useCan('documents.edit')" :href="route(`${routeName}edit`, { document: document.id })" class="p-2 text-[#1B396A] border border-[#1B396A] rounded-full hover:bg-[#1B396A] hover:text-white transition group cursor-pointer" title="Editar">
+                                                <Link v-if="useCan('documents.edit')" :href="route(`${routeName}edit`, { document: document.id })" class="p-2 text-[var(--institutional-primary)] border border-[var(--institutional-primary)] rounded-full hover:bg-[var(--institutional-primary)] hover:text-white transition group cursor-pointer" title="Editar">
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-40 80q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l505-504q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L313-143q-11 11-25.5 17t-30.5 6h-97Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/>
                                                     </svg>
@@ -501,7 +501,7 @@ const viewDetails = (id) => {
                                                             <h4 class="text-xl font-bold text-gray-900 mb-2">Vista previa no disponible</h4>
                                                             <p class="text-gray-500 mb-6 max-w-sm mx-auto">Este tipo de archivo no se puede visualizar directamente en el navegador.</p>
                                                             <button @click="downloadFile(document.id)" 
-                                                                class="inline-flex items-center gap-2 px-6 py-3 bg-[#1B396A] text-white rounded-xl hover:bg-[#0f2347] transition shadow-md hover:shadow-lg font-bold cursor-pointer">
+                                                                class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--institutional-primary)] text-white rounded-xl hover:bg-[#0f2347] transition shadow-md hover:shadow-lg font-bold cursor-pointer">
                                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                                                 </svg>
@@ -538,7 +538,7 @@ const viewDetails = (id) => {
                 <div v-else-if="currentTab === 'docentes'">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
-                            <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                            <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                                 <tr>
                                     <th scope="col" class="px-6 py-4 tracking-wider">ID</th>
                                     <th scope="col" class="px-6 py-4 tracking-wider">
@@ -585,7 +585,7 @@ const viewDetails = (id) => {
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         <div class="flex items-center justify-center">
-                                            <span class="inline-flex items-center px-4 py-1.5 rounded-full h-10 w-10 bg-white text-[13px] font-bold text-[#1B396A] shadow-sm whitespace-nowrap border border-gray-100">
+                                            <span class="inline-flex items-center px-4 py-1.5 rounded-full h-10 w-10 bg-white text-[13px] font-bold text-[var(--institutional-primary)] shadow-sm whitespace-nowrap border border-gray-100">
                                                 {{ application.documents_count || 0 }}
                                             </span>
                                         </div>
@@ -593,7 +593,7 @@ const viewDetails = (id) => {
                                     <td class="px-6 py-4 text-center">
                                         <div class="flex justify-center gap-2">
                                             <button @click="viewDetails(application.id)" 
-                                                class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-[#1B396A] text-[#1B396A] rounded-lg hover:bg-[#1B396A] hover:text-white transition text-xs font-bold uppercase cursor-pointer whitespace-nowrap shadow-sm font-bold"
+                                                class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-[var(--institutional-primary)] text-[var(--institutional-primary)] rounded-lg hover:bg-[var(--institutional-primary)] hover:text-white transition text-xs font-bold uppercase cursor-pointer whitespace-nowrap shadow-sm font-bold"
                                                 title="Ver Detalles">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor">
                                                     <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/>

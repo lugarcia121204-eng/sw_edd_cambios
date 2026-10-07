@@ -18,7 +18,8 @@
     <!-- Sidebar -->
     <aside
         :class="[
-            'bg-[#1e3a5f] text-white flex flex-col shadow-lg transition-all duration-300 z-50',
+            { 'supreme-sidebar': supremeSidebar, 'supreme-collapsed': sidebarCollapsed && !isMobile },
+            'bg-[var(--institutional-primary)] text-white flex flex-col shadow-lg transition-all duration-300 z-50',
             sidebarCollapsed && !isMobile
                 ? 'w-20'
                 : 'w-64',
@@ -28,7 +29,11 @@
         ]"
     >
         <!-- Logo Section -->
-        <div class="p-6 flex items-center justify-center border-b border-[#2d4a6f] min-h-[80px]">
+        <div v-if="supremeSidebar" class="supreme-brand">
+            <img src="/images/TecnmBlanco.png" alt="TecNM" />
+            <div v-if="!sidebarCollapsed || isMobile"><strong>Sistema EDD</strong><span>Tecnológico Nacional de México</span></div>
+        </div>
+        <div v-else class="p-6 flex items-center justify-center border-b border-[var(--institutional-primary-light)] min-h-[80px]">
             <Transition
                 mode="out-in"
                 enter-active-class="transition-opacity duration-300"
@@ -56,22 +61,22 @@
         </div>
 
         <!-- Navigation -->
-        <nav class="flex-1 overflow-y-auto py-4 custom-scrollbar">
+        <nav class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden py-4 custom-scrollbar">
             <SidebarContent :items="menu" />
         </nav>
 
         <!-- User Profile -->
-        <div class="relative p-4 border-t border-[#2d4a6f]">
+        <div class="sidebar-profile relative shrink-0 p-4 border-t border-[var(--institutional-primary-light)]">
             <button
                 @click="profileMenuOpen = !profileMenuOpen"
-                class="w-full flex items-center space-x-3 hover:bg-white/5 p-2 rounded transition-colors duration-200 cursor-pointer"
+                class="sidebar-profile-button w-full flex items-center space-x-3 hover:bg-white/5 p-2 rounded transition-colors duration-200 cursor-pointer"
             >
-                <div class="w-10 h-10 rounded-full bg-[#152d47] flex items-center justify-center text-white font-semibold flex-shrink-0">
+                <div class="sidebar-avatar w-10 h-10 rounded-full bg-[var(--institutional-primary-dark)] flex items-center justify-center text-white font-semibold flex-shrink-0">
                     {{ userInitials }}
                 </div>
                 <div class="flex-1 min-w-0 text-left">
-                    <p class="text-sm font-medium truncate">{{ userName }}</p>
-                    <p class="text-xs text-gray-400 truncate">{{ userEmail }}</p>
+                    <p class="text-sm font-medium truncate">{{ supremeSidebar ? 'Administrador Supremo' : userName }}</p>
+                    <p v-if="!supremeSidebar" class="text-xs text-gray-400 truncate">{{ userEmail }}</p>
                 </div>
                 <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200" :class="{ 'rotate-180': profileMenuOpen }">
                     <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
@@ -92,7 +97,7 @@
                     class="absolute bottom-full left-4 mb-2 bg-white rounded-xl shadow-xl z-50 w-56"
                 >
                     <!-- User Info Header -->
-                    <div class="px-4 py-4 bg-gradient-to-r from-[#1e3a5f] to-[#2d4a6f] flex rounded-t-lg items-center gap-3">
+                    <div class="px-4 py-4 bg-gradient-to-r from-[var(--institutional-primary)] to-[var(--institutional-primary-light)] flex rounded-t-lg items-center gap-3">
                         <img
                             src="/img/LogoTecNMCerrado.png"
                             alt="TecNM"
@@ -111,7 +116,7 @@
                             class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
                             @click="profileMenuOpen = false; if (isMobile) sidebarOpen = false"
                         >
-                            <svg viewBox="0 0 24 24" class="w-4 h-4 mr-3 text-[#1e3a5f]">
+                            <svg viewBox="0 0 24 24" class="w-4 h-4 mr-3 text-[var(--institutional-primary)]">
                                 <path fill="currentColor" :d="mdiAccount"/>
                             </svg>
                             <span class="font-medium">Perfil</span>
@@ -137,7 +142,7 @@
 
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed, inject, ref, watch, onUnmounted } from 'vue';
+import { computed, inject, ref, watch, onUnmounted, provide } from 'vue';
 import { mdiAccount, mdiLogout } from "@mdi/js";
 import SidebarContent from './SidebarContent.vue';
 
@@ -150,6 +155,8 @@ defineProps({
 });
 
 const page = usePage();
+const supremeSidebar = computed(() => page.props.auth?.primaryRole === 'Super Admin');
+provide('supremeSidebar', supremeSidebar);
 const sidebarOpen = inject('sidebarOpen', ref(false));
 const sidebarCollapsed = inject('sidebarCollapsed', ref(false));
 const isMobile = inject('isMobile', ref(false));
@@ -186,6 +193,7 @@ const unlockBodyScroll = () => {
 const userName = computed(() => page.props.auth?.user?.name || 'Usuario');
 const userEmail = computed(() => page.props.auth?.user?.email || '');
 const userInitials = computed(() => {
+    if (supremeSidebar.value) return 'AS';
     const name = userName.value;
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 });
@@ -209,6 +217,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.supreme-sidebar { width:320px; flex-shrink:0; }
+.supreme-sidebar.supreme-collapsed { width:80px; }
+.supreme-brand { display:flex; align-items:center; gap:14px; min-height:90px; padding:20px 24px; border-bottom:1px solid #ffffff16; flex-shrink:0; }
+.supreme-brand img { width:34px; height:46px; object-fit:contain; flex-shrink:0; }
+.supreme-brand strong { display:block; font-size:18px; line-height:1.3; }
+.supreme-brand span { display:block; font-size:14px; line-height:1.4; color:#dbeafe; }
+.supreme-sidebar .sidebar-profile { border-color:#ffffff16; padding:12px 16px; }
+.supreme-sidebar .sidebar-avatar { background:#f8fafc; color:#102344; border-radius:10px; font-weight:400; }
+.supreme-sidebar .sidebar-profile-button p { font-size:16px; }
+@media(max-width:639px) { .supreme-sidebar { width:min(320px,calc(100vw - 32px)); } }
+
 /* Custom Scrollbar */
 .custom-scrollbar::-webkit-scrollbar { width: 6px; }
 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }

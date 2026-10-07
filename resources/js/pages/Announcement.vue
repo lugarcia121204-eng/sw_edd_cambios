@@ -113,7 +113,7 @@ const etapas = computed(() => {
         <Head title="Convocatoria" />
 
         <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-[#1B396A] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section class="relative bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
             <!-- Decorative circles -->
             <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
             <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
@@ -134,9 +134,9 @@ const etapas = computed(() => {
                     <div class="space-y-8">
                         <!-- ¿A quién va dirigido? -->
                         <div
-                            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow-md border-l-4 border-[#1B396A]">
+                            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow-md border-l-4 border-[var(--institutional-primary)]">
                             <div class="flex-shrink-0">
-                                <svg class="w-8 h-8 text-[#1B396A]" fill="none" stroke="currentColor"
+                                <svg class="w-8 h-8 text-[var(--institutional-primary)]" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
@@ -217,8 +217,8 @@ const etapas = computed(() => {
                             <Link
                                 :href="route('login')"
                                 class="mx-auto block w-full sm:w-64 text-center
-                                    bg-[#1B396A] text-white font-bold
-                                    px-8 py-3 rounded-xl hover:bg-[#1B396A]
+                                    bg-[var(--institutional-primary)] text-white font-bold
+                                    px-8 py-3 rounded-xl hover:bg-[var(--institutional-primary)]
                                     transition shadow-lg transform hover:-translate-y-1 cursor-pointer"
                             >
                                 Iniciar Sesión
@@ -338,7 +338,7 @@ const etapas = computed(() => {
                                 <a
                                     :href="currentPdfUrl"
                                     target="_blank"
-                                    class="px-4 py-2 rounded-md bg-[#1B396A] text-white font-medium hover:bg-[#152d47]"
+                                    class="px-4 py-2 rounded-md bg-[var(--institutional-primary)] text-white font-medium hover:bg-[var(--institutional-primary-dark)]"
                                 >
                                     Abrir documento
                                 </a>

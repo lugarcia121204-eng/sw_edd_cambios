@@ -147,7 +147,7 @@ watch([search, status], debounce(() => {
                             v-model="search" 
                             type="text" 
                             placeholder="Buscar por Docente, Institución..." 
-                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition" 
+                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition" 
                         />
                     </div>
                     
@@ -185,7 +185,7 @@ watch([search, status], debounce(() => {
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-[980px] text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th class="px-3 md:px-6 py-4 whitespace-nowrap">ID</th>
                                 <th class="px-3 md:px-6 py-4 whitespace-nowrap">
@@ -248,7 +248,7 @@ watch([search, status], debounce(() => {
                                     <Link 
                                         v-else 
                                         :href="route('admin.applications.assign_view', application.id)"
-                                        class="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2 border border-[#1B396A] text-[#1B396A] rounded-lg hover:bg-[#1B396A] hover:text-white transition text-[11px] font-bold uppercase cursor-pointer whitespace-nowrap shadow-sm group"
+                                        class="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2 border border-[var(--institutional-primary)] text-[var(--institutional-primary)] rounded-lg hover:bg-[var(--institutional-primary)] hover:text-white transition text-[11px] font-bold uppercase cursor-pointer whitespace-nowrap shadow-sm group"
                                     >
                                         <svg style="width:16px;height:16px" viewBox="0 0 24 24" class="group-hover:text-white transition-colors duration-200">
                                             <path fill="currentColor" :d="mdiAccountPlus" />
@@ -282,7 +282,7 @@ watch([search, status], debounce(() => {
                                     <div class="flex items-center justify-center">
                                         <Link 
                                             :href="route('admin.applications.show', application.id)"
-                                            class="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2 border border-[#1B396A] text-[#1B396A] rounded-lg hover:bg-[#1B396A] hover:text-white transition text-[11px] font-bold uppercase cursor-pointer whitespace-nowrap shadow-sm"
+                                            class="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2 border border-[var(--institutional-primary)] text-[var(--institutional-primary)] rounded-lg hover:bg-[var(--institutional-primary)] hover:text-white transition text-[11px] font-bold uppercase cursor-pointer whitespace-nowrap shadow-sm"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor">
                                                 <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/>

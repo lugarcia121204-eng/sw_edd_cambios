@@ -48,7 +48,7 @@
             <!-- Selected Evaluators Table -->
             <div class="mb-6 border rounded-lg overflow-hidden" v-if="localEvaluators.length > 0">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-[#1e3a5f] text-white">
+                    <thead class="bg-[var(--institutional-primary)] text-white">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider w-12">#</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Nombre</th>
@@ -89,7 +89,7 @@
 
                 <button
                     @click="save"
-                    class="px-4 py-2 bg-[#1e3a5f] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[#152d47] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                    class="px-4 py-2 bg-[var(--institutional-primary)] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[var(--institutional-primary-dark)] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                     :disabled="localEvaluators.length === 0 || form.processing"
                     :class="{'opacity-50 cursor-not-allowed': localEvaluators.length === 0 || form.processing}"
                 >

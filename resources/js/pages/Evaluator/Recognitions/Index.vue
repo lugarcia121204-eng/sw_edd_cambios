@@ -100,7 +100,7 @@ watch(search, (value) => {
                             v-model="search" 
                             type="text" 
                             placeholder="Buscar..." 
-                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition" 
+                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition" 
                         />
                     </div>
                     <div class="w-full md:w-52 flex-shrink-0">
@@ -122,7 +122,7 @@ watch(search, (value) => {
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-[860px] text-sm text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th scope="col" class="px-6 py-4 tracking-wider text-center w-16">ID</th>
                                 <th scope="col" class="px-6 py-4 tracking-wider">Convocatoria</th>
@@ -157,8 +157,8 @@ watch(search, (value) => {
                                         <div class="flex items-center justify-center">
                                             <button 
                                                 @click="togglePreview(item.id)"
-                                                class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B396A] cursor-pointer"
-                                                :class="expandedRows[item.id] ? 'bg-gray-200 text-gray-800' : 'text-white bg-[#1B396A] hover:bg-[#234a85]'"
+                                                class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--institutional-primary)] cursor-pointer"
+                                                :class="expandedRows[item.id] ? 'bg-gray-200 text-gray-800' : 'text-white bg-[var(--institutional-primary)] hover:bg-[#234a85]'"
                                             >
                                                 <svg viewBox="0 0 24 24" class="w-4 h-4" style="fill: currentColor"><path :d="expandedRows[item.id] ? mdiEyeOff : mdiEye"/></svg>
                                                 {{ expandedRows[item.id] ? 'Ocultar' : 'Ver' }}

@@ -256,8 +256,8 @@ const submit = () => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <!-- Nombre -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Nombre: <span class="text-red-500">*</span></label>
-                            <input v-model="form.name" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.name }" placeholder="Nombre de la convocatoria" @input="clearError('name')" />
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Nombre: <span class="text-red-500">*</span></label>
+                            <input v-model="form.name" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.name }" placeholder="Nombre de la convocatoria" @input="clearError('name')" />
                             <div v-if="!form.errors.name" class="flex items-center gap-1 mt-1 text-xs text-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -269,7 +269,7 @@ const submit = () => {
                         
                         <!-- Estado -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Estado: <span class="text-red-500">*</span></label>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Estado: <span class="text-red-500">*</span></label>
                             <VueSelect
                                 v-model="form.status"
                                 :options="statusOptions"
@@ -292,8 +292,8 @@ const submit = () => {
 
                         <!-- Descripción -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Descripción:</label>
-                            <textarea v-model="form.description" rows="4" maxlength="500" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.description }" placeholder="Descripción de la convocatoria" @input="clearError('description')"></textarea>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Descripción:</label>
+                            <textarea v-model="form.description" rows="4" maxlength="500" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.description }" placeholder="Descripción de la convocatoria" @input="clearError('description')"></textarea>
                             <div class="flex items-center justify-between mt-1">
                                 <div v-if="!form.errors.description" class="flex items-center gap-1 text-xs text-gray-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -310,7 +310,7 @@ const submit = () => {
 
                         <!-- Imagen de Convocatoria -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Imagen de Portada:
                             </label>
                             
@@ -320,7 +320,7 @@ const submit = () => {
                                 <div class="flex items-center gap-3">
                                     <span v-if="imagenNombre" class="text-sm font-semibold text-gray-700">{{ imagenNombre }}</span>
                                     <div class="flex items-center gap-2">
-                                        <label for="imagen-convocatoria-change" class="px-3 py-1 bg-[#1B396A] text-white text-xs rounded hover:bg-[#0f2347] transition cursor-pointer">
+                                        <label for="imagen-convocatoria-change" class="px-3 py-1 bg-[var(--institutional-primary)] text-white text-xs rounded hover:bg-[#0f2347] transition cursor-pointer">
                                             Cambiar Imagen
                                         </label>
                                         <button v-if="form.image" type="button" @click="removeImage" 
@@ -333,13 +333,13 @@ const submit = () => {
 
                             <!-- Drop zone cuando NO hay imagen -->
                             <div v-else class="flex items-center justify-center w-full">
-                                <label for="imagen-convocatoria" class="flex flex-col items-center justify-center w-full h-32 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-[#1B396A] transition-all">
+                                <label for="imagen-convocatoria" class="flex flex-col items-center justify-center w-full h-32 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 hover:border-[var(--institutional-primary)] transition-all">
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                         <svg class="w-8 h-8 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
                                         <p class="mb-2 text-sm text-gray-500">
-                                            <span class="font-semibold text-[#1B396A]">Sube una imagen</span> o arrastra aquí
+                                            <span class="font-semibold text-[var(--institutional-primary)]">Sube una imagen</span> o arrastra aquí
                                         </p>
                                         <p class="text-xs text-gray-500">PNG, JPG o GIF up to 2MB</p>
                                     </div>
@@ -355,7 +355,7 @@ const submit = () => {
 
                         <!-- Archivo de Convocatoria -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Archivo de Convocatoria:
                             </label>
                             
@@ -368,7 +368,7 @@ const submit = () => {
                                         <p class="text-xs text-gray-600">Tamaño: {{ form.file ? (form.file.size / 1024 / 1024).toFixed(2) + ' MB' : '2.5 MB' }}</p>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <label for="archivo-convocatoria-change" class="px-4 py-2 bg-[#1B396A] text-white text-sm rounded hover:bg-[#0f2347] transition cursor-pointer">
+                                        <label for="archivo-convocatoria-change" class="px-4 py-2 bg-[var(--institutional-primary)] text-white text-sm rounded hover:bg-[#0f2347] transition cursor-pointer">
                                             Cambiar Archivo
                                         </label>
                                         <button v-if="form.file" type="button" @click="removeFile" 
@@ -390,7 +390,7 @@ const submit = () => {
                                     </div>
                                     <div v-else class="h-full flex items-center justify-center bg-gray-50 p-6">
                                         <div class="text-center">
-                                            <svg class="w-16 h-16 mx-auto text-[#1B396A] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-16 h-16 mx-auto text-[var(--institutional-primary)] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                             </svg>
                                             <p class="text-gray-900 font-bold mb-2 text-lg">Archivo Seleccionado</p>
@@ -403,13 +403,13 @@ const submit = () => {
 
                             <!-- Drop zone cuando NO hay archivo -->
                             <div v-else class="flex items-center justify-center w-full">
-                                <label for="archivo-convocatoria" class="flex flex-col items-center justify-center w-full h-48 bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[#1B396A] transition-all">
+                                <label for="archivo-convocatoria" class="flex flex-col items-center justify-center w-full h-48 bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[var(--institutional-primary)] transition-all">
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-10 h-10 mb-3 text-[#1B396A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-10 h-10 mb-3 text-[var(--institutional-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                         </svg>
                                         <p class="mb-2 text-sm text-gray-700">
-                                            <span class="font-semibold text-[#1B396A]">Arrastra archivos aquí</span> o haz clic para seleccionar
+                                            <span class="font-semibold text-[var(--institutional-primary)]">Arrastra archivos aquí</span> o haz clic para seleccionar
                                         </p>
                                         <p class="text-xs text-gray-500">Tamaño máximo: 30MB Admite: JPG, PNG, PDF</p>
                                     </div>
@@ -458,7 +458,7 @@ const submit = () => {
                         <Link :href="route(`${routeName}index`)" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition">
                             Cancelar
                         </Link>
-                        <button :disabled="form.processing" type="submit" class="px-6 py-2 bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer">
+                        <button :disabled="form.processing" type="submit" class="px-6 py-2 bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer">
                             <span v-if="!form.processing">Actualizar</span>
                             <span v-else>Guardando...</span>
                         </button>

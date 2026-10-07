@@ -117,12 +117,12 @@ const submit = () => {
 
             <!-- Current schedule preview -->
             <div v-if="schedule.next_run_at && showScheduleInfo"
-                 class="flex items-start gap-4 px-5 py-4 bg-white border border-gray-200 border-l-4 border-l-[#1B396A] rounded-lg shadow-sm">
+                 class="flex items-start gap-4 px-5 py-4 bg-white border border-gray-200 border-l-4 border-l-[var(--institutional-primary)] rounded-lg shadow-sm">
                 <svg viewBox="0 0 24 24" class="w-5 h-5 flex-shrink-0 mt-0.5" style="fill:#1B396A">
                     <path :d="mdiCalendarClock"/>
                 </svg>
                 <div class="flex-1">
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-[#1B396A] mb-0.5">Próximo Respaldo</p>
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--institutional-primary)] mb-0.5">Próximo Respaldo</p>
                     <p class="text-sm text-gray-800 font-medium">
                         Próximo respaldo programado:
                         <strong>{{ schedule.next_run_at }}</strong>
@@ -143,7 +143,7 @@ const submit = () => {
 
                         <!-- Frecuencia -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium">Frecuencia: <span class="text-red-500">*</span></label>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Frecuencia: <span class="text-red-500">*</span></label>
                             <VueSelect
                                 v-model="form.frequency"
                                 :options="frequencyOptions"
@@ -164,20 +164,20 @@ const submit = () => {
 
                         <!-- Hora de Ejecución -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium">Hora de Ejecución: <span class="text-red-500">*</span></label>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Hora de Ejecución: <span class="text-red-500">*</span></label>
                             <div class="relative" ref="timePickerRef">
                                 <!-- Trigger -->
                                 <button
                                     type="button"
                                     @click="timePickerOpen = !timePickerOpen"
                                     class="w-full flex items-center gap-3 rounded-lg bg-[#F3F4F6] border-b-2 transition-colors duration-200 h-[44px] px-3 text-left cursor-pointer"
-                                    :class="timePickerOpen ? 'border-b-[#1B396A] bg-white' : (form.errors.run_time ? 'border-b-red-500' : 'border-b-gray-300')"
+                                    :class="timePickerOpen ? 'border-b-[var(--institutional-primary)] bg-white' : (form.errors.run_time ? 'border-b-red-500' : 'border-b-gray-300')"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 transition-colors" :class="timePickerOpen ? 'text-[#1B396A]' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 transition-colors" :class="timePickerOpen ? 'text-[var(--institutional-primary)]' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span class="flex-1 font-base text-gray-900 text-base tracking-widest">
-                                        {{ timeHour }}<span class="text-[#1B396A]">:</span>{{ timeMinute }}
+                                        {{ timeHour }}<span class="text-[var(--institutional-primary)]">:</span>{{ timeMinute }}
                                     </span>
                                     <span
                                         class="text-xs font-medium px-2 py-0.5 rounded-lg transition-colors shadow-sm"
@@ -185,7 +185,7 @@ const submit = () => {
                                     >
                                         {{ parseInt(timeHour) >= 12 ? 'p.m.' : 'a.m.' }}
                                     </span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 transition-transform duration-200" :class="timePickerOpen ? 'rotate-180 text-[#1B396A]' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 transition-transform duration-200" :class="timePickerOpen ? 'rotate-180 text-[var(--institutional-primary)]' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
@@ -203,7 +203,7 @@ const submit = () => {
                                         class="absolute z-50 top-full left-0 right-0 mt-1 bg-white rounded-xl border border-gray-200 shadow-2xl overflow-hidden"
                                     >
                                         <!-- Header -->
-                                        <div class="flex items-center justify-between px-5 py-3 bg-[#1B396A]">
+                                        <div class="flex items-center justify-between px-5 py-3 bg-[var(--institutional-primary)]">
                                             <span class="text-xs font-bold text-white/60 uppercase tracking-widest">Horas</span>
                                             <span class="text-2xl font-medium text-white tracking-widest">{{ timeHour }}<span class="opacity-50">:</span>{{ timeMinute }}</span>
                                             <span class="text-xs font-bold text-white/60 uppercase tracking-widest">Minutos</span>
@@ -218,8 +218,8 @@ const submit = () => {
                                                     @click="selectHour(String(h - 1).padStart(2, '0'))"
                                                     class="w-full py-2.5 text-center text-sm font-medium transition-colors cursor-pointer"
                                                     :class="timeHour === String(h - 1).padStart(2, '0')
-                                                        ? 'bg-[#1B396A] text-white'
-                                                        : 'text-gray-700 hover:bg-[#1B396A]/10 hover:text-[#1B396A]'"
+                                                        ? 'bg-[var(--institutional-primary)] text-white'
+                                                        : 'text-gray-700 hover:bg-[var(--institutional-primary)]/10 hover:text-[var(--institutional-primary)]'"
                                                 >
                                                     {{ String(h - 1).padStart(2, '0') }}
                                                 </button>
@@ -232,8 +232,8 @@ const submit = () => {
                                                     @click="selectMinute(m)"
                                                     class="w-full py-2.5 text-center text-sm font-medium transition-colors cursor-pointer"
                                                     :class="timeMinute === m
-                                                        ? 'bg-[#1B396A] text-white'
-                                                        : 'text-gray-700 hover:bg-[#1B396A]/10 hover:text-[#1B396A]'"
+                                                        ? 'bg-[var(--institutional-primary)] text-white'
+                                                        : 'text-gray-700 hover:bg-[var(--institutional-primary)]/10 hover:text-[var(--institutional-primary)]'"
                                                 >
                                                     {{ m }}
                                                 </button>
@@ -281,19 +281,19 @@ const submit = () => {
                     </div>
                     </Transition>
                     <div>
-                        <label class="block mb-3 text-base text-[#1B396A] font-medium">Tipo de Respaldo:</label>
+                        <label class="block mb-3 text-base text-[var(--institutional-primary)] font-medium">Tipo de Respaldo:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <!-- Completo -->
                             <button
                                 type="button"
                                 @click="form.backup_mode = 'full'"
                                 :class="form.backup_mode === 'full'
-                                    ? 'border-[#1B396A] bg-[#1B396A]/5 ring-2 ring-[#1B396A]/30'
+                                    ? 'border-[var(--institutional-primary)] bg-[var(--institutional-primary)]/5 ring-2 ring-[var(--institutional-primary)]/30'
                                     : 'border-gray-200 bg-gray-50 hover:border-gray-300'"
                                 class="flex items-start gap-4 p-4 rounded-lg border-2 text-left transition-all cursor-pointer"
                             >
                                 <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
-                                    :class="form.backup_mode === 'full' ? 'bg-[#1B396A]' : 'bg-gray-200'">
+                                    :class="form.backup_mode === 'full' ? 'bg-[var(--institutional-primary)]' : 'bg-gray-200'">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                                         :fill="form.backup_mode === 'full' ? 'white' : '#9CA3AF'">
                                         <path d="M160-160v-80h80v80h-80Zm160 0v-80h80v80h-80Zm-160-160v-80h80v80h-80Zm0-160v-80h80v80h-80Zm0-160v-80h80v80h-80Zm160 320v-80h80v80h-80Zm160 0v-80h80v80h-80Zm160 160v-80h80v80h-80Zm0-160v-80h80v80h-80Zm0-160v-80h80v80h-80ZM320-640v-80h80v80h-80Zm160 480v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm160-320v-80h80v80h-80Zm160 0v-80h80v80h-80Z"/>
@@ -311,7 +311,7 @@ const submit = () => {
                                 :class="!hasFullBackup
                                     ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
                                     : form.backup_mode === 'incremental'
-                                        ? 'border-[#1B396A] bg-[#1B396A]/5 ring-2 ring-[#1B396A]/30 cursor-pointer'
+                                        ? 'border-[var(--institutional-primary)] bg-[var(--institutional-primary)]/5 ring-2 ring-[var(--institutional-primary)]/30 cursor-pointer'
                                         : 'border-gray-200 bg-gray-50 hover:border-gray-300 cursor-pointer'"
                                 class="relative flex items-start gap-4 p-4 rounded-lg border-2 text-left transition-all"
                             >
@@ -321,7 +321,7 @@ const submit = () => {
                                     </svg>
                                 </div>
                                 <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
-                                    :class="form.backup_mode === 'incremental' ? 'bg-[#1B396A]' : 'bg-gray-200'">
+                                    :class="form.backup_mode === 'incremental' ? 'bg-[var(--institutional-primary)]' : 'bg-gray-200'">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                                         :fill="form.backup_mode === 'incremental' ? 'white' : '#9CA3AF'">
                                         <path d="M480-120 200-272v-200L80-536l400-224 400 224v320h-80v-276l-120 67v200L480-120Zm0-332 274-153-274-154-274 154 274 153Zm0 241 160-89v-151L480-321 320-411v151l160 89Zm0-241Zm0 90Zm0 0Z"/>
@@ -339,7 +339,7 @@ const submit = () => {
                     <!-- Notificaciones por Correo -->
                     <div class="flex items-center justify-between py-4 px-5 bg-gray-50 rounded-lg border border-gray-200">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full flex items-center justify-center" :class="form.email_notifications ? 'bg-[#1B396A]' : 'bg-gray-200'">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center" :class="form.email_notifications ? 'bg-[var(--institutional-primary)]' : 'bg-gray-200'">
                                 <svg viewBox="0 0 24 24" class="w-5 h-5" :style="{ fill: form.email_notifications ? 'white' : '#6B7280' }">
                                     <path :d="form.email_notifications ? mdiBell : mdiBellOff"/>
                                 </svg>
@@ -353,7 +353,7 @@ const submit = () => {
                             type="button"
                             @click="form.email_notifications = !form.email_notifications"
                             class="relative inline-flex w-14 h-7 items-center rounded-full transition-colors focus:outline-none cursor-pointer"
-                            :class="form.email_notifications ? 'bg-[#1B396A]' : 'bg-gray-300'"
+                            :class="form.email_notifications ? 'bg-[var(--institutional-primary)]' : 'bg-gray-300'"
                         >
                             <span
                                 class="inline-block w-5 h-5 bg-white rounded-full shadow-md transform transition-transform"
@@ -420,7 +420,7 @@ const submit = () => {
                             v-if="canSchedule"
                             type="submit"
                             :disabled="form.processing"
-                            class="px-6 py-2 cursor-pointer bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium"
+                            class="px-6 py-2 cursor-pointer bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium"
                         >
                             <span v-if="!form.processing">Guardar Configuración</span>
                             <span v-else>Guardando...</span>

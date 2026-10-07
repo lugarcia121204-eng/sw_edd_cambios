@@ -149,14 +149,14 @@ const submit = () => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nombre -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Nombre del Documento: <span class="text-red-500">*</span>
                             </label>
                             <input 
                                 v-model="form.name" 
                                 @input="clearError('name')" 
                                 type="text" 
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" 
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" 
                                 :class="{ 'border-b-red-500': form.errors.name }" 
                                 placeholder="Ej. Cédula Profesional" 
                             />
@@ -171,14 +171,14 @@ const submit = () => {
 
                         <!-- Descripción -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Descripción del Documento: <span class="text-red-500">*</span>
                             </label>
                             <textarea 
                                 v-model="form.description" 
                                 @input="clearError('description')" 
                                 rows="3" 
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" 
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" 
                                 :class="{ 'border-b-red-500': form.errors.description }" 
                                 placeholder="Descripción del documento..."
                             ></textarea>
@@ -193,7 +193,7 @@ const submit = () => {
 
                         <!-- Vía -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Vía de Solicitud: <span class="text-red-500">*</span>
                             </label>
                             <VueSelect
@@ -225,7 +225,7 @@ const submit = () => {
 
                         <!-- Archivo de Plantilla -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Archivo de Plantilla/Ejemplo (opcional):
                             </label>
 
@@ -238,7 +238,7 @@ const submit = () => {
                                         <p class="text-xs text-gray-600">Tamaño: {{ form.archivo ? (form.archivo.size / 1024 / 1024).toFixed(2) + ' MB' : '' }}</p>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <label for="archivo-plantilla-change" class="px-4 py-2 bg-[#1B396A] text-white text-sm rounded hover:bg-[#0f2347] transition cursor-pointer">
+                                        <label for="archivo-plantilla-change" class="px-4 py-2 bg-[var(--institutional-primary)] text-white text-sm rounded hover:bg-[#0f2347] transition cursor-pointer">
                                             Cambiar Archivo
                                         </label>
                                         <button v-if="form.archivo" type="button" @click="removeFile"
@@ -260,7 +260,7 @@ const submit = () => {
                                     </div>
                                     <div v-else class="h-full flex items-center justify-center bg-gray-50 p-6">
                                         <div class="text-center">
-                                            <svg class="w-16 h-16 mx-auto text-[#1B396A] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-16 h-16 mx-auto text-[var(--institutional-primary)] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                             </svg>
                                             <p class="text-gray-900 font-bold mb-2 text-lg">Archivo Seleccionado</p>
@@ -273,13 +273,13 @@ const submit = () => {
 
                             <!-- Drop zone cuando NO hay archivo -->
                             <div v-else class="flex items-center justify-center w-full">
-                                <label for="archivo-plantilla" class="flex flex-col items-center justify-center w-full h-48 bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[#1B396A] transition-all">
+                                <label for="archivo-plantilla" class="flex flex-col items-center justify-center w-full h-48 bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[var(--institutional-primary)] transition-all">
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-10 h-10 mb-3 text-[#1B396A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-10 h-10 mb-3 text-[var(--institutional-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                         </svg>
                                         <p class="mb-2 text-sm text-gray-700">
-                                            <span class="font-semibold text-[#1B396A]">Arrastra archivos aquí</span> o haz clic para seleccionar
+                                            <span class="font-semibold text-[var(--institutional-primary)]">Arrastra archivos aquí</span> o haz clic para seleccionar
                                         </p>
                                         <p class="text-xs text-gray-500">Tamaño máximo: 30MB &nbsp;|&nbsp; PDF, DOC, DOCX, XLS, XLSX, JPG, PNG</p>
                                     </div>
@@ -307,7 +307,7 @@ const submit = () => {
                         <button 
                             :disabled="form.processing" 
                             type="submit" 
-                            class="px-6 py-2 bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer"
+                            class="px-6 py-2 bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer"
                         >
                             <span v-if="!form.processing">Guardar</span>
                             <span v-else>Guardando...</span>

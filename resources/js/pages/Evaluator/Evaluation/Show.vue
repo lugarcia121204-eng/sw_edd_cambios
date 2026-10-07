@@ -267,7 +267,7 @@ const formatDate = (dateString) => {
                         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" style="fill: #1B396A;">
                             <path :d="mdiFileDocumentMultiple"/>
                         </svg>
-                        <Link :href="route('evaluator.dashboard')" class="text-gray-700 font-medium hover:text-[#1B396A]">Inicio</Link>
+                        <Link :href="route('evaluator.dashboard')" class="text-gray-700 font-medium hover:text-[var(--institutional-primary)]">Inicio</Link>
                          <svg viewBox="0 0 24 24" class="w-4 h-4 text-gray-400" style="fill: currentColor">
                             <path :d="mdiChevronRight"/>
                         </svg>
@@ -391,11 +391,11 @@ const formatDate = (dateString) => {
 
                         <div v-for="doc in documentsList" :key="doc.id" 
                             class="border border-gray-200 rounded-xl p-5 hover:bg-gray-50 transition shadow-sm"
-                            :class="{ 'bg-blue-50/50 ring-1 ring-[#1B396A]/10': documentsState[doc.id]?.showPreview }"
+                            :class="{ 'bg-blue-50/50 ring-1 ring-[var(--institutional-primary)]/10': documentsState[doc.id]?.showPreview }"
                         >
                             <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
                                 <div class="flex items-center gap-4 w-full sm:w-auto min-w-0">
-                                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gray-100 rounded-xl text-[#1B396A]"
+                                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gray-100 rounded-xl text-[var(--institutional-primary)]"
                                          :class="{ 'bg-blue-100': documentsState[doc.id]?.showPreview }">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" :d="getFileIcon(doc.file_type)" />
@@ -414,8 +414,8 @@ const formatDate = (dateString) => {
                                         @click="togglePreview(doc.id)" 
                                         class="inline-flex items-center justify-center gap-2 px-4 py-2 border rounded-lg font-bold transition cursor-pointer text-xs uppercase whitespace-nowrap shadow-sm"
                                         :class="documentsState[doc.id]?.showPreview 
-                                            ? 'bg-[#1B396A] text-white border-[#1B396A]' 
-                                            : 'text-[#1B396A] border-[#1B396A] hover:bg-[#1B396A] hover:text-white'"
+                                            ? 'bg-[var(--institutional-primary)] text-white border-[var(--institutional-primary)]' 
+                                            : 'text-[var(--institutional-primary)] border-[var(--institutional-primary)] hover:bg-[var(--institutional-primary)] hover:text-white'"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor">
                                             <path v-if="!documentsState[doc.id]?.showPreview" d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/>
@@ -464,7 +464,7 @@ const formatDate = (dateString) => {
                     <!-- Column Left: Rubric -->
                     <div class="lg:col-span-2">
                         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                            <div class="bg-[#1B396A] px-6 py-4 border-b border-gray-200 flex justify-between items-center text-white">
+                            <div class="bg-[var(--institutional-primary)] px-6 py-4 border-b border-gray-200 flex justify-between items-center text-white">
                                 <div>
                                     <h2 class="font-bold text-lg">Rúbrica de Evaluación</h2>
                                     <p class="text-blue-100 text-sm">Selecciona una opción para cada criterio</p>
@@ -538,7 +538,7 @@ const formatDate = (dateString) => {
                                     </span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div class="bg-[#1B396A] h-2.5 rounded-full transition-all duration-500" :style="{ width: progressPercentage + '%' }"></div>
+                                    <div class="bg-[var(--institutional-primary)] h-2.5 rounded-full transition-all duration-500" :style="{ width: progressPercentage + '%' }"></div>
                                 </div>
                             </div>
                             
@@ -596,7 +596,7 @@ const formatDate = (dateString) => {
                                     type="button" 
                                     @click="submitEvaluation('approved')"
                                     :disabled="form.processing || !rubric"
-                                    class="w-full px-4 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#1B396A] hover:bg-[#152d47] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B396A] disabled:opacity-50 transition-colors flex items-center justify-center gap-2 uppercase tracking-wide cursor-pointer"
+                                    class="w-full px-4 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[var(--institutional-primary)] hover:bg-[var(--institutional-primary-dark)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--institutional-primary)] disabled:opacity-50 transition-colors flex items-center justify-center gap-2 uppercase tracking-wide cursor-pointer"
                                 >
                                     <svg viewBox="0 0 24 24" class="w-5 h-5" style="fill: currentColor"><path :d="mdiCheckCircle"/></svg>
                                     Aceptar Solicitud

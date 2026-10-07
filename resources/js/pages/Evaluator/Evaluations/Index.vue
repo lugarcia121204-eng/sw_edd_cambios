@@ -123,14 +123,14 @@ const getStatusLabel = (status) => {
                 </div>
 
                 <!-- Total Evaluadas -->
-                <div class="bg-white rounded-lg shadow-md border-l-4 border-[#1B396A] p-4 hover:shadow-lg transition-shadow">
+                <div class="bg-white rounded-lg shadow-md border-l-4 border-[var(--institutional-primary)] p-4 hover:shadow-lg transition-shadow">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Total Completadas</p>
                             <p class="text-2xl font-bold text-gray-900">{{ stats?.evaluadas ?? 0 }}</p>
                         </div>
                         <div class="p-2">
-                             <svg viewBox="0 0 24 24" class="w-8 h-8 text-[#1B396A]" style="fill: currentColor"><path :d="mdiFileDocumentMultiple"/></svg>
+                             <svg viewBox="0 0 24 24" class="w-8 h-8 text-[var(--institutional-primary)]" style="fill: currentColor"><path :d="mdiFileDocumentMultiple"/></svg>
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,7 @@ const getStatusLabel = (status) => {
                             v-model="search" 
                             type="text" 
                             placeholder="Buscar..." 
-                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition"
+                            class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition"
                         />
                     </div>
                     <!-- Filtro por estado -->

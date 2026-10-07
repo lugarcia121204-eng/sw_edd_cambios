@@ -1,5 +1,22 @@
 <template>
     <div v-if="isVisible">
+        <template v-if="supremeSidebar">
+            <template v-if="item.items?.length">
+                <button v-if="!collapsed || isMobile" type="button" class="supreme-group" :aria-expanded="isExpanded" @click="toggleGroup">
+                    <component :is="supremeIcon" :size="20" :stroke-width="1.7" class="supreme-group-icon" />
+                    <span>{{ item.label }}</span><ChevronDown v-if="isExpanded" :size="17" /><ChevronRight v-else :size="17" />
+                </button>
+                <Link v-else :href="resolveRoute(firstVisibleChild?.route)" class="supreme-single supreme-icon-only" :title="item.label" @click="closeSidebarOnMobileNavigate"><component :is="supremeIcon" :size="20" /></Link>
+                <div v-if="!collapsed || isMobile" v-show="isExpanded" class="supreme-submenu">
+                    <SidebarItem v-for="(child, index) in item.items" :key="child.route || index" :item="child" :is-child="true" />
+                </div>
+            </template>
+            <Link v-else :href="resolveRoute(item.route)" :aria-current="isActive ? 'page' : undefined" :title="item.label" :class="['supreme-single', { 'supreme-child': isChild, 'supreme-active': isActive, 'supreme-icon-only': collapsed && !isMobile }]" @click="closeSidebarOnMobileNavigate">
+                <component :is="supremeIcon" :size="20" :stroke-width="1.7" />
+                <span v-if="!collapsed || isMobile">{{ item.label }}</span>
+            </Link>
+        </template>
+        <template v-else>
         <!-- Group with Subitems -->
         <div v-if="item.items && item.items.length > 0">
             <!-- Expanded / Desktop View -->
@@ -30,7 +47,7 @@
                 </button>
 
                 <!-- Recursive Submenu -->
-                <div v-show="isExpanded" class="bg-[#152d47] py-1">
+                <div v-show="isExpanded" class="bg-[var(--institutional-primary-dark)] py-1">
                     <SidebarItem
                         v-for="(subItem, index) in item.items"
                         :key="index"
@@ -71,12 +88,12 @@
                 'flex items-center py-3 transition-all duration-200 relative',
                  'before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-[80%] before:w-[4px] before:rounded-r-lg before:transition-colors',
                 isChild 
-                    ? 'px-4 py-2.5 pl-12 text-gray-300 hover:bg-[#1e3a5f] hover:text-white' 
+                    ? 'px-4 py-2.5 pl-12 text-gray-300 hover:bg-[var(--institutional-primary)] hover:text-white' 
                     : (collapsed && !isMobile ? 'px-4 justify-center' : 'px-6'),
                 !isChild && (isActive 
                     ? 'bg-white/10 text-white before:bg-white' 
                     : 'text-white/80 hover:bg-white/5 hover:text-white before:bg-transparent'),
-                isChild && isActive ? 'bg-[#1e3a5f] text-white font-medium' : ''
+                isChild && isActive ? 'bg-[var(--institutional-primary)] text-white font-medium' : ''
             ]"
             :title="collapsed && !isMobile ? item.label : ''"
         >
@@ -85,12 +102,14 @@
             </svg>
             <span v-show="!collapsed || isMobile || isChild" class="ml-3 text-sm font-medium truncate" :title="item.label">{{ item.label }}</span>
         </Link>
+        </template>
     </div>
 </template>
 
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, inject, ref, onMounted } from 'vue';
+import { Home, Building2, Shield, Folder, Database, Layers, Lock, KeyRound, Users, Lightbulb, ListTree, FileText, ClipboardList, Files, Megaphone, ChevronDown, ChevronRight } from 'lucide-vue-next';
 import { mdiViewModule } from "@mdi/js";
 
 const props = defineProps({
@@ -105,6 +124,10 @@ const props = defineProps({
 });
 
 const page = usePage();
+const supremeSidebar = inject('supremeSidebar', ref(false));
+const supremeIcons = { Home, Building2, Shield, Folder, Database, Layers, Lock, KeyRound, Users, Lightbulb, ListTree, FileText, ClipboardList, Files, Megaphone };
+const supremeIcon = computed(() => supremeIcons[props.item.iconName] || FileText);
+const firstVisibleChild = computed(() => props.item.items?.find(child => hasPermission(child.permission)));
 const collapsed = inject('sidebarCollapsed', ref(false));
 const isMobile = inject('isMobile', ref(false));
 const sidebarOpen = inject('sidebarOpen', ref(false));
@@ -166,3 +189,18 @@ onMounted(() => {
     }
 });
 </script>
+
+<style scoped>
+.supreme-group { display:flex; align-items:center; gap:12px; width:100%; padding:21px 24px; color:#e2e8f0; cursor:pointer; text-align:left; transition:background .15s; }
+.supreme-group > span { flex:1; font-size:14px; font-weight:700; text-transform:uppercase; }
+.supreme-group-icon { color:var(--institutional-gold); flex-shrink:0; }
+.supreme-group:hover { background:#ffffff08; }
+.supreme-submenu { margin:0 14px 12px 24px; border-left:1px solid #ffffff25; padding:0 0 0 14px; }
+.supreme-single { display:flex; align-items:center; gap:14px; padding:17px 30px; color:#dbeafe; font-size:17px; font-weight:550; min-width:0; border-radius:6px; }
+.supreme-single svg { flex-shrink:0; }
+.supreme-single span { min-width:0; overflow-wrap:anywhere; }
+.supreme-child { padding:13px 12px; font-size:15px; }
+.supreme-single:hover,.supreme-active { background:#ffffff07; color:white; }
+.supreme-icon-only { justify-content:center; padding:20px 12px; }
+.supreme-group:focus-visible,.supreme-single:focus-visible { outline:2px solid var(--institutional-gold); outline-offset:-3px; }
+</style>

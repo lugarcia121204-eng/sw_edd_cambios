@@ -46,7 +46,7 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
         <Head title="Documentos" />
 
         <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-[#1B396A] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section class="relative bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
             <!-- Decorative circles -->
             <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
             <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
@@ -177,7 +177,7 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                                 <a
                                     :href="currentPdfUrl"
                                     target="_blank"
-                                    class="px-4 py-2 rounded-md bg-[#1B396A] text-white font-medium hover:bg-[#152d47]"
+                                    class="px-4 py-2 rounded-md bg-[var(--institutional-primary)] text-white font-medium hover:bg-[var(--institutional-primary-dark)]"
                                 >
                                     Abrir documento
                                 </a>
@@ -206,9 +206,9 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                     </button>
                     
                     <!-- 6. Convocatoria (Dinámica) -->
-                    <button v-if="activeAnnouncement && activeAnnouncement.file_url" @click="toggleDocument('doc6', activeAnnouncement.file_url, `Convocatoria ${announcementYear}`)" class="flex items-start space-x-4 bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-[#1B396A] hover:shadow-xl transition-all group text-left w-full cursor-pointer" :class="{'ring-2 ring-offset-2 ring-[#1B396A]': activeDocument === 'doc6'}">
+                    <button v-if="activeAnnouncement && activeAnnouncement.file_url" @click="toggleDocument('doc6', activeAnnouncement.file_url, `Convocatoria ${announcementYear}`)" class="flex items-start space-x-4 bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-[var(--institutional-primary)] hover:shadow-xl transition-all group text-left w-full cursor-pointer" :class="{'ring-2 ring-offset-2 ring-[var(--institutional-primary)]': activeDocument === 'doc6'}">
                         <div class="flex-shrink-0">
-                            <svg class="w-8 h-8 text-[#1B396A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-8 h-8 text-[var(--institutional-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                             </svg>
                         </div>
@@ -217,7 +217,7 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                             <p class="text-sm text-gray-600 mb-3">Documento oficial de convocatoria del TecNM para el programa de estímulos {{ announcementYear }}: bases de participación, registro, evaluación, estímulos diferenciados, suspensiones, responsabilidades y contacto oficial.</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-xs text-gray-500">PDF • Dinámico</span>
-                                <svg class="w-5 h-5 text-[#1B396A] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-[var(--institutional-primary)] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
@@ -225,9 +225,9 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                         </div>
                     </button>
                     <!-- Fallback 6. Convocatoria Estática -->
-                    <button v-else @click="toggleDocument('doc6', 'https://edd.tecnm.mx/formatos/2025/CONVOCATORIA_EDD_2025.pdf', 'Convocatoria 2026')" class="flex items-start space-x-4 bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-[#1B396A] hover:shadow-xl transition-all group text-left w-full cursor-pointer" :class="{'ring-2 ring-offset-2 ring-[#1B396A]': activeDocument === 'doc6'}">
+                    <button v-else @click="toggleDocument('doc6', 'https://edd.tecnm.mx/formatos/2025/CONVOCATORIA_EDD_2025.pdf', 'Convocatoria 2026')" class="flex items-start space-x-4 bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-[var(--institutional-primary)] hover:shadow-xl transition-all group text-left w-full cursor-pointer" :class="{'ring-2 ring-offset-2 ring-[var(--institutional-primary)]': activeDocument === 'doc6'}">
                         <div class="flex-shrink-0">
-                            <svg class="w-8 h-8 text-[#1B396A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-8 h-8 text-[var(--institutional-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                             </svg>
                         </div>
@@ -236,7 +236,7 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                             <p class="text-sm text-gray-600 mb-3">Documento oficial de convocatoria del TecNM para el programa de estímulos 2025: bases de participación, registro, evaluación, estímulos diferenciados, suspensiones, responsabilidades y contacto oficial.</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-xs text-gray-500">PDF • 2.7 MB</span>
-                                <svg class="w-5 h-5 text-[#1B396A] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-[var(--institutional-primary)] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
@@ -283,7 +283,7 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                                 <a
                                     :href="currentPdfUrl"
                                     target="_blank"
-                                    class="px-4 py-2 rounded-md bg-[#1B396A] text-white font-medium hover:bg-[#152d47]"
+                                    class="px-4 py-2 rounded-md bg-[var(--institutional-primary)] text-white font-medium hover:bg-[var(--institutional-primary-dark)]"
                                 >
                                     Abrir documento
                                 </a>
@@ -372,7 +372,7 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                                 <a
                                     :href="currentPdfUrl"
                                     target="_blank"
-                                    class="px-4 py-2 rounded-md bg-[#1B396A] text-white font-medium hover:bg-[#152d47]"
+                                    class="px-4 py-2 rounded-md bg-[var(--institutional-primary)] text-white font-medium hover:bg-[var(--institutional-primary-dark)]"
                                 >
                                     Abrir documento
                                 </a>

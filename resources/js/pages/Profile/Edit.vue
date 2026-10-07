@@ -168,19 +168,19 @@ const updatePassword = () => {
             <!-- Profile Information -->
             <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
                 <div class="border-b border-gray-200 pb-4 mb-6">
-                    <h2 class="text-xl sm:text-2xl font-semibold text-[#1B396A]">Información del Perfil</h2>
+                    <h2 class="text-xl sm:text-2xl font-semibold text-[var(--institutional-primary)]">Información del Perfil</h2>
                     <p class="text-sm text-gray-600 mt-1">Actualiza tu información personal</p>
                 </div>
 
                 <form @submit.prevent="updateProfile" class="space-y-5">
                     <!-- Name -->
                     <div>
-                        <label for="name" class="block mb-2 text-base text-[#1B396A] font-medium">Nombre Completo: <span class="text-red-500">*</span></label>
+                        <label for="name" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Nombre Completo: <span class="text-red-500">*</span></label>
                         <input
                             id="name"
                             v-model="profileForm.name"
                             type="text"
-                            class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                            class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                             :class="{ 'border-b-red-500': profileForm.errors.name }"
                             placeholder="Tu nombre completo"
                             @input="clearProfileError('name')"
@@ -196,12 +196,12 @@ const updatePassword = () => {
 
                     <!-- Email -->
                     <div>
-                        <label for="email" class="block mb-2 text-base text-[#1B396A] font-medium">Correo Electrónico: <span class="text-red-500">*</span></label>
+                        <label for="email" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Correo Electrónico: <span class="text-red-500">*</span></label>
                         <input
                             id="email"
                             v-model="profileForm.email"
                             type="email"
-                            class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                            class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                             :class="{ 'border-b-red-500': profileForm.errors.email }"
                             placeholder="tu@email.com"
                             @input="clearProfileError('email')"
@@ -217,7 +217,7 @@ const updatePassword = () => {
 
                     <!-- Institution (only for non-SuperAdmin) -->
                     <div v-if="!isSuperAdmin">
-                        <label for="institucion" class="block mb-2 text-base text-[#1B396A] font-medium">Institución: <span class="text-red-500">*</span></label>
+                        <label for="institucion" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Institución: <span class="text-red-500">*</span></label>
                         <VueSelect
                             v-model="profileForm.institution_id"
                             :options="institutions"
@@ -240,7 +240,7 @@ const updatePassword = () => {
 
                     <!-- Priority Area (only for non-SuperAdmin) -->
                     <div v-if="!isSuperAdmin">
-                        <label for="priority_area" class="block mb-2 text-base text-[#1B396A] font-medium">Área Prioritaria: <span class="text-red-500">*</span></label>
+                        <label for="priority_area" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Área Prioritaria: <span class="text-red-500">*</span></label>
                         <VueSelect
                             v-model="profileForm.priority_area_id"
                             :options="priorityAreas"
@@ -263,7 +263,7 @@ const updatePassword = () => {
 
                     <!-- Sub Area (only for non-SuperAdmin) -->
                     <div v-if="!isSuperAdmin">
-                        <label for="sub_area" class="block mb-2 text-base text-[#1B396A] font-medium">Sub Área: <span class="text-red-500">*</span></label>
+                        <label for="sub_area" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Sub Área: <span class="text-red-500">*</span></label>
                         <VueSelect
                             v-model="profileForm.sub_area_id"
                             :options="filteredSubAreas"
@@ -306,7 +306,7 @@ const updatePassword = () => {
                         <button
                             type="submit"
                             :disabled="profileForm.processing"
-                            class="w-full sm:w-auto px-6 py-2 cursor-pointer bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center justify-center gap-2 font-medium"
+                            class="w-full sm:w-auto px-6 py-2 cursor-pointer bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center justify-center gap-2 font-medium"
                         >
                             <span v-if="!profileForm.processing">Guardar Cambios</span>
                             <span v-else>Guardando...</span>
@@ -318,20 +318,20 @@ const updatePassword = () => {
             <!-- Update Password -->
             <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
                 <div class="border-b border-gray-200 pb-4 mb-6">
-                    <h2 class="text-xl sm:text-2xl font-semibold text-[#1B396A]">Actualizar Contraseña</h2>
+                    <h2 class="text-xl sm:text-2xl font-semibold text-[var(--institutional-primary)]">Actualizar Contraseña</h2>
                     <p class="text-sm text-gray-600 mt-1">Asegúrate de usar una contraseña larga y segura</p>
                 </div>
 
                 <form @submit.prevent="updatePassword" class="space-y-5">
                     <!-- Current Password -->
                     <div>
-                        <label for="current_password" class="block mb-2 text-base text-[#1B396A] font-medium">Contraseña Actual: <span class="text-red-500">*</span></label>
+                        <label for="current_password" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Contraseña Actual: <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <input
                                 id="current_password"
                                 v-model="passwordForm.current_password"
                                 :type="showCurrentPassword ? 'text' : 'password'"
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                 :class="{ 'border-b-red-500': passwordForm.errors.current_password }"
                                 placeholder="••••••••"
                                 @input="clearPasswordError('current_password')"
@@ -356,13 +356,13 @@ const updatePassword = () => {
 
                     <!-- New Password -->
                     <div>
-                        <label for="password" class="block mb-2 text-base text-[#1B396A] font-medium">Nueva Contraseña: <span class="text-red-500">*</span></label>
+                        <label for="password" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Nueva Contraseña: <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <input
                                 id="password"
                                 v-model="passwordForm.password"
                                 :type="showPassword ? 'text' : 'password'"
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                 :class="{ 'border-b-red-500': passwordForm.errors.password }"
                                 placeholder="••••••••"
                                 @input="clearPasswordError('password')"
@@ -387,13 +387,13 @@ const updatePassword = () => {
 
                     <!-- Confirm Password -->
                     <div>
-                        <label for="password_confirmation" class="block mb-2 text-base text-[#1B396A] font-medium">Confirmar Nueva Contraseña: <span class="text-red-500">*</span></label>
+                        <label for="password_confirmation" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Confirmar Nueva Contraseña: <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <input
                                 id="password_confirmation"
                                 v-model="passwordForm.password_confirmation"
                                 :type="showPasswordConfirmation ? 'text' : 'password'"
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                 :class="{ 'border-b-red-500': passwordForm.errors.password_confirmation }"
                                 placeholder="••••••••"
                                 @input="clearPasswordError('password_confirmation')"
@@ -422,7 +422,7 @@ const updatePassword = () => {
                         <button
                             type="submit"
                             :disabled="passwordForm.processing"
-                            class="w-full sm:w-auto px-6 py-2 cursor-pointer bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center justify-center gap-2 font-medium"
+                            class="w-full sm:w-auto px-6 py-2 cursor-pointer bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center justify-center gap-2 font-medium"
                         >
                             <span v-if="!passwordForm.processing">Actualizar Contraseña</span>
                             <span v-else>Actualizando...</span>

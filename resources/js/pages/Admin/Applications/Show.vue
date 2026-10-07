@@ -149,7 +149,7 @@ const getFileIcon = (type) => {
                         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" style="fill: #1B396A;">
                             <path :d="mdiFileDocumentMultiple"/>
                         </svg>
-                        <Link :href="route('admin.applications.index')" class="text-gray-700 font-medium hover:text-[#1B396A]">Solicitudes</Link>
+                        <Link :href="route('admin.applications.index')" class="text-gray-700 font-medium hover:text-[var(--institutional-primary)]">Solicitudes</Link>
                          <svg viewBox="0 0 24 24" class="w-4 h-4 text-gray-400" fill="currentColor">
                             <path :d="mdiChevronRight"/>
                         </svg>
@@ -240,11 +240,11 @@ const getFileIcon = (type) => {
 
                         <div v-for="doc in getDocuments()" :key="doc.id" 
                             class="border border-gray-200 rounded-xl p-5 hover:bg-gray-50 transition shadow-sm"
-                            :class="{ 'bg-blue-50/50 ring-1 ring-[#1B396A]/10': documentsState[doc.id]?.showPreview }"
+                            :class="{ 'bg-blue-50/50 ring-1 ring-[var(--institutional-primary)]/10': documentsState[doc.id]?.showPreview }"
                         >
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
                                 <div class="flex items-center gap-4 w-full sm:w-auto min-w-0">
-                                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gray-100 rounded-xl text-[#1B396A]"
+                                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gray-100 rounded-xl text-[var(--institutional-primary)]"
                                          :class="{ 'bg-blue-100': documentsState[doc.id]?.showPreview }">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" :d="getFileIcon(doc.file_type)" />
@@ -261,7 +261,7 @@ const getFileIcon = (type) => {
                                     <button 
                                         v-if="doc.file_type === 'pdf'" 
                                         @click="togglePreview(doc.id)" 
-                                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 border border-[#1B396A] text-[#1B396A] rounded-lg font-bold transition cursor-pointer text-xs whitespace-nowrap shadow-sm hover:bg-[#1B396A] hover:text-white"
+                                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 border border-[var(--institutional-primary)] text-[var(--institutional-primary)] rounded-lg font-bold transition cursor-pointer text-xs whitespace-nowrap shadow-sm hover:bg-[var(--institutional-primary)] hover:text-white"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor">
                                             <path v-if="!documentsState[doc.id]?.showPreview" d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/>
@@ -313,7 +313,7 @@ const getFileIcon = (type) => {
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full min-w-[920px] text-left">
-                            <thead class="bg-[#1B396A] text-white">
+                            <thead class="bg-[var(--institutional-primary)] text-white">
                                 <tr>
                                 <th class="px-6 py-3 text-xs uppercase font-semibold w-12 whitespace-nowrap">ID</th>
                                     <th class="px-6 py-3 text-xs uppercase font-semibold whitespace-nowrap">Nombre</th>
@@ -331,14 +331,14 @@ const getFileIcon = (type) => {
                                             <span v-if="!expandedComments[ev.id] && ev.comment.length > 100">
                                                 {{ ev.comment.substring(0, 100) }}...
                                                 <br>
-                                                <button @click="toggleComment(ev.id)" class="text-[#1B396A] hover:text-[#152d47] font-semibold text-xs mt-1 cursor-pointer inline-flex items-center gap-1 focus:outline-none">
+                                                <button @click="toggleComment(ev.id)" class="text-[var(--institutional-primary)] hover:text-[var(--institutional-primary-dark)] font-semibold text-xs mt-1 cursor-pointer inline-flex items-center gap-1 focus:outline-none">
                                                     Ver más
                                                 </button>
                                             </span>
                                             <span v-else>
                                                 {{ ev.comment }}
                                                 <br>
-                                                <button v-if="ev.comment.length > 100" @click="toggleComment(ev.id)" class="text-[#1B396A] hover:text-[#152d47] font-semibold text-xs mt-1 cursor-pointer inline-flex items-center gap-1 focus:outline-none">
+                                                <button v-if="ev.comment.length > 100" @click="toggleComment(ev.id)" class="text-[var(--institutional-primary)] hover:text-[var(--institutional-primary-dark)] font-semibold text-xs mt-1 cursor-pointer inline-flex items-center gap-1 focus:outline-none">
                                                     Ver menos
                                                 </button>
                                             </span>
@@ -371,7 +371,7 @@ const getFileIcon = (type) => {
                                     </td>
                                     <td class="px-3 md:px-6 py-4 text-center whitespace-nowrap">
                                         <Link v-if="ev.status !== 'pending' && ev.status !== 'expired'" :href="route('admin.applications.evaluation.show', { application: application.id, evaluation: ev.id })" 
-                                            class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 border border-[#1B396A] text-[#1B396A] hover:bg-[#1B396A] hover:text-white rounded-lg text-xs font-bold transition shadow-sm"
+                                            class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 border border-[var(--institutional-primary)] text-[var(--institutional-primary)] hover:bg-[var(--institutional-primary)] hover:text-white rounded-lg text-xs font-bold transition shadow-sm"
                                             title="Ver Respuestas de la Rúbrica"
                                         >
                                             <svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor"><path :d="mdiEye"/></svg>
@@ -406,7 +406,7 @@ const getFileIcon = (type) => {
                     <div v-else class="w-full flex flex-col sm:flex-row gap-4">
                         <button 
                             @click="approveRequest"
-                            class="flex-1 bg-[#1B396A] text-white py-2.5 rounded-lg text-[11px] font-bold uppercase tracking-wider hover:bg-[#152d47] transition shadow-md cursor-pointer transform hover:-translate-y-0.5"
+                            class="flex-1 bg-[var(--institutional-primary)] text-white py-2.5 rounded-lg text-[11px] font-bold uppercase tracking-wider hover:bg-[var(--institutional-primary-dark)] transition shadow-md cursor-pointer transform hover:-translate-y-0.5"
                             :disabled="processing"
                         >
                             Aprobar
@@ -422,7 +422,7 @@ const getFileIcon = (type) => {
                         
                         <Link
                             :href="route('admin.applications.index')"
-                            class="w-full sm:w-auto px-6 py-2.5 bg-white border border-[#1B396A] rounded-lg text-[11px] font-bold uppercase tracking-wider text-[#1B396A] hover:bg-gray-50 transition shadow-sm text-center cursor-pointer"
+                            class="w-full sm:w-auto px-6 py-2.5 bg-white border border-[var(--institutional-primary)] rounded-lg text-[11px] font-bold uppercase tracking-wider text-[var(--institutional-primary)] hover:bg-gray-50 transition shadow-sm text-center cursor-pointer"
                         >
                             Cancelar
                         </Link>

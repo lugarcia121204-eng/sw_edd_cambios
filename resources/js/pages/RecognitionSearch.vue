@@ -57,7 +57,7 @@ const typeLabel = (type) => {
 };
 
 const typeColor = (type) => {
-    if (type === 'evaluator') return 'bg-[#1B396A]';
+    if (type === 'evaluator') return 'bg-[var(--institutional-primary)]';
     if (type === 'teacher')   return 'bg-[#10A558]';
     return 'bg-gray-500';
 };
@@ -73,7 +73,7 @@ const typeIcon = (type) => {
         <Head title="Buscador de Reconocimientos" />
 
         <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-[#1B396A] via-[#2B4A7E] to-[#3B5C92] py-10 sm:py-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section class="relative bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] py-10 sm:py-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
             <!-- Decorative circles -->
             <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
             <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
@@ -97,7 +97,7 @@ const typeIcon = (type) => {
                 <!-- Search Card -->
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
                     <!-- Card Header -->
-                    <div class="bg-gradient-to-r from-[#1B396A] to-[#2B4A7E] px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    <div class="bg-gradient-to-r from-[var(--institutional-primary)] to-[#2B4A7E] px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-white/80">
                             <path d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z"/>
                         </svg>
@@ -114,7 +114,7 @@ const typeIcon = (type) => {
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[#1B396A]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[var(--institutional-primary)]">
                                             <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/>
                                         </svg>
                                     </div>
@@ -125,7 +125,7 @@ const typeIcon = (type) => {
                                         maxlength="18"
                                         @input="curp = curp.toUpperCase()"
                                         @keyup.enter="search"
-                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
+                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
                                     />
                                 </div>
                             </div>
@@ -137,7 +137,7 @@ const typeIcon = (type) => {
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[#1B396A]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[var(--institutional-primary)]">
                                             <path d="M160-200v-80h640v80H160Zm0-160v-80h640v80H160Zm0-160v-80h640v80H160Zm0-160v-80h640v80H160Z"/>
                                         </svg>
                                     </div>
@@ -147,7 +147,7 @@ const typeIcon = (type) => {
                                         placeholder="Ej. JUAN PÉREZ GARCÍA"
                                         @input="name = name.toUpperCase()"
                                         @keyup.enter="search"
-                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
+                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
                                     />
                                 </div>
                             </div>
@@ -159,7 +159,7 @@ const typeIcon = (type) => {
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[#1B396A]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[var(--institutional-primary)]">
                                             <path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
                                         </svg>
                                     </div>
@@ -169,7 +169,7 @@ const typeIcon = (type) => {
                                         placeholder="Ej. REC-2025-EV-12-ABCD"
                                         @input="folio = folio.toUpperCase()"
                                         @keyup.enter="search"
-                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
+                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
                                     />
                                 </div>
                             </div>
@@ -180,7 +180,7 @@ const typeIcon = (type) => {
                             <button
                                 @click="search"
                                 :disabled="loading || (!curp && !name && !folio)"
-                                class="flex-1 flex items-center justify-center gap-2 h-[45px] rounded-xl bg-[#1B396A] text-white text-sm font-semibold hover:bg-[#162e55] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition shadow-sm"
+                                class="flex-1 flex items-center justify-center gap-2 h-[45px] rounded-xl bg-[var(--institutional-primary)] text-white text-sm font-semibold hover:bg-[var(--institutional-primary-dark)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition shadow-sm"
                             >
                                 <svg v-if="!loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-white">
                                     <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
@@ -237,7 +237,7 @@ const typeIcon = (type) => {
                                 v-for="rec in recognitions"
                                 :key="rec.id"
                                 class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow group"
-                                :class="{'ring-2 ring-offset-2 ring-[#1B396A]': expandedRec?.id === rec.id}"
+                                :class="{'ring-2 ring-offset-2 ring-[var(--institutional-primary)]': expandedRec?.id === rec.id}"
                             >
                                 <!-- Card Top Accent -->
                                 <div :class="typeColor(rec.template_type)" class="h-1.5 w-full"></div>
@@ -281,7 +281,7 @@ const typeIcon = (type) => {
                                         <button
                                             @click="toggleViewer(rec)"
                                             class="flex-1 flex items-center justify-center gap-2 h-10 rounded-xl text-sm font-semibold transition shadow-sm cursor-pointer"
-                                            :class="expandedRec?.id === rec.id ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' : 'bg-[#1B396A] text-white hover:bg-[#162e55]'"
+                                            :class="expandedRec?.id === rec.id ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' : 'bg-[var(--institutional-primary)] text-white hover:bg-[var(--institutional-primary-dark)]'"
                                         >
                                             <svg v-if="expandedRec?.id !== rec.id" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-white">
                                                 <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/>

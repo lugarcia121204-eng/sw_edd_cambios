@@ -57,11 +57,11 @@ const currentScore = computed(() => {
                         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" style="fill: #1B396A;">
                             <path :d="mdiFileDocumentMultiple"/>
                         </svg>
-                        <Link :href="route('admin.applications.index')" class="text-gray-700 font-medium hover:text-[#1B396A]">Solicitudes</Link>
+                        <Link :href="route('admin.applications.index')" class="text-gray-700 font-medium hover:text-[var(--institutional-primary)]">Solicitudes</Link>
                          <svg viewBox="0 0 24 24" class="w-4 h-4 text-gray-400" style="fill: currentColor">
                             <path :d="mdiChevronRight"/>
                         </svg>
-                        <Link :href="route('admin.applications.show', application.id || application.data?.id)" class="text-gray-700 font-medium hover:text-[#1B396A]">Detalles de solicitud</Link>
+                        <Link :href="route('admin.applications.show', application.id || application.data?.id)" class="text-gray-700 font-medium hover:text-[var(--institutional-primary)]">Detalles de solicitud</Link>
                          <svg viewBox="0 0 24 24" class="w-4 h-4 text-gray-400" style="fill: currentColor">
                             <path :d="mdiChevronRight"/>
                         </svg>
@@ -104,19 +104,19 @@ const currentScore = computed(() => {
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                         <div>
-                            <h3 class="text-xs font-bold text-[#1B396A] uppercase tracking-wider mb-1">Evaluador Asignado</h3>
+                            <h3 class="text-xs font-bold text-[var(--institutional-primary)] uppercase tracking-wider mb-1">Evaluador Asignado</h3>
                             <p class="text-md font-medium text-gray-900">{{ evaluation.evaluator?.name || 'Sistema' }}</p>
                         </div>
                         <div>
-                            <h3 class="text-xs font-bold text-[#1B396A] uppercase tracking-wider mb-1">Docente</h3>
+                            <h3 class="text-xs font-bold text-[var(--institutional-primary)] uppercase tracking-wider mb-1">Docente</h3>
                             <p class="text-md font-medium text-gray-900">{{ teacher?.name || 'Sin docente' }}</p>
                         </div>
                         <div>
-                            <h3 class="text-xs font-bold text-[#1B396A] uppercase tracking-wider mb-1">Instituto</h3>
+                            <h3 class="text-xs font-bold text-[var(--institutional-primary)] uppercase tracking-wider mb-1">Instituto</h3>
                             <p class="text-md font-medium text-gray-900">{{ teacher?.institution?.name || application.campus || application.data?.campus || 'N/A' }}</p>
                         </div>
                         <div>
-                            <h3 class="text-xs font-bold text-[#1B396A] uppercase tracking-wider mb-1">Tipo de Plaza</h3>
+                            <h3 class="text-xs font-bold text-[var(--institutional-primary)] uppercase tracking-wider mb-1">Tipo de Plaza</h3>
                             <p class="text-md font-medium text-gray-900">{{ application.position_full_type || application.data?.position_full_type || 'No especificado' }}</p>
                         </div>
                     </div>
@@ -139,7 +139,7 @@ const currentScore = computed(() => {
 
                 <!-- Main Content Grid -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="bg-[#1B396A] px-4 sm:px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-white">
+                    <div class="bg-[var(--institutional-primary)] px-4 sm:px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-white">
                         <div>
                             <h2 class="font-bold text-lg">Criterios Seleccionados</h2>
                             <p class="text-blue-100 text-sm">Vista solo lectura de las calificaciones emitidas</p>

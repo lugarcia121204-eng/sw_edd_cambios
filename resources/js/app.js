@@ -1,3 +1,5 @@
+import { applyTheme } from '@/config/theme.config';
+applyTheme();
 import '../css/app.css';
 
 

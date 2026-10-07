@@ -176,39 +176,17 @@ export const roleSectionLabels = {
 // ─────────────────────────────────────────────────────────────────────────────
 export const menuConfigs = {
     superAdmin: [
-        { type: "section", label: "Inicio" },
-        {
-            label: "Inicio",
-            route: "superadmin.dashboard",
-            icon: mdiHome,
-        },
-        { type: "section", label: "Administración" },
-        {
-            label: "Control de Solicitudes",
-            route: "superadmin.control-applications",
-            icon: mdiFileDocumentMultiple,
-        },
-        {
-            label: "Convocatorias",
-            route: "announcements.index",
-            icon: mdiBullhorn,
-            permission: "announcements.index",
-        },
-        {
-            label: "Seguridad",
-            icon: mdiSecurity,
-            items: getSecurityItems("security."),
-        },
-        {
-            label: "Catálogo",
-            icon: mdiBookOpenPageVariant,
-            items: getCatalogItems("catalog."),
-        },
-        {
-            label: "Respaldos",
-            route: "superadmin.backup.index",
-            icon: mdiDatabase,
-        },
+        { label: "Inicio", icon: mdiHome, iconName: "Home", items: [{ label: "Panel principal", route: "superadmin.dashboard", icon: mdiHome, iconName: "Home" }] },
+        { label: "Administración", icon: mdiOfficeBuilding, iconName: "Building2", items: [
+            { label: "Control de Solicitudes", route: "superadmin.control-applications", icon: mdiFileDocumentMultiple, iconName: "FileText" },
+            { label: "Convocatorias", route: "announcements.index", icon: mdiBullhorn, iconName: "Megaphone", permission: "announcements.index" },
+        ] },
+        { label: "Seguridad", icon: mdiSecurity, iconName: "Shield", items: getSecurityItems("security.").map((item, index) => ({ ...item, iconName: ["Layers", "Lock", "KeyRound", "Users"][index] })) },
+        { label: "Catálogos", icon: mdiBookOpenPageVariant, iconName: "Folder", items: [
+            ...getCatalogItems("catalog.").map((item, index) => ({ ...item, label: index === 4 ? "Rúbricas" : item.label, iconName: ["Building2", "Lightbulb", "ListTree", "FileText", "ClipboardList", "Files"][index] })),
+            { label: "Documentos de Trabajo", route: "catalog.admin.documents.index", icon: mdiFileDocumentMultiple, iconName: "FileText", permission: "documents.index" },
+        ] },
+        { label: "Respaldos", route: "superadmin.backup.index", icon: mdiDatabase, iconName: "Database" },
     ],
     admin: [
         { type: "section", label: "Inicio" },

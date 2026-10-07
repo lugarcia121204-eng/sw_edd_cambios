@@ -81,14 +81,14 @@ const submit = () => {
                     <div class="p-5 sm:p-8 lg:p-10 space-y-6 sm:space-y-7 flex flex-col justify-center">
                         <!-- Title -->
                         <div class="text-center">
-                            <h2 class="text-2xl sm:text-3xl text-[#1B396A] font-semibold">Iniciar sesión</h2>
+                            <h2 class="text-2xl sm:text-3xl text-[var(--institutional-primary)] font-semibold">Iniciar sesión</h2>
                         </div>
 
                         <!-- Form -->
                         <form @submit.prevent="submit" class="space-y-5">
                             <!-- Email -->
                             <div>
-                                <label for="email" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="email" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Correo Electrónico:
                                 </label>
                                 <input
@@ -97,7 +97,7 @@ const submit = () => {
                                     type="email"
                                     autofocus
                                     autocomplete="email"
-                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                     :class="{ 'border-b-red-500': form.errors.email }"
                                     placeholder="admin@example.com"
                                     @input="clearError('email')"
@@ -115,7 +115,7 @@ const submit = () => {
 
                             <!-- Password -->
                             <div>
-                                <label for="password" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="password" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Contraseña:
                                 </label>
                                 <div class="relative">
@@ -124,7 +124,7 @@ const submit = () => {
                                         v-model="form.password"
                                         :type="showPassword ? 'text' : 'password'"
                                         autocomplete="current-password"
-                                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                        class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 pr-10 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                         :class="{ 'border-b-red-500': form.errors.password }"
                                         placeholder="••••••••"
                                         @input="clearError('password')"
@@ -154,7 +154,7 @@ const submit = () => {
                                 <Link
                                     v-if="canResetPassword"
                                     :href="route('password.request')"
-                                    class="text-sm text-[#1B396A] hover:text-[#0f2347] hover:underline transition"
+                                    class="text-sm text-[var(--institutional-primary)] hover:text-[#0f2347] hover:underline transition"
                                 >
                                     ¿Has olvidado tu contraseña?
                                 </Link>
@@ -178,7 +178,7 @@ const submit = () => {
                                     ¿No tienes una cuenta?
                                     <Link
                                         :href="route('register')"
-                                        class="font-medium text-[#1B396A] hover:text-[#0f2347] hover:underline transition"
+                                        class="font-medium text-[var(--institutional-primary)] hover:text-[#0f2347] hover:underline transition"
                                     >
                                         Regístrate
                                     </Link>
@@ -194,7 +194,7 @@ const submit = () => {
                             alt="Estudiantes del TecNM" 
                             class="absolute inset-0 w-full h-full object-cover"
                         />
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#1B396A]/90 via-[#1B396A]/40 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[var(--institutional-primary)]/90 via-[var(--institutional-primary)]/40 to-transparent"></div>
                         <div class="relative z-10 flex flex-col justify-end p-6 xl:p-10 text-white">
                             <div class="space-y-4">
                                 <h3 class="text-2xl xl:text-3xl font-bold drop-shadow-lg">
@@ -211,7 +211,7 @@ const submit = () => {
                                         </div>
                                         <Link
                                             :href="route('register')"
-                                            class="inline-block bg-white text-[#1B396A] font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition shadow-lg transform hover:-translate-y-1 hover:shadow-xl"
+                                            class="inline-block bg-white text-[var(--institutional-primary)] font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition shadow-lg transform hover:-translate-y-1 hover:shadow-xl"
                                         >
                                             Regístrate
                                         </Link>

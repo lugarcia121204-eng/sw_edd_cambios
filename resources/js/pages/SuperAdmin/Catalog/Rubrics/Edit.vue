@@ -165,7 +165,7 @@ const submit = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="#9CA3AF">
                             <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
                         </svg>
-                        <Link :href="route('catalog.rubrics.index')" class="text-gray-700 font-medium hover:text-[#1B396A] transition flex items-center gap-1.5">
+                        <Link :href="route('catalog.rubrics.index')" class="text-gray-700 font-medium hover:text-[var(--institutional-primary)] transition flex items-center gap-1.5">
                             <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" style="fill: #6B7280;">
                                 <path :d="mdiClipboardTextOutline"/>
                             </svg>
@@ -190,8 +190,8 @@ const submit = () => {
                 <form @submit.prevent="submit" class="space-y-6">
                      <!-- Título -->
                     <div>
-                        <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Título de la Rúbrica: <span class="text-red-500">*</span></label>
-                        <input v-model="form.title" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.title }" placeholder="Escribe el titulo..." @input="clearError('title')">
+                        <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Título de la Rúbrica: <span class="text-red-500">*</span></label>
+                        <input v-model="form.title" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.title }" placeholder="Escribe el titulo..." @input="clearError('title')">
                         <div v-if="!form.errors.title" class="flex items-center gap-1 mt-1 text-xs text-gray-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -204,9 +204,9 @@ const submit = () => {
                     <!-- Preguntas -->
                     <div v-for="(question, qIndex) in form.questions" :key="qIndex" class="border border-gray-200 p-4 rounded-lg bg-gray-50 relative">
                         <div class="mb-4">
-                             <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Pregunta {{ qIndex + 1 }}: <span class="text-red-500">*</span></label>
+                             <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Pregunta {{ qIndex + 1 }}: <span class="text-red-500">*</span></label>
                              <div class="flex gap-2">
-                                 <input v-model="question.text" type="text" class="bg-white border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors[`questions.${qIndex}.text`] }" placeholder="Escribe la pregunta..." @input="clearError(`questions.${qIndex}.text`)">
+                                 <input v-model="question.text" type="text" class="bg-white border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors[`questions.${qIndex}.text`] }" placeholder="Escribe la pregunta..." @input="clearError(`questions.${qIndex}.text`)">
                                  <button type="button" @click="removeQuestion(qIndex)" class="p-2 text-red-600 border border-red-600 rounded-full hover:bg-red-600 hover:text-white transition cursor-pointer" title="Eliminar pregunta">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                  </button>
@@ -215,7 +215,7 @@ const submit = () => {
                         </div>
 
                         <div class="flex justify-start mb-4">
-                            <button type="button" @click="addOption(qIndex)" class="px-3 py-1.5 bg-[#1B396A] text-white rounded text-xs hover:bg-[#0f2347] transition flex items-center gap-1 cursor-pointer">
+                            <button type="button" @click="addOption(qIndex)" class="px-3 py-1.5 bg-[var(--institutional-primary)] text-white rounded text-xs hover:bg-[#0f2347] transition flex items-center gap-1 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                                 Agregar Respuesta
                             </button>
@@ -225,13 +225,13 @@ const submit = () => {
                             <div v-for="(option, oIndex) in question.options" :key="oIndex" class="flex flex-col md:flex-row gap-4 items-start border-b border-gray-100 pb-3 last:border-0 last:pb-0">
                                 <div class="w-full md:flex-1">
                                     <label class="block text-xs font-medium text-gray-500 mb-1">Respuesta {{ oIndex + 1 }}:</label>
-                                    <input v-model="option.text" type="text" class="bg-white border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors[`questions.${qIndex}.options.${oIndex}.text`] }" placeholder="Escribe la respuesta..." @input="clearError(`questions.${qIndex}.options.${oIndex}.text`)">
+                                    <input v-model="option.text" type="text" class="bg-white border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors[`questions.${qIndex}.options.${oIndex}.text`] }" placeholder="Escribe la respuesta..." @input="clearError(`questions.${qIndex}.options.${oIndex}.text`)">
                                     <p v-if="form.errors[`questions.${qIndex}.options.${oIndex}.text`]" class="text-red-600 text-xs mt-1">{{ form.errors[`questions.${qIndex}.options.${oIndex}.text`] }}</p>
                                 </div>
                                 <div class="w-full md:w-32 flex gap-2 items-end">
                                     <div class="flex-1">
                                         <label class="block text-xs font-medium text-gray-500 mb-1">Puntaje (1-5):</label>
-                                         <input v-model="option.score" type="number" class="bg-white border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors[`questions.${qIndex}.options.${oIndex}.score`] }" @input="validateScore(qIndex, oIndex)">
+                                         <input v-model="option.score" type="number" class="bg-white border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors[`questions.${qIndex}.options.${oIndex}.score`] }" @input="validateScore(qIndex, oIndex)">
                                     </div>
                                     <button type="button" @click="removeOption(qIndex, oIndex)" class="p-2 mb-[1px] text-red-600 border border-red-600 rounded-full hover:bg-red-600 hover:text-white transition cursor-pointer" title="Eliminar respuesta">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
@@ -248,7 +248,7 @@ const submit = () => {
                     </div>
 
                     <div class="flex justify-center mt-4 border-t pt-4 border-dashed border-gray-300">
-                         <button type="button" @click="addQuestion" class="px-6 py-2 bg-white text-[#1B396A] border-2 border-[#1B396A] rounded-lg hover:bg-[#1B396A] hover:text-white transition flex items-center gap-2 text-sm font-bold w-full justify-center cursor-pointer">
+                         <button type="button" @click="addQuestion" class="px-6 py-2 bg-white text-[var(--institutional-primary)] border-2 border-[var(--institutional-primary)] rounded-lg hover:bg-[var(--institutional-primary)] hover:text-white transition flex items-center gap-2 text-sm font-bold w-full justify-center cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                             Agregar Nueva Pregunta
                         </button>
@@ -262,7 +262,7 @@ const submit = () => {
                         <Link :href="route('catalog.rubrics.index')" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition">
                             Cancelar
                         </Link>
-                        <button type="submit" :disabled="form.processing" class="px-6 py-2 bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer">
+                        <button type="submit" :disabled="form.processing" class="px-6 py-2 bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer">
                             <span v-if="!form.processing">Actualizar</span>
                             <span v-else>Actualizando...</span>
                         </button>

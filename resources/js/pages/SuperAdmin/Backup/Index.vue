@@ -118,13 +118,13 @@ const deleteBackup = async (id, name) => {
 
                 <!-- Programación -->
                 <Link v-if="canSchedule" :href="route('superadmin.backup.edit')"
-                      class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center gap-2 hover:shadow-md hover:border-[#1B396A] transition-all cursor-pointer group">
-                    <div class="w-12 h-12 rounded-lg bg-[#f3f4f6] flex items-center justify-center group-hover:bg-[#1B396A] transition-colors">
-                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-[#1B396A] group-hover:text-white transition-colors" style="fill:currentColor">
+                      class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center gap-2 hover:shadow-md hover:border-[var(--institutional-primary)] transition-all cursor-pointer group">
+                    <div class="w-12 h-12 rounded-lg bg-[#f3f4f6] flex items-center justify-center group-hover:bg-[var(--institutional-primary)] transition-colors">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-[var(--institutional-primary)] group-hover:text-white transition-colors" style="fill:currentColor">
                             <path :d="mdiDatabaseSync"/>
                         </svg>
                     </div>
-                    <span class="font-bold text-gray-800 group-hover:text-[#1B396A] transition-colors">Programación</span>
+                    <span class="font-bold text-gray-800 group-hover:text-[var(--institutional-primary)] transition-colors">Programación</span>
                     <span class="text-xs text-gray-500 text-center">Configurar respaldos automáticos</span>
                 </Link>
 
@@ -144,7 +144,7 @@ const deleteBackup = async (id, name) => {
             <!-- Stat cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Último Respaldo -->
-                <div class="bg-white border-l-4 border-[#1B396A] rounded-lg shadow-sm p-5 flex items-center justify-between hover:shadow-lg transition-shadow">
+                <div class="bg-white border-l-4 border-[var(--institutional-primary)] rounded-lg shadow-sm p-5 flex items-center justify-between hover:shadow-lg transition-shadow">
                     <div>
                         <p class="text-xs text-gray-500 uppercase tracking-wider font-medium">Último Respaldo</p>
                         <p class="text-lg font-bold text-gray-800 mt-1">{{ stats.last_backup }}</p>
@@ -207,7 +207,7 @@ const deleteBackup = async (id, name) => {
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                             </svg>
                         </div>
-                        <input v-model="search" type="text" placeholder="Buscar..." class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition" />
+                        <input v-model="search" type="text" placeholder="Buscar..." class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition" />
                     </div>
                     <div class="w-full md:w-52 flex-shrink-0">
                         <VueSelect v-model="rows" :options="rowOptions" :reduce="o => o.value" :searchable="false" :clearable="false" placeholder="Registros" class="vue-select-custom" @option:selected="onRowsChange" />
@@ -231,7 +231,7 @@ const deleteBackup = async (id, name) => {
                 <!-- Table -->
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th class="px-6 py-4 tracking-wider">Acción</th>
                                 <th class="px-6 py-4 tracking-wider">Usuario</th>
@@ -307,7 +307,7 @@ const deleteBackup = async (id, name) => {
                                         <button
                                             v-if="canDownload && item.status === 'completed'"
                                             @click="downloadBackup(item.id)"
-                                            class="p-2 text-[#1B396A] border border-[#1B396A] rounded-full hover:bg-[#1B396A] hover:text-white transition cursor-pointer"
+                                            class="p-2 text-[var(--institutional-primary)] border border-[var(--institutional-primary)] rounded-full hover:bg-[var(--institutional-primary)] hover:text-white transition cursor-pointer"
                                             title="Descargar"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">

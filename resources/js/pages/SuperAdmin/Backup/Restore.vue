@@ -195,7 +195,7 @@ const submit = async () => {
                         type="button"
                         @click="activeTab = 'server'"
                         class="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold transition cursor-pointer"
-                        :class="activeTab === 'server' ? 'text-[#1B396A] border-b-2 border-[#1B396A] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
+                        :class="activeTab === 'server' ? 'text-[var(--institutional-primary)] border-b-2 border-[var(--institutional-primary)] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
                     >
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path :d="mdiDatabaseRefresh"/></svg>
                         Desde respaldo del servidor
@@ -204,7 +204,7 @@ const submit = async () => {
                         type="button"
                         @click="activeTab = 'upload'"
                         class="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold transition cursor-pointer"
-                        :class="activeTab === 'upload' ? 'text-[#1B396A] border-b-2 border-[#1B396A] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
+                        :class="activeTab === 'upload' ? 'text-[var(--institutional-primary)] border-b-2 border-[var(--institutional-primary)] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
                     >
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path :d="mdiUpload"/></svg>
                         Desde archivo local
@@ -220,7 +220,7 @@ const submit = async () => {
                         </svg>
                         <p class="text-gray-600 font-semibold text-lg">No hay respaldos disponibles</p>
                         <p class="text-gray-400 text-sm mt-1">Crea al menos un respaldo antes de intentar restaurar.</p>
-                        <Link :href="route('superadmin.backup.create')" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-[#1B396A] text-white text-sm font-semibold rounded-lg hover:bg-[#0f2347] transition">
+                        <Link :href="route('superadmin.backup.create')" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-[var(--institutional-primary)] text-white text-sm font-semibold rounded-lg hover:bg-[#0f2347] transition">
                             Crear Respaldo Manual
                         </Link>
                     </div>
@@ -229,7 +229,7 @@ const submit = async () => {
                     <form v-else @submit.prevent="submit" class="space-y-6">
                     <!-- Selector -->
                     <div>
-                        <label class="block mb-2 text-base text-[#1B396A] font-medium">
+                        <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">
                             Respaldo a Restaurar: <span class="text-red-500">*</span>
                         </label>
                         <VueSelect
@@ -314,7 +314,7 @@ const submit = async () => {
 
                         <!-- Archivo de Respaldo -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium">
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">
                                 Archivo de Respaldo: <span class="text-red-500">*</span>
                             </label>
                             <p class="text-xs text-gray-500 mb-3">Acepta archivos <span class="font-mono font-semibold">.sql</span> (texto plano) y <span class="font-mono font-semibold">.sql.enc</span> (cifrado). Tamaño máximo: 200 MB.</p>
@@ -328,7 +328,7 @@ const submit = async () => {
                                         <p class="text-xs text-gray-600">Tamaño: {{ formatBytes(uploadedFile.size) }}</p>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <label for="archivo-restauracion-change" class="px-4 py-2 bg-[#1B396A] text-white text-sm rounded hover:bg-[#0f2347] transition cursor-pointer">
+                                        <label for="archivo-restauracion-change" class="px-4 py-2 bg-[var(--institutional-primary)] text-white text-sm rounded hover:bg-[#0f2347] transition cursor-pointer">
                                             Cambiar Archivo
                                         </label>
                                         <button type="button" @click="removeUploadedFile"
@@ -357,10 +357,10 @@ const submit = async () => {
                                     @dragleave.prevent="isDragging = false"
                                     @drop.prevent="onDrop"
                                     class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer transition-all"
-                                    :class="isDragging ? 'border-[#1B396A] bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE]' : 'bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[#1B396A]'"
+                                    :class="isDragging ? 'border-[var(--institutional-primary)] bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE]' : 'bg-gradient-to-br from-[#F3F4F6] to-[#E5E7EB] hover:bg-gradient-to-br hover:from-[#EFF6FF] hover:to-[#DBEAFE] hover:border-[var(--institutional-primary)]'"
                                 >
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-10 h-10 mb-3 text-[#1B396A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-10 h-10 mb-3 text-[var(--institutional-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                         </svg>
                                         <p class="mb-2 text-sm text-gray-700">

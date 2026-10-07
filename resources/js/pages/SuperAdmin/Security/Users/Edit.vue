@@ -113,8 +113,8 @@ const submit = () => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nombre -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Nombre Completo: <span class="text-red-500">*</span></label>
-                            <input v-model="form.name" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.name }" placeholder="Nombre completo del usuario" @input="clearError('name')" />
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Nombre Completo: <span class="text-red-500">*</span></label>
+                            <input v-model="form.name" type="text" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.name }" placeholder="Nombre completo del usuario" @input="clearError('name')" />
                             <div v-if="!form.errors.name" class="flex items-center gap-1 mt-1 text-xs text-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -126,8 +126,8 @@ const submit = () => {
                         
                          <!-- Correo -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Correo Electrónico: <span class="text-red-500">*</span></label>
-                            <input v-model="form.email" type="email" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.email }" placeholder="correo@ejemplo.com" @input="clearError('email')" />
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Correo Electrónico: <span class="text-red-500">*</span></label>
+                            <input v-model="form.email" type="email" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.email }" placeholder="correo@ejemplo.com" @input="clearError('email')" />
                             <div v-if="!form.errors.email" class="flex items-center gap-1 mt-1 text-xs text-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -139,8 +139,8 @@ const submit = () => {
 
                          <!-- Contraseña -->
                         <div>
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">Contraseña: <span class="text-gray-500">(Opcional)</span></label>
-                            <input v-model="form.password" type="password" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]" :class="{ 'border-b-red-500': form.errors.password }" placeholder="Dejar en blanco para mantener actual" @input="clearError('password')" />
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Contraseña: <span class="text-gray-500">(Opcional)</span></label>
+                            <input v-model="form.password" type="password" class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]" :class="{ 'border-b-red-500': form.errors.password }" placeholder="Dejar en blanco para mantener actual" @input="clearError('password')" />
                             <div v-if="!form.errors.password" class="flex items-center gap-1 mt-1 text-xs text-gray-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -152,14 +152,14 @@ const submit = () => {
 
                         <!-- Roles (selección múltiple card-style) -->
                         <div>
-                            <label class="block mb-3 text-base text-[#1B396A] font-medium text-gray-900">Asignar Roles: <span class="text-red-500">*</span></label>
+                            <label class="block mb-3 text-base text-[var(--institutional-primary)] font-medium text-gray-900">Asignar Roles: <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 <label
                                     v-for="rol in roles"
                                     :key="rol.id"
                                     :for="`rol-${rol.id}`"
                                     class="flex items-center ps-4 bg-white rounded-lg shadow-sm cursor-pointer transition"
-                                    :class="form.roles.includes(rol.id) ? 'border-[#1B396A]' : 'border-gray-50 hover:border-gray-300'"
+                                    :class="form.roles.includes(rol.id) ? 'border-[var(--institutional-primary)]' : 'border-gray-50 hover:border-gray-300'"
                                 >
                                     <div class="relative flex items-center justify-center">
                                         <input
@@ -196,7 +196,7 @@ const submit = () => {
                         <Link :href="route(`${routeName}index`)" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition">
                             Cancelar
                         </Link>
-                        <button :disabled="form.processing" type="submit" class="px-6 py-2 bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer">
+                        <button :disabled="form.processing" type="submit" class="px-6 py-2 bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium cursor-pointer">
                             <span v-if="!form.processing">Actualizar</span>
                             <span v-else>Guardando...</span>
                         </button>

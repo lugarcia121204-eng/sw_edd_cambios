@@ -98,7 +98,7 @@ const submitContact = async () => {
         <Head title="Contacto" />
 
         <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-[#1B396A] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section class="relative bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
             <!-- Decorative circles -->
             <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
             <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
@@ -117,7 +117,7 @@ const submitContact = async () => {
 
                         <!-- Título -->
                         <div class="text-center">
-                            <h2 class="text-2xl font-bold text-[#1B396A]">
+                            <h2 class="text-2xl font-bold text-[var(--institutional-primary)]">
                                 Envíanos un mensaje
                             </h2>
                             <p class="text-sm text-gray-600 mt-2">Completa el formulario y nos pondremos en contacto contigo</p>
@@ -127,14 +127,14 @@ const submitContact = async () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                             <!-- Nombre -->
                             <div>
-                                <label for="name" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="name" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Nombre completo: <span class="text-red-500">*</span>
                                 </label>
                                 <input
                                     v-model="contactForm.name"
                                     type="text"
                                     id="name"
-                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                     :class="{ 'border-b-red-500': errors.name }"
                                     placeholder="Tu Nombre Completo"
                                     @input="clearError('name')"
@@ -152,14 +152,14 @@ const submitContact = async () => {
 
                             <!-- Email -->
                             <div>
-                                <label for="email" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                                <label for="email" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                     Correo electrónico: <span class="text-red-500">*</span>
                                 </label>
                                 <input
                                     v-model="contactForm.email"
                                     type="email"
                                     id="email"
-                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                    class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                     :class="{ 'border-b-red-500': errors.email }"
                                     @input="clearError('email')"
                                     placeholder="admin@ejemplo.com"
@@ -178,7 +178,7 @@ const submitContact = async () => {
 
                         <!-- Institución -->
                         <div>
-                            <label for="institution_id" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label for="institution_id" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Nombre de la Institución de Procedencia: <span class="text-red-500">*</span>
                             </label>
                             <VueSelect
@@ -212,14 +212,14 @@ const submitContact = async () => {
 
                         <!-- Mensaje -->
                         <div>
-                            <label for="message" class="block mb-2 text-base text-[#1B396A] font-medium text-gray-900">
+                            <label for="message" class="block mb-2 text-base text-[var(--institutional-primary)] font-medium text-gray-900">
                                 Comentarios o dudas: <span class="text-red-500">*</span>
                             </label>
                             <textarea
                                 v-model="contactForm.message"
                                 id="message"
                                 rows="5"
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                 :class="{ 'border-b-red-500': errors.message }"
                                 @input="clearError('message')"
                                 placeholder="Escribe tu mensaje aquí..."
@@ -244,7 +244,7 @@ const submitContact = async () => {
                             <button
                                 type="submit"
                                 :disabled="loading"
-                                class="w-full sm:w-auto px-6 py-2 bg-[#1B396A] cursor-pointer text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                class="w-full sm:w-auto px-6 py-2 bg-[var(--institutional-primary)] cursor-pointer text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
                                 <span v-if="!loading">Enviar mensaje</span>
                                 <span v-else>Enviando...</span>

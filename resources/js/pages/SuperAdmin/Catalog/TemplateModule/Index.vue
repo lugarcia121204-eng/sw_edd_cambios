@@ -231,7 +231,7 @@ const switchTab = (tab) => {
                     <Link 
                         v-if="useCan('templates.create')"
                         :href="route('catalog.templates.create', { type: activeTab })"
-                        class="w-full sm:w-auto justify-center px-4 py-2.5 bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition flex items-center gap-2 font-medium cursor-pointer"
+                        class="w-full sm:w-auto justify-center px-4 py-2.5 bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition flex items-center gap-2 font-medium cursor-pointer"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                             <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
@@ -248,7 +248,7 @@ const switchTab = (tab) => {
                         type="button"
                         @click="switchTab('recognition')"
                         class="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold transition cursor-pointer"
-                        :class="activeTab === 'recognition' ? 'text-[#1B396A] border-b-2 border-[#1B396A] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
+                        :class="activeTab === 'recognition' ? 'text-[var(--institutional-primary)] border-b-2 border-[var(--institutional-primary)] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
                     >
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <path :d="mdiStar"/>
@@ -259,7 +259,7 @@ const switchTab = (tab) => {
                         type="button"
                         @click="switchTab('acceptance')"
                         class="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold transition cursor-pointer border-l border-gray-200"
-                        :class="activeTab === 'acceptance' ? 'text-[#1B396A] border-b-2 border-[#1B396A] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
+                        :class="activeTab === 'acceptance' ? 'text-[var(--institutional-primary)] border-b-2 border-[var(--institutional-primary)] bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'"
                     >
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <path :d="mdiSchool"/>
@@ -293,7 +293,7 @@ const switchTab = (tab) => {
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                             </svg>
                         </div>
-                        <input v-model="search" type="text" placeholder="Buscar..." class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[#1B396A] focus:ring focus:ring-[#1B396A] focus:ring-opacity-20 hover:bg-gray-50 transition" />
+                        <input v-model="search" type="text" placeholder="Buscar..." class="pl-10 w-full h-[45px] rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition" />
                     </div>
                     <div class="w-full md:w-52 flex-shrink-0">
                         <VueSelect
@@ -314,7 +314,7 @@ const switchTab = (tab) => {
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
-                        <thead class="bg-[#1B396A] text-white uppercase text-xs font-semibold">
+                        <thead class="bg-[var(--institutional-primary)] text-white uppercase text-xs font-semibold">
                             <tr>
                                 <th scope="col" class="px-6 py-4 tracking-wider w-16 text-center">ID</th>
                                 <th scope="col" class="px-6 py-4 tracking-wider">Nombre</th>
@@ -359,7 +359,7 @@ const switchTab = (tab) => {
                                                 class="sr-only peer" 
                                                 :disabled="!useCan('templates.edit')"
                                             />
-                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1B396A]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1B396A]"></div>
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[var(--institutional-primary)]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--institutional-primary)]"></div>
                                         </label>
                                     </td>
                                     <td class="px-6 py-4 text-center">
@@ -368,7 +368,7 @@ const switchTab = (tab) => {
                                             <button 
                                                 @click="useCan('templates.edit') ? toggleEdit(template) : togglePreview(template.id)"
                                                 class="inline-flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg font-bold transition cursor-pointer text-sm whitespace-nowrap"
-                                                :class="expandedRows[template.id] ? 'bg-[#1B396A] text-white border-[#1B396A]' : 'text-[#1B396A] border-[#1B396A] hover:bg-[#1B396A] hover:text-white'"
+                                                :class="expandedRows[template.id] ? 'bg-[var(--institutional-primary)] text-white border-[var(--institutional-primary)]' : 'text-[var(--institutional-primary)] border-[var(--institutional-primary)] hover:bg-[var(--institutional-primary)] hover:text-white'"
                                                 title="Configurar y Ver Plantilla"
                                             >
                                                 <svg v-if="!(expandedRows[template.id])" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
@@ -399,7 +399,7 @@ const switchTab = (tab) => {
                                     <td colspan="5" class="px-6 py-6 border-b border-gray-200" :class="editingTemplateId === template.id ? 'bg-white' : 'bg-gray-50'">
                                         <div class="flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
                                             <div class="flex justify-between items-center">
-                                                <h3 class="font-bold text-[#1B396A] text-lg">
+                                                <h3 class="font-bold text-[var(--institutional-primary)] text-lg">
                                                     {{ editingTemplateId === template.id ? 'Configurar Textos Oficiales de: ' : 'Vista Previa de Planta: ' }} "{{ template.name }}"
                                                 </h3>
                                                 <button @click="togglePreview(template.id)" class="text-gray-400 hover:text-gray-600 p-1.5 hover:bg-gray-100 rounded-lg transition cursor-pointer" title="Cerrar vista previa">
@@ -419,14 +419,14 @@ const switchTab = (tab) => {
                                                             <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/>
                                                         </svg>
                                                             <div class="flex items-center gap-2 mb-4 mt-6">
-                                                                <h4 class="font-bold text-[#1B396A]">Modo Edición Visual</h4>
+                                                                <h4 class="font-bold text-[var(--institutional-primary)]">Modo Edición Visual</h4>
                                                                 <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded border border-blue-200">Haz clic sobre los recuadros para editar.</span>
                                                             </div>
                                                     </div>
                                                     <button 
                                                         @click="saveTemplateContent(template.id)" 
                                                         :disabled="editForm.processing"
-                                                        class="flex justify-center py-2.5 px-6 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-[#1B396A] hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B396A] disabled:opacity-50 transition items-center gap-2 cursor-pointer h-fit"
+                                                        class="flex justify-center py-2.5 px-6 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-[var(--institutional-primary)] hover:bg-[#0f2347] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--institutional-primary)] disabled:opacity-50 transition items-center gap-2 cursor-pointer h-fit"
                                                     >
                                                         <svg v-if="editForm.processing" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

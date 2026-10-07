@@ -82,12 +82,12 @@ const submit = () => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nombre -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium">Nombre del Respaldo: <span class="text-red-500">*</span></label>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Nombre del Respaldo: <span class="text-red-500">*</span></label>
                             <input
                                 v-model="form.name"
                                 type="text"
                                 placeholder="Ej: Respaldo pre-actualización"
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A]"
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
                                 :class="{ 'border-b-red-500': form.errors.name }"
                             />
                             <div v-if="!form.errors.name" class="flex items-center gap-1 mt-1 text-xs text-gray-500">
@@ -101,14 +101,14 @@ const submit = () => {
 
                         <!-- Descripción -->
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block mb-2 text-base text-[#1B396A] font-medium">Descripción:</label>
+                            <label class="block mb-2 text-base text-[var(--institutional-primary)] font-medium">Descripción:</label>
                             <textarea
                                 v-model="form.description"
                                 rows="4"
                                 maxlength="255"
                                 placeholder="Describe el motivo o contexto de este respaldo..."
                                 @input="descLength = form.description.length"
-                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[#1B396A] resize-none"
+                                class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)] resize-none"
                                 :class="{ 'border-b-red-500': form.errors.description }"
                             ></textarea>
                             <div class="flex items-center justify-between mt-1">
@@ -152,19 +152,19 @@ const submit = () => {
                     </div>
                     </Transition>
                     <div>
-                        <label class="block mb-3 text-base text-[#1B396A] font-medium">Tipo de Respaldo:</label>
+                        <label class="block mb-3 text-base text-[var(--institutional-primary)] font-medium">Tipo de Respaldo:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <!-- Completo -->
                             <button
                                 type="button"
                                 @click="form.backup_mode = 'full'"
                                 :class="form.backup_mode === 'full'
-                                    ? 'border-[#1B396A] bg-[#1B396A]/5 ring-2 ring-[#1B396A]/30'
+                                    ? 'border-[var(--institutional-primary)] bg-[var(--institutional-primary)]/5 ring-2 ring-[var(--institutional-primary)]/30'
                                     : 'border-gray-200 bg-gray-50 hover:border-gray-300'"
                                 class="flex items-start gap-4 p-4 rounded-lg border-2 text-left transition-all cursor-pointer"
                             >
                                 <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
-                                    :class="form.backup_mode === 'full' ? 'bg-[#1B396A]' : 'bg-gray-200'">
+                                    :class="form.backup_mode === 'full' ? 'bg-[var(--institutional-primary)]' : 'bg-gray-200'">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                                         :fill="form.backup_mode === 'full' ? 'white' : '#9CA3AF'">
                                         <path d="M160-160v-80h80v80h-80Zm160 0v-80h80v80h-80Zm-160-160v-80h80v80h-80Zm0-160v-80h80v80h-80Zm0-160v-80h80v80h-80Zm160 320v-80h80v80h-80Zm160 0v-80h80v80h-80Zm160 160v-80h80v80h-80Zm0-160v-80h80v80h-80Zm0-160v-80h80v80h-80ZM320-640v-80h80v80h-80Zm160 480v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm160-320v-80h80v80h-80Zm160 0v-80h80v80h-80Z"/>
@@ -182,7 +182,7 @@ const submit = () => {
                                 :class="!hasFullBackup
                                     ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
                                     : form.backup_mode === 'incremental'
-                                        ? 'border-[#1B396A] bg-[#1B396A]/5 ring-2 ring-[#1B396A]/30 cursor-pointer'
+                                        ? 'border-[var(--institutional-primary)] bg-[var(--institutional-primary)]/5 ring-2 ring-[var(--institutional-primary)]/30 cursor-pointer'
                                         : 'border-gray-200 bg-gray-50 hover:border-gray-300 cursor-pointer'"
                                 class="relative flex items-start gap-4 p-4 rounded-lg border-2 text-left transition-all"
                             >
@@ -192,7 +192,7 @@ const submit = () => {
                                     </svg>
                                 </div>
                                 <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
-                                    :class="form.backup_mode === 'incremental' ? 'bg-[#1B396A]' : 'bg-gray-200'">
+                                    :class="form.backup_mode === 'incremental' ? 'bg-[var(--institutional-primary)]' : 'bg-gray-200'">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                                         :fill="form.backup_mode === 'incremental' ? 'white' : '#9CA3AF'">
                                         <path d="M480-120 200-272v-200L80-536l400-224 400 224v320h-80v-276l-120 67v200L480-120Zm0-332 274-153-274-154-274 154 274 153Zm0 241 160-89v-151L480-321 320-411v151l160 89Zm0-241Zm0 90Zm0 0Z"/>
@@ -210,7 +210,7 @@ const submit = () => {
                     <!-- Cifrado del Archivo -->
                     <div class="flex items-center justify-between py-4 px-5 bg-gray-50 rounded-lg border border-gray-200">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full flex items-center justify-center" :class="form.encrypted ? 'bg-[#1B396A]' : 'bg-gray-200'">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center" :class="form.encrypted ? 'bg-[var(--institutional-primary)]' : 'bg-gray-200'">
                                 <svg viewBox="0 0 24 24" class="w-5 h-5" :style="{ fill: form.encrypted ? 'white' : '#6B7280' }">
                                     <path :d="form.encrypted ? mdiLock : mdiLockOff"/>
                                 </svg>
@@ -224,7 +224,7 @@ const submit = () => {
                             type="button"
                             @click="form.encrypted = !form.encrypted"
                             class="relative inline-flex w-14 h-7 items-center rounded-full transition-colors focus:outline-none cursor-pointer"
-                            :class="form.encrypted ? 'bg-[#1B396A]' : 'bg-gray-300'"
+                            :class="form.encrypted ? 'bg-[var(--institutional-primary)]' : 'bg-gray-300'"
                         >
                             <span
                                 class="inline-block w-5 h-5 bg-white rounded-full shadow-md transform transition-transform"
@@ -234,12 +234,12 @@ const submit = () => {
                     </div>
 
                     <!-- Info note -->
-                    <div v-if="showInfo" class="flex items-start gap-4 px-5 py-4 bg-white border border-gray-200 border-l-4 border-l-[#1B396A] rounded-lg shadow-sm">
+                    <div v-if="showInfo" class="flex items-start gap-4 px-5 py-4 bg-white border border-gray-200 border-l-4 border-l-[var(--institutional-primary)] rounded-lg shadow-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1B396A" class="flex-shrink-0 mt-0.5">
                             <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
                         </svg>
                         <div class="flex-1">
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-[#1B396A] mb-0.5">Instrucciones</p>
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--institutional-primary)] mb-0.5">Instrucciones</p>
                             <p v-if="form.backup_mode === 'full'" class="text-sm text-gray-800 font-medium">El respaldo incluye la <strong>base de datos completa</strong>: esquema, datos, rutinas almacenadas, triggers y eventos. El proceso puede tardar unos momentos dependiendo del tamaño de los datos.</p>
                             <p v-else class="text-sm text-gray-800 font-medium">Solo se respaldarán los <strong>registros nuevos o modificados</strong> desde el último respaldo completo. <span class="text-amber-600 font-semibold">Requiere que exista un respaldo Completo previo</span> como línea base.</p>
                         </div>
@@ -258,7 +258,7 @@ const submit = () => {
                             v-if="canCreate"
                             type="submit"
                             :disabled="form.processing"
-                            class="px-6 py-2 cursor-pointer bg-[#1B396A] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium"
+                            class="px-6 py-2 cursor-pointer bg-[var(--institutional-primary)] text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl disabled:opacity-75 flex items-center gap-2 font-medium"
                         >
                             <span v-if="!form.processing">Ejecutar Respaldo Ahora</span>
                             <span v-else>Ejecutando...</span>

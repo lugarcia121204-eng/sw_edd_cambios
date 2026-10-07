@@ -114,7 +114,7 @@ const isStageEvaluacion = computed(() => {
                         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" style="fill: #1B396A;">
                             <path :d="mdiFileDocumentMultiple"/>
                         </svg>
-                        <Link :href="route('admin.applications.index')" class="text-gray-700 font-medium hover:text-[#1B396A]">Solicitudes</Link>
+                        <Link :href="route('admin.applications.index')" class="text-gray-700 font-medium hover:text-[var(--institutional-primary)]">Solicitudes</Link>
                          <svg xmlns="http://www.w3.org/2000/svg" height="12px" viewBox="0 -960 960 960" width="12px" fill="#9CA3AF">
                             <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
                         </svg>
@@ -238,7 +238,7 @@ const isStageEvaluacion = computed(() => {
                         <!-- Table of Selected Evaluators -->
                         <div class="overflow-x-auto border border-gray-200 rounded-lg">
                             <table class="min-w-[720px] w-full divide-y divide-gray-200">
-                                <thead class="bg-[#1B396A]">
+                                <thead class="bg-[var(--institutional-primary)]">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider w-16">
                                             ID
@@ -296,7 +296,7 @@ const isStageEvaluacion = computed(() => {
                             </Link>
                             <button 
                                 type="submit" 
-                                class="w-full sm:w-auto px-6 py-2.5 bg-[#1B396A] text-white rounded-lg font-bold uppercase text-[11px] tracking-wider hover:bg-[#152d47] transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+                                class="w-full sm:w-auto px-6 py-2.5 bg-[var(--institutional-primary)] text-white rounded-lg font-bold uppercase text-[11px] tracking-wider hover:bg-[var(--institutional-primary-dark)] transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
                                 :disabled="form.processing || selectedEvaluators.length === 0"
                             >
                                 <svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor"><path :d="mdiAccountPlus"/></svg>
