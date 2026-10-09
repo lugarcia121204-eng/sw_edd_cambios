@@ -1,7 +1,8 @@
 <script setup>
-import { Head, router } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { Award, Search, UserRound, Hash, Info, LoaderCircle, Eye, Download } from 'lucide-vue-next';
 
 const props = defineProps({
     recognitions: {
@@ -28,12 +29,15 @@ const toggleViewer = (rec) => {
     expandedRec.value = expandedRec.value?.id === rec.id ? null : rec;
 };
 
+const hasCriteria = computed(() => Boolean(curp.value.trim() || name.value.trim() || folio.value.trim()));
+
 const search = () => {
-    if (!curp.value && !name.value && !folio.value) return;
+    if (loading.value || !hasCriteria.value) return;
+    expandedRec.value = null;
     loading.value = true;
     router.get(
         route('recognitions.search'),
-        { curp: curp.value, name: name.value, folio: folio.value },
+        { curp: curp.value.trim(), name: name.value.trim(), folio: folio.value.trim() },
         {
             preserveState: true,
             replace: true,
@@ -43,6 +47,7 @@ const search = () => {
 };
 
 const clearFilters = () => {
+    expandedRec.value = null;
     curp.value  = '';
     name.value  = '';
     folio.value = '';
@@ -72,139 +77,24 @@ const typeIcon = (type) => {
     <LandingLayout>
         <Head title="Buscador de Reconocimientos" />
 
-        <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] py-10 sm:py-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
-            <!-- Decorative circles -->
-            <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
-            <div class="absolute top-1/2 left-1/4 w-48 h-48 bg-white/[0.03] rounded-full -translate-y-1/2"></div>
-
-            <div class="relative max-w-4xl mx-auto text-center">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-                    Buscador de Reconocimientos
-                </h1>
-                <p class="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
-                    Encuentra fácilmente los reconocimientos que has obtenido a través de tu participación
-                    en convocatorias organizadas por el TecNM.
-                </p>
-            </div>
-        </section>
-
+        <section class="recognition-hero"><div class="recognition-container">
+            <nav class="recognition-breadcrumb" aria-label="Ruta de navegación"><Link :href="route('inicio')">Inicio</Link><span aria-hidden="true">/</span><span>Reconocimientos</span></nav>
+            <div class="recognition-hero-content"><div><span class="recognition-eyebrow">CONSULTA DE DOCUMENTOS</span><h1>Buscador de Reconocimientos</h1><p>Encuentra fácilmente los reconocimientos que has obtenido a través de tu participación en convocatorias organizadas por el TecNM.</p></div><span class="recognition-hero-icon" aria-hidden="true"><Award :size="44" :stroke-width="1.4" /></span></div>
+        </div></section>
         <!-- Search Section -->
-        <section class="bg-gray-50 py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto">
+        <section class="recognition-content">
+            <div class="recognition-container">
 
-                <!-- Search Card -->
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-                    <!-- Card Header -->
-                    <div class="bg-gradient-to-r from-[var(--institutional-primary)] to-[#2B4A7E] px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-white/80">
-                            <path d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z"/>
-                        </svg>
-                        <h2 class="text-white font-semibold text-lg">Criterios de Búsqueda</h2>
-                        <span class="text-blue-200 text-sm sm:ml-auto">Ingresa al menos un criterio</span>
+                <form class="recognition-search-card" @submit.prevent="search" :aria-busy="loading">
+                    <div class="search-card-heading"><span class="search-heading-icon"><Search :size="25" /></span><div><span class="search-card-eyebrow">LOCALIZA TU DOCUMENTO</span><h2>Criterios de Búsqueda</h2><p>Ingresa al menos un criterio para consultar tus documentos.</p></div></div>
+                    <div class="recognition-fields">
+                        <div class="recognition-field"><label for="recognition-curp">CURP</label><div class="recognition-input"><UserRound :size="19" /><input id="recognition-curp" v-model="curp" type="text" maxlength="18" placeholder="Ej. ABCD010101HXXXXX01" @input="curp = curp.toUpperCase()" spellcheck="false" aria-describedby="curp-help" /></div><p id="curp-help" class="field-help">Ingresa los 18 caracteres de tu CURP.</p></div>
+                        <div class="recognition-field"><label for="recognition-name">Nombre Completo</label><div class="recognition-input"><UserRound :size="19" /><input id="recognition-name" v-model="name" type="text" placeholder="Ej. JUAN PÉREZ GARCÍA" @input="name = name.toUpperCase()" aria-describedby="name-help" /></div><p id="name-help" class="field-help">Busca con el nombre del participante.</p></div>
+                        <div class="recognition-field"><label for="recognition-folio">Folio / Identificador</label><div class="recognition-input"><Hash :size="19" /><input id="recognition-folio" v-model="folio" type="text" placeholder="Ej. REC-2025-EV-12-ABCD" @input="folio = folio.toUpperCase()" spellcheck="false" aria-describedby="folio-help" /></div><p id="folio-help" class="field-help">Utiliza el folio de tu reconocimiento.</p></div>
                     </div>
-
-                    <div class="p-4 sm:p-6">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            <!-- CURP -->
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    CURP
-                                </label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[var(--institutional-primary)]">
-                                            <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/>
-                                        </svg>
-                                    </div>
-                                    <input
-                                        v-model="curp"
-                                        type="text"
-                                        placeholder="Ej. ABCD010101HXXXXX01"
-                                        maxlength="18"
-                                        @input="curp = curp.toUpperCase()"
-                                        @keyup.enter="search"
-                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
-                                    />
-                                </div>
-                            </div>
-
-                            <!-- Nombre Completo -->
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    Nombre Completo
-                                </label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[var(--institutional-primary)]">
-                                            <path d="M160-200v-80h640v80H160Zm0-160v-80h640v80H160Zm0-160v-80h640v80H160Zm0-160v-80h640v80H160Z"/>
-                                        </svg>
-                                    </div>
-                                    <input
-                                        v-model="name"
-                                        type="text"
-                                        placeholder="Ej. JUAN PÉREZ GARCÍA"
-                                        @input="name = name.toUpperCase()"
-                                        @keyup.enter="search"
-                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
-                                    />
-                                </div>
-                            </div>
-
-                            <!-- Folio -->
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    Folio / Identificador
-                                </label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-[var(--institutional-primary)]">
-                                            <path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
-                                        </svg>
-                                    </div>
-                                    <input
-                                        v-model="folio"
-                                        type="text"
-                                        placeholder="Ej. REC-2025-EV-12-ABCD"
-                                        @input="folio = folio.toUpperCase()"
-                                        @keyup.enter="search"
-                                        class="pl-10 w-full h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm focus:border-[var(--institutional-primary)] focus:ring focus:ring-[var(--institutional-primary)] focus:ring-opacity-20 hover:bg-gray-50 transition uppercase"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Buttons -->
-                        <div class="flex flex-col sm:flex-row gap-3 mt-6">
-                            <button
-                                @click="search"
-                                :disabled="loading || (!curp && !name && !folio)"
-                                class="flex-1 flex items-center justify-center gap-2 h-[45px] rounded-xl bg-[var(--institutional-primary)] text-white text-sm font-semibold hover:bg-[var(--institutional-primary-dark)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition shadow-sm"
-                            >
-                                <svg v-if="!loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 fill-white">
-                                    <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
-                                </svg>
-                                <svg v-else class="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"/>
-                                    <path class="opacity-75" fill="white" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
-                                </svg>
-                                {{ loading ? 'Buscando...' : 'Buscar Reconocimientos' }}
-                            </button>
-
-                            <button
-                                v-if="searched"
-                                @click="clearFilters"
-                                class="sm:w-44 flex items-center justify-center gap-2 h-[45px] rounded-xl border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50 cursor-pointer transition"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor">
-                                    <path d="M400-240v-80h240v80H400Zm-158 0L15-467l57-57 170 170 366-366 57 57-423 423Zm318-160v-80h240v80H560Zm160-160v-80h240v80H720Z"/>
-                                </svg>
-                                Limpiar
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                    <div class="recognition-search-actions"><span class="search-hint"><Info :size="15" /> Puedes combinar los criterios de búsqueda.</span><div><button v-if="searched || hasCriteria" type="button" @click="clearFilters" :disabled="loading" class="clear-search">Limpiar</button><button type="submit" :disabled="loading || !hasCriteria" class="submit-search"><LoaderCircle v-if="loading" :size="18" class="animate-spin" /><Search v-else :size="18" />{{ loading ? 'Buscando...' : 'Buscar Reconocimientos' }}</button></div></div>
+                </form>
+                <div v-if="!searched" class="recognition-initial"><span class="initial-icon"><Award :size="30" :stroke-width="1.5" /></span><h2>Consulta tus reconocimientos</h2><p>Busca por CURP, nombre completo o folio para encontrar los documentos de tu participación en el programa.</p><div class="initial-steps"><span><Search :size="15" /> Busca tu reconocimiento</span><span><Eye :size="15" /> Consulta el documento</span><span><Download :size="15" /> Descarga tu archivo</span></div></div>
 
                 <!-- Results -->
                 <div v-if="searched" class="mt-8">
@@ -236,7 +126,7 @@ const typeIcon = (type) => {
                             <div
                                 v-for="rec in recognitions"
                                 :key="rec.id"
-                                class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow group"
+                                class="recognition-result bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow group"
                                 :class="{'ring-2 ring-offset-2 ring-[var(--institutional-primary)]': expandedRec?.id === rec.id}"
                             >
                                 <!-- Card Top Accent -->
@@ -252,7 +142,7 @@ const typeIcon = (type) => {
                                             <p class="text-xs text-gray-400 mt-0.5">{{ rec.date || rec.year }}</p>
                                         </div>
                                         <!-- Folio badge -->
-                                        <div class="flex-shrink-0 text-right">
+                                        <div class="recognition-folio flex-shrink-0 text-right">
                                             <span class="text-xs text-gray-400 block">Folio</span>
                                             <span class="text-xs font-mono font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-lg">
                                                 {{ rec.folio }}
@@ -266,13 +156,13 @@ const typeIcon = (type) => {
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-4 h-4 fill-gray-400 flex-shrink-0">
                                                 <path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/>
                                             </svg>
-                                            <span class="font-medium truncate">{{ rec.participant }}</span>
+                                            <span class="font-medium recognition-detail">{{ rec.participant }}</span>
                                         </div>
                                         <div class="flex items-center gap-2 text-sm text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-4 h-4 fill-gray-400 flex-shrink-0">
                                                 <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/>
                                             </svg>
-                                            <span class="truncate">{{ rec.announcement }}</span>
+                                            <span class="recognition-detail">{{ rec.announcement }}</span>
                                         </div>
                                     </div>
 
@@ -307,7 +197,7 @@ const typeIcon = (type) => {
                         </div>
 
                         <!-- Inline PDF Viewer -->
-                        <div v-if="expandedRec" class="mt-5 bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden animate-fadeIn">
+                        <div v-if="expandedRec" class="recognition-viewer mt-5 bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden animate-fadeIn">
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-5 py-3 bg-gray-50 border-b border-gray-200">
                                 <div class="flex items-center gap-3">
                                     <div :class="typeColor(expandedRec.template_type)" class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -336,7 +226,7 @@ const typeIcon = (type) => {
                                 <iframe
                                     :src="route('recognitions.public-download', { identifier: expandedRec.folio })"
                                     class="w-full h-full relative z-10"
-                                    frameborder="0"
+                                    frameborder="0" :title="expandedRec.template_name"
                                 ></iframe>
                             </div>
                         </div>
@@ -349,6 +239,61 @@ const typeIcon = (type) => {
 </template>
 
 <style scoped>
+.recognition-container { max-width:1280px; margin:auto; padding:0 24px; }
+.recognition-hero { color:white; background:linear-gradient(115deg,var(--institutional-primary),var(--institutional-primary-dark)); }
+.recognition-breadcrumb { display:flex; gap:12px; align-items:center; padding-top:26px; font-size:12px; color:#c8d6e9; }
+.recognition-breadcrumb a:hover { color:white; }
+.recognition-hero-content { display:flex; align-items:center; justify-content:space-between; gap:32px; padding:32px 0 40px; }
+.recognition-eyebrow { font-size:11px; font-weight:700; letter-spacing:.13em; color:var(--institutional-gold); }
+.recognition-hero h1 { font-size:clamp(28px,3.4vw,40px); font-weight:750; line-height:1.2; letter-spacing:-.025em; margin:12px 0; }
+.recognition-hero p { max-width:760px; font-size:15px; line-height:1.7; color:#d8e5f6; }
+.recognition-hero-icon { padding:22px; border:1px solid #ffffff25; background:#ffffff08; border-radius:24px; color:#d5e3f6; }
+.recognition-content { --recognition-surface:white; --recognition-text:#142c4d; --recognition-muted:#56677d; --recognition-border:#e2e8f0; --recognition-input:#fafbfd; background:#f5f7fb; padding:36px 0 64px; color:var(--recognition-text); }
+.recognition-search-card { background:var(--recognition-surface); border:1px solid var(--recognition-border); border-radius:22px; padding:0; overflow:hidden; box-shadow:0 12px 36px #1023440a; }
+.search-card-heading { display:flex; align-items:center; gap:18px; padding:26px 30px; background:linear-gradient(110deg,var(--institutional-primary),var(--institutional-primary-dark)); border-top:3px solid var(--institutional-gold); color:white; }
+.search-heading-icon { display:flex; align-items:center; justify-content:center; width:56px; height:56px; border:1px solid #ffffff30; border-radius:16px; background:#ffffff12; color:white; flex-shrink:0; }
+.search-card-eyebrow { display:block; font-size:10px; font-weight:700; letter-spacing:.14em; color:var(--institutional-gold); margin-bottom:5px; }
+.search-card-heading h2 { font-size:23px; font-weight:700; letter-spacing:-.02em; margin-bottom:5px; }
+.search-card-heading p { font-size:13px; color:#d8e5f6; line-height:1.6; }
+.recognition-fields { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; padding:30px; }
+.recognition-field { background:var(--recognition-input); border:1px solid var(--recognition-border); border-radius:15px; padding:20px; transition:border-color .2s,box-shadow .2s; min-width:0; }
+.recognition-field:focus-within { border-color:var(--institutional-primary-light); box-shadow:0 5px 16px #1b396a0a; }
+.recognition-field label { display:block; font-size:14px; font-weight:700; margin-bottom:13px; }
+.recognition-input { display:flex; align-items:center; gap:10px; border:1px solid var(--recognition-border); border-radius:10px; padding:15px 12px; background:var(--recognition-surface); }
+.recognition-input > svg { flex-shrink:0; color:#6884a9; }
+.recognition-input input { width:100%; min-width:0; outline:none; border:0; font-size:13px; color:var(--recognition-text); background:transparent; }
+.field-help { font-size:11px; line-height:1.7; color:var(--recognition-muted); margin-top:11px; }
+.recognition-input input::placeholder { color:#8390a2; }
+.recognition-input:focus-within { border-color:var(--institutional-primary-light); box-shadow:0 0 0 3px #1b396a12; }
+.recognition-search-actions { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; margin-top:0; border-top:1px solid var(--recognition-border); padding:22px 30px; background:var(--recognition-input); }
+.search-hint { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--recognition-muted); }
+.search-hint svg { flex-shrink:0; }
+.recognition-search-actions > div { display:flex; gap:12px; }
+.submit-search,.clear-search { border-radius:10px; padding:14px 20px; display:inline-flex; align-items:center; justify-content:center; gap:9px; font-size:14px; font-weight:650; cursor:pointer; }
+.submit-search { background:var(--institutional-primary); color:white; }
+.submit-search:hover { background:var(--institutional-primary-dark); }
+.clear-search { border:1px solid var(--recognition-border); color:var(--recognition-muted); }
+.submit-search:disabled,.clear-search:disabled { opacity:.5; cursor:not-allowed; }
+.recognition-initial { text-align:center; padding:48px 24px 10px; }
+.initial-icon { display:inline-flex; align-items:center; justify-content:center; width:68px; height:68px; border:1px solid var(--recognition-border); border-radius:20px; background:var(--recognition-surface); color:#657f9f; margin-bottom:20px; }
+.recognition-initial h2 { font-size:22px; font-weight:700; letter-spacing:-.02em; margin-bottom:10px; }
+.recognition-initial p { max-width:540px; margin:auto; color:var(--recognition-muted); font-size:14px; line-height:1.8; }
+.initial-steps { display:flex; justify-content:center; gap:26px; flex-wrap:wrap; margin-top:26px; }
+.initial-steps span { display:flex; align-items:center; gap:8px; color:var(--recognition-muted); font-size:12px; }
+.recognition-result { box-shadow:0 4px 18px #10234404; }
+.recognition-detail { white-space:normal; overflow-wrap:anywhere; }
+.recognition-folio { max-width:100%; }
+.recognition-folio span { overflow-wrap:anywhere; }
+.recognition-result .p-5 { padding:24px; }
+.recognition-result .flex.items-center.gap-2 { align-items:flex-start; }
+.recognition-viewer { box-shadow:0 6px 24px #10234408; }
+.recognition-content button:focus-visible,.recognition-content a:focus-visible { outline:2px solid var(--institutional-gold); outline-offset:4px; }
+:global(.dark .recognition-content) { --recognition-surface:var(--institutional-dark-surface); --recognition-text:var(--institutional-dark-text); --recognition-muted:#bbc8dd; --recognition-border:#ffffff18; --recognition-input:#1a1a2e; background:var(--institutional-dark-background); }
+:global(.dark .recognition-content .search-heading-icon) { color:#b8d8ff; background:#ffffff08; }
+@media(max-width:900px) { .recognition-fields { grid-template-columns:1fr; gap:18px; } }
+@media(max-width:639px) { .recognition-container { padding:0 16px; } .recognition-hero-icon { display:none; } .recognition-hero-content { padding:26px 0 30px; } .recognition-content { padding:24px 0 40px; } .recognition-search-card { padding:22px; } .search-card-heading { align-items:flex-start; } .recognition-search-actions > div { width:100%; } .submit-search { flex:1; } .initial-steps { flex-direction:column; align-items:center; gap:14px; } .recognition-initial { padding:36px 8px 0; } .recognition-initial h2 { font-size:20px; } .recognition-folio { text-align:left; } }
+@media(prefers-reduced-motion:reduce) { .animate-fadeIn { animation:none!important; } }
+@media(max-width:639px) { .recognition-search-card { padding:0; } .search-card-heading { padding:22px; gap:14px; } .search-heading-icon { width:44px; height:44px; border-radius:12px; } .search-card-heading h2 { font-size:20px; } .recognition-fields { padding:22px; gap:16px; } .recognition-field { padding:17px; } .recognition-search-actions { padding:20px 22px; } .submit-search,.clear-search { font-size:12px; padding:13px 14px; } }
 .animate-fadeIn {
     animation: fadeIn 0.3s ease-in-out;
 }

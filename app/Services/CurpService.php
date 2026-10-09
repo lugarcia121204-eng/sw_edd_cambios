@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Renapo;
+use App\Exceptions\CurpServiceUnavailableException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -69,8 +71,17 @@ class CurpService
                 ])
                 ->post($url);
 
+            if (! $response->successful() && $response->status() !== 404) {
+                throw new CurpServiceUnavailableException('El proveedor de CURP no está disponible.');
+            }
+
             if ($response->successful()) {
                 $data = $response->json();
+
+                if (! is_array($data) || ! isset($data['success']) || ! is_bool($data['success'])
+                    || ($data['success'] && ! is_array($data['data'] ?? null))) {
+                    throw new CurpServiceUnavailableException('El proveedor devolvió una respuesta inválida.');
+                }
                 
                 \Log::info('✅ Respuesta exitosa de APIMarket', [
                     'status' => $response->status(),
@@ -101,12 +112,17 @@ class CurpService
             ]);
             return null;
 
+        } catch (ConnectionException $e) {
+            Log::warning('No se pudo conectar con el proveedor de CURP');
+            throw new CurpServiceUnavailableException('No se pudo conectar con el proveedor de CURP.', 0, $e);
+        } catch (CurpServiceUnavailableException $e) {
+            throw $e;
         } catch (\Exception $e) {
             Log::error('Error consultando API de CURP', [
                 'curp' => $curp,
                 'error' => $e->getMessage()
             ]);
-            return null;
+            throw new CurpServiceUnavailableException('No se pudo completar la consulta de CURP.', 0, $e);
         }
     }
 

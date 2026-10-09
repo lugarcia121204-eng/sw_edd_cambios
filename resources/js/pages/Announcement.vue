@@ -2,6 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
 import { ref, computed } from 'vue';
+import { Users, ClipboardCheck, CalendarDays, FileText, ArrowRight, ArrowUpRight, Clock3 } from 'lucide-vue-next';
 
 const props = defineProps({
     announcement: Object, // Changed from convocatoria to match web.php
@@ -112,188 +113,76 @@ const etapas = computed(() => {
 
         <Head title="Convocatoria" />
 
-        <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
-            <!-- Decorative circles -->
-            <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
-            <div class="absolute top-1/2 left-1/4 w-48 h-48 bg-white/[0.03] rounded-full -translate-y-1/2"></div>
-            <div class="relative max-w-7xl mx-auto text-center">
-                <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4">Información de Convocatoria</h1>
-                <p class="text-base sm:text-lg text-gray-100 max-w-3xl mx-auto">Detalles y requisitos para participar en
-                    el proceso actual para los Institutos Tecnológicos Federales y Centros</p>
-            </div>
-        </section>
-
-        <!-- CONVOCATORIA Section -->
-        <section class="bg-gray-50 py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                    <!-- LADO IZQUIERDO: ¿A quién va dirigido? y Bases -->
-                    <div class="space-y-8">
-                        <!-- ¿A quién va dirigido? -->
-                        <div
-                            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow-md border-l-4 border-[var(--institutional-primary)]">
-                            <div class="flex-shrink-0">
-                                <svg class="w-8 h-8 text-[var(--institutional-primary)]" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-gray-900 text-xl">¿A quién va dirigido?</h3>
-                            </div>
+        <div class="announcement-page">
+            <section class="announcement-hero">
+                <div class="announcement-container">
+                    <nav class="announcement-breadcrumb" aria-label="Ruta de navegación">
+                        <Link :href="route('inicio')">Inicio</Link><span aria-hidden="true">/</span><span>Convocatoria</span>
+                    </nav>
+                    <div class="hero-heading">
+                        <div>
+                            <span class="hero-eyebrow">PROGRAMA DE ESTÍMULOS DOCENTES</span>
+                            <h1>Información de Convocatoria</h1>
+                            <p>Detalles y requisitos para participar en el proceso actual para los Institutos Tecnológicos Federales y Centros</p>
                         </div>
-                        <p class="text-base text-gray-700 leading-relaxed">
-                            Personal docente de tiempo completo (40 hrs) adscrito a los Institutos y Centros Federales
-                            del TecNM que imparten el 80% del año lectivo 2024 y cumplan con el 80% durante el primer
-                            semestre de 2025.
-                        </p>
-
-                        <!-- Bases de Participación -->
-                        <div
-                            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow-md border-l-4 border-[#10A558]">
-                            <div class="flex-shrink-0">
-                                <svg class="w-8 h-8 text-[#10A558]" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-gray-900 text-xl">Bases de Participación</h3>
-                            </div>
-                        </div>
-                            <ul class="space-y-4">
-                                <li class="flex items-start">
-                                    <span
-                                        class="flex-shrink-0 rounded-full bg-white h-8 w-8 text-[#10A558] flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1.</span>
-                                    <span class="text-gray-700 text-sm">Haber cubierto la carga horaria reglamentaria
-                                        frente a grupo durante los dos semestres de 2024 y en el primer semestre de
-                                        2026.</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span
-                                        class="flex-shrink-0 rounded-full bg-white h-8 w-8 text-[#10A558] flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2.</span>
-                                    <span class="text-gray-700 text-sm">Personal docente titular en subdirección,
-                                        jefatura de departamento o área administrativa (50% docencia, 50% funciones
-                                        directivas).</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span
-                                        class="flex-shrink-0 rounded-full bg-white h-8 w-8 text-[#10A558] flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3.</span>
-                                    <span class="text-gray-700 text-sm">Personal docente titular en Docencia e
-                                        Investigación con mínimo 20 horas-semana en los últimos dos semestres de 2024 y
-                                        primer semestre de 2026.</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span
-                                        class="flex-shrink-0 rounded-full bg-white h-8 w-8 text-[#10A558] flex items-center justify-center text-sm font-bold mr-3 mt-0.5">4.</span>
-                                    <span class="text-gray-700 text-sm">Personal docente que haya disfrutado licencia
-                                        sin goce de sueldo según Artículo 12 de los Lineamientos del Programa.</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span
-                                        class="flex-shrink-0 rounded-full bg-white h-8 w-8 text-[#10A558] flex items-center justify-center text-sm font-bold mr-3 mt-0.5">5.</span>
-                                    <span class="text-gray-700 text-sm">Personal con nombramiento de tiempo parcial no
-                                        podrá participar.</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span
-                                        class="flex-shrink-0 rounded-full bg-white h-8 w-8 text-[#10A558] flex items-center justify-center text-sm font-bold mr-3 mt-0.5">6.</span>
-                                    <span class="text-gray-700 text-sm">Integrar expediente virtual completo según
-                                        período establecido.</span>
-                                </li>
-                            </ul>
-
-                            <div class="bg-white p-6 rounded-2xl shadow-md">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">¿Listo para participar?</h3>
-                            <p class="text-gray-600 mb-6 text-sm">
-                                Si cumples con los requisitos, inicia tu trámite hoy mismo.
-                            </p>
-                            <Link
-                                :href="route('login')"
-                                class="mx-auto block w-full sm:w-64 text-center
-                                    bg-[var(--institutional-primary)] text-white font-bold
-                                    px-8 py-3 rounded-xl hover:bg-[var(--institutional-primary)]
-                                    transition shadow-lg transform hover:-translate-y-1 cursor-pointer"
-                            >
-                                Iniciar Sesión
-                            </Link>
-                        </div>
+                        <div class="hero-mark" aria-hidden="true"><FileText :size="44" :stroke-width="1.4" /></div>
                     </div>
-
-                    <!-- LADO DERECHO: Card Convocatoria y Calendario -->
-                    <div class="space-y-8">
-                        <!-- Card Principal de Convocatoria -->
-                         
-                        <!-- Case: Active or Closed Announcement -->
-                        <div v-if="announcementData"
-                            class="bg-gradient-to-br from-[#2d4a7c] via-[#3a5a8c] to-[#4a6a9c] text-white rounded-3xl p-6 sm:p-8 shadow-md">
-                            <h2 class="text-3xl font-bold mb-4 text-center">{{ announcementData.name }}</h2>
-                            <p class="text-base leading-relaxed mb-8 text-blue-50 line-clamp-4">
-                                {{ announcementData.description || 'Sin descripción disponible.' }}
-                            </p>
-                            <div class="flex items-center justify-center gap-2">
-                                <button
-                                    v-if="announcementData.file_url && announcementData.status !== 'pendiente'"
-                                    @click="openPdfModal(announcementData.file_url, announcementData.name)"
-                                    class="cursor-pointer px-6 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 hover:bg-gray-100 font-medium transition shadow-lg transform hover:-translate-y-1">
-                                    Ver Convocatoria PDF
-                                </button>
-                                <div v-else-if="announcementData.status === 'pendiente'" class="relative px-6 py-2 bg-white rounded-lg border-l-4 border-l-yellow-500 shadow-sm flex items-center gap-3">
-                                    <div class="flex-shrink-0 text-yellow-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <span class="text-sm font-bold text-gray-800">
-                                        Convocatoria Próximamente
-                                    </span>
-                                </div>
-                                <span v-else class="text-sm bg-white/20 px-4 py-2 rounded-lg">Sin PDF disponible</span>
-                            </div>
-                        </div>
-
-                         <!-- Case: NO active announcement -->
-                         <div v-else class="bg-gray-100 rounded-3xl p-6 sm:p-8 shadow-inner text-center">
-                            <h2 class="text-2xl font-bold text-gray-700">No hay convocatorias activas</h2>
-                            <p class="text-gray-500 mt-2">Por favor, vuelve más tarde.</p>
-                        </div>
-
-                        <!-- Calendario de Actividades (Always visible, might imply default dates or empty if no announcement) -->
-                        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-md">
-                            <h3 class="text-2xl font-bold text-gray-900 mb-8">Calendario de Actividades</h3>
-
-                            <div v-for="(etapa, index) in etapas" :key="etapa.id" class="relative" :class="{ 'mb-10': index < etapas.length - 1 }">
-                                <!-- Connector Line -->
-                                <div v-if="index < etapas.length - 1" class="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 -mt-10" style="height: calc(100% + 40px); top: 20px;"></div>
-                                
-                                <div class="flex items-start relative z-10">
-                                    <div class="flex-shrink-0">
-                                        <div
-                                            class="h-12 w-12 rounded-full flex items-center justify-center shadow-md text-white font-bold text-sm"
-                                            :style="{ backgroundColor: etapa.color }"
-                                        >
-                                            {{ etapa.id }}
-                                        </div>
-                                    </div>
-                                    <div class="ml-4 flex-1">
-                                        <p class="text-xs text-gray-500 mb-1">Fase {{ etapa.id }}</p>
-                                        <h4 class="text-lg font-bold text-gray-900 mb-1">{{ etapa.titulo }}</h4>
-                                        <p class="text-sm text-gray-500 capitalize">{{ etapa.fechas }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
+                    <nav class="section-navigation" aria-label="Secciones de la convocatoria">
+                        <a href="#participantes"><Users :size="16" /> ¿A quién va dirigido?</a>
+                        <a href="#bases"><ClipboardCheck :size="16" /> Bases de Participación</a>
+                        <a href="#calendario"><CalendarDays :size="16" /> Calendario de Actividades</a>
+                    </nav>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <section class="announcement-content announcement-container">
+                <div class="details-column">
+                    <article id="participantes" class="information-card">
+                        <div class="card-heading"><span class="heading-icon"><Users :size="23" /></span><h2>¿A quién va dirigido?</h2></div>
+                        <p class="audience-copy">Personal docente de tiempo completo (40 hrs) adscrito a los Institutos y Centros Federales del TecNM que imparten el 80% del año lectivo 2024 y cumplan con el 80% durante el primer semestre de 2025.</p>
+                    </article>
+
+                    <article id="bases" class="information-card requirements-card">
+                        <div class="card-heading"><span class="heading-icon"><ClipboardCheck :size="23" /></span><h2>Bases de Participación</h2></div>
+                        <ol class="requirements-list">
+                            <li><span class="requirement-number">01</span><p>Haber cubierto la carga horaria reglamentaria frente a grupo durante los dos semestres de 2024 y en el primer semestre de 2026.</p></li>
+                            <li><span class="requirement-number">02</span><p>Personal docente titular en subdirección, jefatura de departamento o área administrativa (50% docencia, 50% funciones directivas).</p></li>
+                            <li><span class="requirement-number">03</span><p>Personal docente titular en Docencia e Investigación con mínimo 20 horas-semana en los últimos dos semestres de 2024 y primer semestre de 2026.</p></li>
+                            <li><span class="requirement-number">04</span><p>Personal docente que haya disfrutado licencia sin goce de sueldo según Artículo 12 de los Lineamientos del Programa.</p></li>
+                            <li><span class="requirement-number">05</span><p>Personal con nombramiento de tiempo parcial no podrá participar.</p></li>
+                            <li><span class="requirement-number">06</span><p>Integrar expediente virtual completo según período establecido.</p></li>
+                        </ol>
+                    </article>
+
+                    <article class="participation-card">
+                        <div><h2>¿Listo para participar?</h2><p>Si cumples con los requisitos, inicia tu trámite hoy mismo.</p></div>
+                        <Link :href="route('login')" class="participation-button">Iniciar Sesión <ArrowRight :size="18" /></Link>
+                    </article>
+                </div>
+
+                <aside class="calendar-column" aria-label="Documento y calendario">
+                    <article v-if="announcementData" class="featured-announcement">
+                        <div class="featured-top"><span class="document-icon"><FileText :size="24" /></span><span class="featured-label">CONVOCATORIA</span></div>
+                        <h2>{{ announcementData.name }}</h2>
+                        <p class="announcement-description">{{ announcementData.description || 'Sin descripción disponible.' }}</p>
+                        <button v-if="announcementData.file_url && announcementData.status !== 'pendiente'" @click="openPdfModal(announcementData.file_url, announcementData.name)" class="document-button"><FileText :size="18" /> Ver Convocatoria PDF <ArrowUpRight :size="18" /></button>
+                        <div v-else-if="announcementData.status === 'pendiente'" class="document-notice"><Clock3 :size="18" /> Convocatoria Próximamente</div>
+                        <div v-else class="document-notice"><FileText :size="18" /> Sin PDF disponible</div>
+                    </article>
+                    <article v-else class="information-card empty-announcement"><FileText :size="32" /><h2>No hay convocatorias activas</h2><p>Por favor, vuelve más tarde.</p></article>
+
+                    <article id="calendario" class="information-card calendar-card">
+                        <div class="card-heading"><span class="heading-icon"><CalendarDays :size="23" /></span><h2>Calendario de Actividades</h2></div>
+                        <ol class="stages-list">
+                            <li v-for="etapa in etapas" :key="etapa.id" class="stage-item" :style="{ '--stage-color': etapa.color }">
+                                <span class="stage-number">{{ etapa.id }}</span>
+                                <div><span class="stage-label">FASE {{ etapa.id }}</span><h3>{{ etapa.titulo }}</h3><p class="stage-date"><CalendarDays :size="14" /><span>{{ etapa.fechas }}</span></p></div>
+                            </li>
+                        </ol>
+                    </article>
+                </aside>
+            </section>
+        </div>
 
         <!-- PDF Modal -->
         <Teleport to="body">
@@ -352,6 +241,64 @@ const etapas = computed(() => {
 </template>
 
 <style scoped>
+.announcement-page { --page-surface:#ffffff; --page-background:#f5f7fb; --page-text:#142c4d; --page-muted:#56677d; --page-border:#e2e8f0; background:var(--page-background); color:var(--page-text); }
+.announcement-container { max-width:1280px; margin:0 auto; padding-left:24px; padding-right:24px; }
+.announcement-hero { background:linear-gradient(115deg,var(--institutional-primary),var(--institutional-primary-dark)); color:white; padding:26px 0 0; }
+.announcement-breadcrumb { display:flex; gap:12px; align-items:center; color:#c8d6e9; font-size:12px; }
+.announcement-breadcrumb a:hover { color:white; }
+.hero-heading { display:flex; align-items:center; justify-content:space-between; gap:32px; padding:32px 0; }
+.hero-eyebrow { font-size:11px; font-weight:700; letter-spacing:.13em; color:var(--institutional-gold); }
+.hero-heading h1 { font-size:clamp(28px,3.4vw,40px); font-weight:750; line-height:1.2; letter-spacing:-.025em; margin:12px 0; }
+.hero-heading p { max-width:700px; color:#d8e5f6; font-size:15px; line-height:1.7; }
+.hero-mark { padding:22px; border:1px solid #ffffff25; background:#ffffff08; border-radius:24px; color:#d5e3f6; }
+.section-navigation { display:flex; gap:30px; border-top:1px solid #ffffff20; padding:19px 0; flex-wrap:wrap; }
+.section-navigation a { display:inline-flex; align-items:center; gap:9px; font-size:13px; color:#edf4ff; }
+.section-navigation a:hover { color:var(--institutional-gold); }
+.announcement-content { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); align-items:start; gap:28px; padding-top:36px; padding-bottom:64px; }
+.details-column,.calendar-column { display:grid; gap:24px; min-width:0; }
+.information-card { background:var(--page-surface); border:1px solid var(--page-border); border-radius:18px; padding:28px; box-shadow:0 4px 18px #10234404; scroll-margin-top:120px; }
+.card-heading { display:flex; align-items:center; gap:13px; margin-bottom:20px; }
+.heading-icon { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:#1b396a0a; color:var(--institutional-primary); flex-shrink:0; }
+.card-heading h2 { font-size:19px; font-weight:700; line-height:1.35; letter-spacing:-.02em; }
+.audience-copy { font-size:15px; line-height:1.85; color:var(--page-muted); }
+.requirements-list { list-style:none; margin:0; padding:0; }
+.requirements-list li { display:flex; gap:16px; padding:19px 0; border-bottom:1px solid var(--page-border); align-items:flex-start; }
+.requirements-list li:first-child { padding-top:3px; }
+.requirements-list li:last-child { padding-bottom:0; border-bottom:0; }
+.requirement-number { flex-shrink:0; font-size:12px; font-weight:750; color:var(--institutional-primary); background:#1b396a0a; border-radius:8px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
+.requirements-list p { font-size:14px; color:var(--page-muted); line-height:1.8; }
+.participation-card { display:flex; justify-content:space-between; align-items:center; gap:20px; border:1px solid var(--page-border); border-radius:18px; padding:26px 28px; background:var(--page-surface); }
+.participation-card h2 { font-size:18px; font-weight:700; margin-bottom:6px; }
+.participation-card p { font-size:13px; color:var(--page-muted); line-height:1.65; }
+.participation-button { background:var(--institutional-primary); color:white; border-radius:10px; padding:12px 16px; display:inline-flex; align-items:center; justify-content:center; gap:12px; font-size:13px; font-weight:650; flex-shrink:0; }
+.participation-button:hover { background:var(--institutional-primary-dark); }
+.featured-announcement { background:linear-gradient(135deg,var(--institutional-primary),var(--institutional-primary-dark)); color:white; border-radius:18px; padding:28px; border-top:3px solid var(--institutional-gold); }
+.featured-top { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+.document-icon { padding:10px; display:flex; border:1px solid #ffffff25; border-radius:12px; background:#ffffff08; }
+.featured-label { color:#cadcf4; font-size:11px; letter-spacing:.12em; font-weight:700; }
+.featured-announcement h2 { font-size:26px; line-height:1.3; font-weight:750; letter-spacing:-.02em; overflow-wrap:anywhere; margin-bottom:14px; }
+.announcement-description { font-size:14px; line-height:1.8; color:#d6e4f8; white-space:pre-line; overflow-wrap:anywhere; margin-bottom:26px; }
+.document-button { width:100%; display:flex; gap:10px; align-items:center; justify-content:center; background:white; color:var(--institutional-primary); font-size:13px; font-weight:700; padding:14px; border-radius:10px; cursor:pointer; transition:background .2s; }
+.document-button:hover { background:#e8eef7; }
+.document-notice { display:flex; gap:9px; align-items:center; font-size:13px; background:#ffffff0d; border:1px solid #ffffff20; padding:14px; border-radius:10px; }
+.empty-announcement { text-align:center; padding:36px 24px; }
+.empty-announcement svg { margin:0 auto 16px; color:var(--page-muted); }
+.empty-announcement h2 { font-size:19px; font-weight:700; margin-bottom:8px; }
+.empty-announcement p { color:var(--page-muted); font-size:14px; }
+.stages-list { list-style:none; padding:4px 0 0; margin:0; }
+.stage-item { position:relative; display:grid; grid-template-columns:36px minmax(0,1fr); gap:16px; padding-bottom:30px; }
+.stage-item:last-child { padding-bottom:0; }
+.stage-item:not(:last-child)::before { content:''; position:absolute; top:38px; bottom:2px; left:17px; width:1px; background:var(--page-border); }
+.stage-number { width:36px; height:36px; display:flex; justify-content:center; align-items:center; border-radius:11px; color:var(--page-text); background:var(--page-background); border:1px solid var(--page-border); border-top:3px solid var(--stage-color); font-size:13px; font-weight:750; }
+.stage-label { font-size:10px; color:var(--page-muted); letter-spacing:.09em; font-weight:650; }
+.stage-item h3 { font-size:14px; font-weight:700; line-height:1.5; margin:4px 0 8px; }
+.stage-date { display:flex; align-items:center; gap:7px; color:var(--page-muted); font-size:12px; line-height:1.6; }
+.stage-date svg { flex-shrink:0; }
+.announcement-page a:focus-visible,.announcement-page button:focus-visible { outline:3px solid var(--institutional-gold); outline-offset:4px; }
+:global(.dark .announcement-page) { --page-background:var(--institutional-dark-background); --page-surface:var(--institutional-dark-surface); --page-text:var(--institutional-dark-text); --page-muted:#bbc8dd; --page-border:#ffffff18; }
+:global(.dark .announcement-page .heading-icon),:global(.dark .announcement-page .requirement-number) { background:#ffffff08; color:#b8d8ff; }
+@media(max-width:1023px) { .announcement-content { grid-template-columns:1fr; } .calendar-column { grid-template-columns:1fr 1fr; align-items:start; } .participation-card { flex-wrap:wrap; } }
+@media(max-width:639px) { .announcement-container { padding-left:16px; padding-right:16px; } .hero-heading { padding:26px 0; } .hero-mark { display:none; } .hero-heading p { font-size:14px; } .section-navigation { gap:14px 20px; } .section-navigation a { font-size:12px; } .announcement-content { padding-top:24px; padding-bottom:40px; gap:20px; } .calendar-column { grid-template-columns:1fr; } .information-card,.featured-announcement,.participation-card { padding:22px; } .card-heading h2 { font-size:17px; } .participation-button { width:100%; } }
 .modal-enter-active,
 .modal-leave-active {
     transition: opacity 0.3s ease;

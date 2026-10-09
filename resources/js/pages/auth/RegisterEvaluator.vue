@@ -229,6 +229,9 @@ const buscarCurp = async () => {
                 || 'Este CURP ya está registrado';
             errorCurp.value = backendMsg;
             alertaError('CURP ya registrado', backendMsg);
+        } else if (error.response?.status === 503) {
+            errorCurp.value = error.response.data.message;
+            alertaError('Servicio de CURP no disponible', errorCurp.value);
         } else {
             errorCurp.value = 'Error al buscar el CURP. Por favor intenta de nuevo.';
             alertaError('Error', 'Error al buscar el CURP. Por favor intenta de nuevo');

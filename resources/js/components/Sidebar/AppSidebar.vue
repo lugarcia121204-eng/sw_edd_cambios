@@ -18,7 +18,7 @@
     <!-- Sidebar -->
     <aside
         :class="[
-            { 'supreme-sidebar': supremeSidebar, 'supreme-collapsed': sidebarCollapsed && !isMobile },
+            { 'supreme-sidebar': supremeSidebar, 'administrative-sidebar': administrativeSidebar, 'sidebar-mobile': isMobile, 'supreme-collapsed': sidebarCollapsed && !isMobile },
             'bg-[var(--institutional-primary)] text-white flex flex-col shadow-lg transition-all duration-300 z-50',
             sidebarCollapsed && !isMobile
                 ? 'w-20'
@@ -29,7 +29,7 @@
         ]"
     >
         <!-- Logo Section -->
-        <div v-if="supremeSidebar" class="supreme-brand">
+        <div v-if="administrativeSidebar" class="supreme-brand">
             <img src="/images/TecnmBlanco.png" alt="TecNM" />
             <div v-if="!sidebarCollapsed || isMobile"><strong>Sistema EDD</strong><span>Tecnológico Nacional de México</span></div>
         </div>
@@ -157,6 +157,8 @@ defineProps({
 const page = usePage();
 const supremeSidebar = computed(() => page.props.auth?.primaryRole === 'Super Admin');
 provide('supremeSidebar', supremeSidebar);
+const administrativeSidebar = computed(() => ['Super Admin', 'Admin'].includes(page.props.auth?.primaryRole));
+provide('administrativeSidebar', administrativeSidebar);
 const sidebarOpen = inject('sidebarOpen', ref(false));
 const sidebarCollapsed = inject('sidebarCollapsed', ref(false));
 const isMobile = inject('isMobile', ref(false));
@@ -217,16 +219,19 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.supreme-sidebar { width:320px; flex-shrink:0; }
+.supreme-sidebar { width:256px; flex-shrink:0; }
 .supreme-sidebar.supreme-collapsed { width:80px; }
-.supreme-brand { display:flex; align-items:center; gap:14px; min-height:90px; padding:20px 24px; border-bottom:1px solid #ffffff16; flex-shrink:0; }
+.supreme-brand { display:flex; align-items:center; gap:12px; min-height:80px; padding:16px 20px; border-bottom:1px solid #ffffff16; flex-shrink:0; }
 .supreme-brand img { width:34px; height:46px; object-fit:contain; flex-shrink:0; }
-.supreme-brand strong { display:block; font-size:18px; line-height:1.3; }
-.supreme-brand span { display:block; font-size:14px; line-height:1.4; color:#dbeafe; }
+.supreme-brand strong { display:block; font-size:14px; font-weight:700; line-height:1.3; }
+.supreme-brand span { display:block; font-size:11px; line-height:1.4; color:#dbeafe; }
 .supreme-sidebar .sidebar-profile { border-color:#ffffff16; padding:12px 16px; }
 .supreme-sidebar .sidebar-avatar { background:#f8fafc; color:#102344; border-radius:10px; font-weight:400; }
 .supreme-sidebar .sidebar-profile-button p { font-size:16px; }
-@media(max-width:639px) { .supreme-sidebar { width:min(320px,calc(100vw - 32px)); } }
+.administrative-sidebar { width:16rem; height:100svh; font-family:'Instrument Sans',sans-serif; flex-shrink:0; }
+.administrative-sidebar.supreme-collapsed { width:80px; }
+.administrative-sidebar.sidebar-mobile { width:min(18rem,100vw); }
+.administrative-sidebar :deep(nav .font-semibold) { font-weight:700; }
 
 /* Custom Scrollbar */
 .custom-scrollbar::-webkit-scrollbar { width: 6px; }

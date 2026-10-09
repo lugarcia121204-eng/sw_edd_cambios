@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\CurpService;
+use App\Exceptions\CurpServiceUnavailableException;
 use App\Http\Requests\SearchCurpRequest;
 use App\Http\Requests\VerifyCurpCodeRequest;
 use App\Http\Requests\ResendCurpCodeRequest;
@@ -30,7 +31,15 @@ class CurpController extends Controller
             'method' => $request->method()
         ]);
 
-        $datos = $this->curpService->buscarPorCurp($request->curp);
+        try {
+            $datos = $this->curpService->buscarPorCurp($request->curp);
+        } catch (CurpServiceUnavailableException $e) {
+            return response()->json([
+                'success' => false,
+                'code' => 'curp_service_unavailable',
+                'message' => 'No se pudo consultar el servicio de CURP. Revisa tu conexión a internet e inténtalo de nuevo. Esto no significa que tu CURP sea inválida.',
+            ], 503);
+        }
 
         if (!$datos) {
             return response()->json([

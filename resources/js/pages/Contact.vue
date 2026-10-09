@@ -1,10 +1,12 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
 import { ref, onMounted } from 'vue';
 import VueSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 import axios from 'axios';
+import theme from '@/config/theme.config';
+import { MessageSquare, Phone, Mail, MapPin, Globe, Send, LoaderCircle } from 'lucide-vue-next';
 import { alertaExito, alertaError, alertaCargando, cerrarAlerta } from '@/utils/alerts.js';
 
 const contactForm = ref({
@@ -39,6 +41,7 @@ onMounted(async () => {
 });
 
 const submitContact = async () => {
+    if (loading.value) return;
     errors.value = {};
     
     // Validación básica
@@ -97,26 +100,25 @@ const submitContact = async () => {
     <LandingLayout>
         <Head title="Contacto" />
 
-        <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-[var(--institutional-primary)] via-[#2B4A7E] to-[#3B5C92] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
-            <!-- Decorative circles -->
-            <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
-            <div class="absolute top-1/2 left-1/4 w-48 h-48 bg-white/[0.03] rounded-full -translate-y-1/2"></div>
-            <div class="relative max-w-7xl mx-auto text-center">
-                <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4">Contacto</h1>
-                <p class="text-base sm:text-lg text-gray-100 max-w-3xl mx-auto">¿Tienes dudas sobre el programa? Estamos aquí para ayudarte.</p>
-            </div>
-        </section>
-
+        <section class="contact-hero"><div class="contact-container">
+            <nav class="contact-breadcrumb" aria-label="Ruta de navegación"><Link :href="route('inicio')">Inicio</Link><span aria-hidden="true">/</span><span>Contacto</span></nav>
+            <div class="contact-hero-content"><div><span class="contact-eyebrow">ATENCIÓN Y ORIENTACIÓN</span><h1>Contacto</h1><p>¿Tienes dudas sobre el programa? Estamos aquí para ayudarte.</p></div><span class="contact-hero-icon" aria-hidden="true"><MessageSquare :size="44" :stroke-width="1.4" /></span></div>
+        </div></section>
         <!-- CONTACTO Section -->
-        <section class="py-16 bg-gray-50">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6">
-                <div class="bg-white rounded-lg shadow-md border border-gray-200 p-5 sm:p-8">
-                    <form @submit.prevent="submitContact" class="space-y-6">
+        <section class="contact-section">
+            <div class="contact-container"><div class="contact-grid">
+                <aside class="contact-details" aria-label="Información de contacto">
+                    <div class="contact-intro"><span class="contact-eyebrow">CENIDET</span><h2>Estamos para ayudarte</h2><p>Consulta nuestros datos de contacto o envíanos tus comentarios y dudas sobre el programa.</p></div>
+                    <div class="contact-channel"><span class="channel-icon"><Phone :size="20" /></span><div><h3>Teléfono</h3><a :href="'tel:' + theme.footer.contactInfo.phone.replace(/[^0-9+]/g, '')">{{ theme.footer.contactInfo.phone }}</a></div></div>
+                    <div class="contact-channel"><span class="channel-icon"><Mail :size="20" /></span><div><h3>Correo electrónico</h3><a :href="'mailto:' + theme.footer.contactInfo.email">{{ theme.footer.contactInfo.email }}</a></div></div>
+                    <div class="contact-channel"><span class="channel-icon"><Globe :size="20" /></span><div><h3>Sitio institucional</h3><a :href="'https://' + theme.footer.contactInfo.website" target="_blank" rel="noopener noreferrer">{{ theme.footer.contactInfo.website }}</a></div></div>
+                    <div class="contact-location"><span class="channel-icon"><MapPin :size="20" /></span><div><h3>Ubicación</h3><p>{{ theme.footer.contactInfo.address }}</p></div></div>
+                </aside>
+                <div class="contact-form-card">
+                    <form @submit.prevent="submitContact" class="contact-form space-y-6" :aria-busy="loading">
 
                         <!-- Título -->
-                        <div class="text-center">
+                        <div class="contact-form-heading">
                             <h2 class="text-2xl font-bold text-[var(--institutional-primary)]">
                                 Envíanos un mensaje
                             </h2>
@@ -135,7 +137,7 @@ const submitContact = async () => {
                                     type="text"
                                     id="name"
                                     class="bg-[#F3F4F6] border-t-0 border-x-0 text-gray-900 text-sm rounded-lg focus:ring-0 block w-full ps-3 p-2.5 border-b-2 border-b-gray-300 focus:border-b-[var(--institutional-primary)]"
-                                    :class="{ 'border-b-red-500': errors.name }"
+                                    :class="{ 'contact-input-error': errors.name }"
                                     placeholder="Tu Nombre Completo"
                                     @input="clearError('name')"
                                 />
@@ -183,13 +185,14 @@ const submitContact = async () => {
                             </label>
                             <VueSelect
                                 v-model="contactForm.institution_id"
+                                input-id="institution_id"
                                 :options="instituciones"
                                 :reduce="option => option.id"
                                 label="name"
                                 placeholder="Buscar o seleccionar una institución..."
                                 :searchable="true"
                                 :clearable="true"
-                                @input="clearError('institution_id')"
+                                @update:model-value="clearError('institution_id')"
                                 :class="['vue-select-custom', { 'vue-select-error': errors.institution_id }]"
                             >
                                 <template #no-options="{ search, searching }">
@@ -240,13 +243,13 @@ const submitContact = async () => {
                         </div>
 
                         <!-- Botón -->
-                        <div class="flex items-center justify-stretch sm:justify-end gap-3 pt-6 border-t border-gray-200">
+                        <div class="contact-form-actions">
                             <button
                                 type="submit"
                                 :disabled="loading"
-                                class="w-full sm:w-auto px-6 py-2 bg-[var(--institutional-primary)] cursor-pointer text-white rounded-lg hover:bg-[#0f2347] transition shadow-lg hover:shadow-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                class="contact-submit"
                             >
-                                <span v-if="!loading">Enviar mensaje</span>
+                                <Send v-if="!loading" :size="17" /><LoaderCircle v-else :size="17" class="animate-spin" /><span v-if="!loading">Enviar mensaje</span>
                                 <span v-else>Enviando...</span>
                             </button>
                         </div>
@@ -255,98 +258,65 @@ const submitContact = async () => {
                 </div>
 
             </div>
+            </div>
         </section>
     </LandingLayout>
 </template>
 
 <style scoped>
-.vue-select-custom :deep(.vs__dropdown-toggle) {
-    background: linear-gradient(to bottom right, #F3F4F6, #E5E7EB);
-    border: none;
-    border-bottom: 2px solid #D1D5DB;
-    border-radius: 0.5rem;
-    padding: 0.625rem 0.75rem;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: all 0.2s;
-}
-
-.vue-select-custom :deep(.vs__dropdown-toggle):hover {
-    border-bottom-color: rgba(27, 57, 106, 0.5);
-}
-
-.vue-select-custom :deep(.vs--open .vs__dropdown-toggle) {
-    background: linear-gradient(to bottom right, #EFF6FF, #DBEAFE);
-    border-bottom-color: #1B396A;
-}
-
-/* Error state - mayor especificidad */
-.vue-select-error :deep(.vs__dropdown-toggle),
-.vue-select-error :deep(.vs--open .vs__dropdown-toggle),
-.vue-select-error :deep(.vs__dropdown-toggle):hover {
-    border-bottom-color: #EF4444 !important;
-}
-
-.vue-select-custom :deep(.vs__search) {
-    margin: 0;
-    padding: 0;
-    border: none;
-    font-size: 0.875rem;
-    color: #111827;
-}
-
-.vue-select-custom :deep(.vs__search::placeholder) {
-    color: #9CA3AF;
-}
-
-.vue-select-custom :deep(.vs__selected) {
-    margin: 0;
-    padding: 0;
-    border: none;
-    color: #111827;
-    font-size: 0.875rem;
-}
-
-.vue-select-custom :deep(.vs__actions) {
-    padding: 0 4px 0 6px;
-}
-
-.vue-select-custom :deep(.vs__clear),
-.vue-select-custom :deep(.vs__open-indicator) {
-    fill: #1B396A;
-    transition: transform 0.2s;
-}
-
-.vue-select-custom :deep(.vs__open-indicator) {
-    transform: scale(0.70);
-}
-
-.vue-select-custom :deep(.vs--open .vs__open-indicator) {
-    transform: rotate(180deg) scale(0.70);
-}
-
-.vue-select-custom :deep(.vs__dropdown-menu) {
-    border: 1px solid #E5E7EB;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    margin-top: 4px;
-}
-
-.vue-select-custom :deep(.vs__dropdown-option) {
-    padding: 0.625rem 0.75rem;
-    color: #374151;
-    font-size: 0.875rem;
-    transition: all 0.15s;
-}
-
-.vue-select-custom :deep(.vs__dropdown-option--highlight) {
-    background: #1B396A;
-    color: white;
-}
-
-.vue-select-custom :deep(.vs__no-options) {
-    padding: 0.75rem;
-    color: #6B7280;
-    font-size: 0.875rem;
-    text-align: center;
-}
+.contact-container { max-width:1280px; margin:auto; padding:0 24px; }
+.contact-hero { color:white; background:linear-gradient(115deg,var(--institutional-primary),var(--institutional-primary-dark)); }
+.contact-breadcrumb { display:flex; gap:12px; align-items:center; padding-top:26px; font-size:12px; color:#c8d6e9; }
+.contact-breadcrumb a:hover { color:white; }
+.contact-hero-content { display:flex; align-items:center; justify-content:space-between; gap:32px; padding:32px 0 40px; }
+.contact-eyebrow { font-size:11px; font-weight:700; letter-spacing:.13em; color:var(--institutional-gold); }
+.contact-hero h1 { font-size:clamp(28px,3.4vw,40px); font-weight:750; line-height:1.2; letter-spacing:-.025em; margin:12px 0; }
+.contact-hero p { font-size:15px; line-height:1.7; color:#d8e5f6; }
+.contact-hero-icon { padding:22px; border:1px solid #ffffff25; background:#ffffff08; border-radius:24px; color:#d5e3f6; }
+.contact-section { --contact-surface:white; --contact-text:#142c4d; --contact-muted:#56677d; --contact-border:#e2e8f0; --contact-input:#fafbfd; background:#f5f7fb; padding:36px 0 64px; color:var(--contact-text); }
+.contact-grid { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.65fr); gap:28px; align-items:start; }
+.contact-details { background:linear-gradient(145deg,var(--institutional-primary),var(--institutional-primary-dark)); color:white; border-radius:18px; padding:24px; border-top:3px solid var(--institutional-gold); }
+.contact-intro h2 { font-size:23px; font-weight:700; letter-spacing:-.025em; line-height:1.3; margin:12px 0; }
+.contact-intro p { color:#d8e5f6; font-size:13px; line-height:1.7; margin-bottom:18px; }
+.contact-channel,.contact-location { display:flex; align-items:flex-start; gap:12px; padding:14px 0; border-top:1px solid #ffffff18; }
+.channel-icon { display:flex; align-items:center; justify-content:center; background:#ffffff0d; border:1px solid #ffffff20; border-radius:12px; width:36px; height:36px; flex-shrink:0; color:var(--institutional-gold); }
+.contact-channel h3,.contact-location h3 { font-size:12px; font-weight:650; color:#b9d1ef; margin-bottom:6px; }
+.contact-channel a { font-size:13px; line-height:1.7; overflow-wrap:anywhere; }
+.contact-channel a:hover { color:var(--institutional-gold); }
+.contact-channel > div,.contact-location > div { min-width:0; }
+.contact-location { margin-top:4px; padding-bottom:0; }
+.contact-location p { font-size:12px; line-height:1.75; color:#d8e5f6; }
+.contact-form-card { background:var(--contact-surface); border:1px solid var(--contact-border); border-radius:20px; padding:30px; box-shadow:0 8px 28px #10234405; }
+.contact-form-heading { border-bottom:1px solid var(--contact-border); padding-bottom:24px; margin-bottom:26px; }
+.contact-form-heading h2 { font-size:24px; font-weight:700; letter-spacing:-.025em; color:var(--contact-text); }
+.contact-form-heading p { color:var(--contact-muted); line-height:1.7; }
+.contact-form label { font-size:13px; font-weight:650; line-height:1.6; color:var(--contact-text); }
+.contact-form input,.contact-form textarea { background:var(--contact-input); border:1px solid var(--contact-border); border-radius:10px; padding:13px 14px; color:var(--contact-text); font-size:14px; line-height:1.6; outline:none; transition:border-color .2s,box-shadow .2s; }
+.contact-form textarea { resize:vertical; min-height:150px; }
+.contact-form input:focus,.contact-form textarea:focus { border-color:var(--institutional-primary-light); box-shadow:0 0 0 3px #1b396a12; }
+.contact-form input::placeholder,.contact-form textarea::placeholder { color:#8390a2; }
+.contact-form .contact-input-error { border-color:#dc2626; }
+.contact-form-actions { display:flex; justify-content:flex-end; border-top:1px solid var(--contact-border); padding-top:22px; }
+.contact-submit { background:var(--institutional-primary); color:white; display:inline-flex; align-items:center; justify-content:center; gap:10px; border-radius:10px; padding:14px 22px; font-size:14px; font-weight:650; cursor:pointer; }
+.contact-submit:hover { background:var(--institutional-primary-dark); }
+.contact-submit:disabled { opacity:.5; cursor:not-allowed; }
+.contact-section a:focus-visible,.contact-submit:focus-visible { outline:2px solid var(--institutional-gold); outline-offset:4px; }
+.vue-select-custom { --vs-dropdown-bg:var(--contact-surface); --vs-dropdown-color:var(--contact-text); --vs-dropdown-option-color:var(--contact-text); --vs-selected-color:var(--contact-text); }
+.vue-select-custom :deep(.vs__dropdown-toggle) { background:var(--contact-input); border:1px solid var(--contact-border); border-radius:10px; padding:10px 12px; min-height:49px; }
+.vue-select-custom.vs--open :deep(.vs__dropdown-toggle) { border-color:var(--institutional-primary-light); box-shadow:0 0 0 3px #1b396a12; }
+.vue-select-error :deep(.vs__dropdown-toggle) { border-color:#dc2626!important; }
+.vue-select-custom :deep(.vs__search),.vue-select-custom :deep(.vs__selected) { margin:0; padding:0; border:none; font-size:14px; background:transparent; color:var(--contact-text); box-shadow:none; }
+.vue-select-custom :deep(.vs__selected) { white-space:normal; }
+.vue-select-custom :deep(.vs__actions) { padding:0 0 0 8px; }
+.vue-select-custom :deep(.vs__clear),.vue-select-custom :deep(.vs__open-indicator) { fill:#7b91ae; }
+.vue-select-custom :deep(.vs__open-indicator) { transform:scale(.7); }
+.vue-select-custom.vs--open :deep(.vs__open-indicator) { transform:rotate(180deg) scale(.7); }
+.vue-select-custom :deep(.vs__dropdown-menu) { border:1px solid var(--contact-border); border-radius:10px; box-shadow:0 8px 24px #10234412; margin-top:5px; }
+.vue-select-custom :deep(.vs__dropdown-option) { padding:10px 14px; color:var(--contact-text); font-size:13px; white-space:normal; }
+.vue-select-custom :deep(.vs__dropdown-option--highlight) { background:var(--institutional-primary); color:white; }
+.vue-select-custom :deep(.vs__no-options) { color:var(--contact-muted); padding:14px; }
+:global(.dark .contact-section) { --contact-surface:var(--institutional-dark-surface); --contact-text:var(--institutional-dark-text); --contact-muted:#bbc8dd; --contact-border:#ffffff18; --contact-input:#1a1a2e; background:var(--institutional-dark-background); }
+@media(max-width:1023px) { .contact-grid { grid-template-columns:1fr; } .contact-details { display:grid; grid-template-columns:1fr 1fr; column-gap:28px; } .contact-intro { grid-column:1/-1; } }
+@media(max-width:639px) { .contact-container { padding:0 16px; } .contact-hero-icon { display:none; } .contact-hero-content { padding:26px 0 30px; } .contact-section { padding:24px 0 40px; } .contact-details { display:block; padding:20px; } .contact-form-card { padding:22px; } .contact-intro h2 { font-size:22px; } .contact-form-heading h2 { font-size:22px; } .contact-submit { width:100%; } }
 </style>
+

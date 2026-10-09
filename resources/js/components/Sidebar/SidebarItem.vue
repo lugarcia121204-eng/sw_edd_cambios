@@ -11,7 +11,7 @@
                     <SidebarItem v-for="(child, index) in item.items" :key="child.route || index" :item="child" :is-child="true" />
                 </div>
             </template>
-            <Link v-else :href="resolveRoute(item.route)" :aria-current="isActive ? 'page' : undefined" :title="item.label" :class="['supreme-single', { 'supreme-child': isChild, 'supreme-active': isActive, 'supreme-icon-only': collapsed && !isMobile }]" @click="closeSidebarOnMobileNavigate">
+            <Link v-else :href="resolveRoute(item.route)" :aria-current="isActive ? 'page' : undefined" :title="item.label" :class="['supreme-single', { 'supreme-child': isChild, 'supreme-large': largeMenuOption, 'supreme-active': isActive, 'supreme-icon-only': collapsed && !isMobile }]" @click="closeSidebarOnMobileNavigate">
                 <component :is="supremeIcon" :size="20" :stroke-width="1.7" />
                 <span v-if="!collapsed || isMobile">{{ item.label }}</span>
             </Link>
@@ -35,7 +35,7 @@
                         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0">
                             <path fill="currentColor" :d="item.icon || mdiViewModule"/>
                         </svg>
-                        <span class="ml-3 text-sm font-medium truncate" :title="item.label">{{ item.label }}</span>
+                        <span class="ml-3 text-sm font-medium truncate" :style="administrativeSidebar ? { fontSize: '11px', fontWeight: 700 } : undefined" :title="item.label">{{ item.label }}</span>
                     </div>
                     <svg
                         viewBox="0 0 24 24"
@@ -100,7 +100,7 @@
             <svg v-if="item.icon" viewBox="0 0 24 24" :class="[isChild ? 'w-3.5 h-3.5' : 'w-4 h-4', 'flex-shrink-0']">
                 <path fill="currentColor" :d="item.icon"/>
             </svg>
-            <span v-show="!collapsed || isMobile || isChild" class="ml-3 text-sm font-medium truncate" :title="item.label">{{ item.label }}</span>
+            <span v-show="!collapsed || isMobile || isChild" class="ml-3 text-sm font-medium truncate" :style="administrativeSidebar ? { fontSize: largeMenuOption ? '14px' : '12px' } : undefined" :title="item.label">{{ item.label }}</span>
         </Link>
         </template>
     </div>
@@ -125,6 +125,8 @@ const props = defineProps({
 
 const page = usePage();
 const supremeSidebar = inject('supremeSidebar', ref(false));
+const administrativeSidebar = inject('administrativeSidebar', ref(false));
+const largeMenuOption = computed(() => ['Mensajes de contacto', 'Control de Solicitudes', 'Convocatorias', 'Respaldos'].includes(props.item.label));
 const supremeIcons = { Home, Building2, Shield, Folder, Database, Layers, Lock, KeyRound, Users, Lightbulb, ListTree, FileText, ClipboardList, Files, Megaphone };
 const supremeIcon = computed(() => supremeIcons[props.item.iconName] || FileText);
 const firstVisibleChild = computed(() => props.item.items?.find(child => hasPermission(child.permission)));
@@ -192,14 +194,15 @@ onMounted(() => {
 
 <style scoped>
 .supreme-group { display:flex; align-items:center; gap:12px; width:100%; padding:21px 24px; color:#e2e8f0; cursor:pointer; text-align:left; transition:background .15s; }
-.supreme-group > span { flex:1; font-size:14px; font-weight:700; text-transform:uppercase; }
+.supreme-group > span { flex:1; font-size:11px; font-weight:700; text-transform:uppercase; }
 .supreme-group-icon { color:var(--institutional-gold); flex-shrink:0; }
 .supreme-group:hover { background:#ffffff08; }
 .supreme-submenu { margin:0 14px 12px 24px; border-left:1px solid #ffffff25; padding:0 0 0 14px; }
-.supreme-single { display:flex; align-items:center; gap:14px; padding:17px 30px; color:#dbeafe; font-size:17px; font-weight:550; min-width:0; border-radius:6px; }
+.supreme-single { display:flex; align-items:center; gap:14px; padding:17px 30px; color:#dbeafe; font-size:14px; font-weight:550; min-width:0; border-radius:6px; }
 .supreme-single svg { flex-shrink:0; }
 .supreme-single span { min-width:0; overflow-wrap:anywhere; }
-.supreme-child { padding:13px 12px; font-size:15px; }
+.supreme-child { padding:11px 10px; font-size:12px; }
+.supreme-large { font-size:14px; }
 .supreme-single:hover,.supreme-active { background:#ffffff07; color:white; }
 .supreme-icon-only { justify-content:center; padding:20px 12px; }
 .supreme-group:focus-visible,.supreme-single:focus-visible { outline:2px solid var(--institutional-gold); outline-offset:-3px; }
