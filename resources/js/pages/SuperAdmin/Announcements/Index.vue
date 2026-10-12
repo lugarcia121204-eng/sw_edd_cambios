@@ -135,7 +135,7 @@ const viewFile = (announcement) => {
     } else {
         if (announcement.file_path) {
             currentFile.value = {
-                url: announcement.file_url,
+                url: route('announcements.preview', announcement.id),
                 name: announcement.file_name,
                 type: announcement.file_type,
                 announcement: announcement.name,
@@ -143,7 +143,7 @@ const viewFile = (announcement) => {
             };
         } else if (announcement.image_path) {
             currentFile.value = {
-                url: announcement.image_url,
+                url: route('announcements.preview', { announcement: announcement.id, type: 'image' }),
                 name: 'Imagen de Convocatoria',
                 type: 'image/png', // Generic image type
                 announcement: announcement.name,
@@ -416,7 +416,7 @@ const closeViewer = (id) => {
                                                         d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                                 </svg>
                                             </Link>
-                                            <button v-if="useCan('announcements.destroy')"
+                                            <button v-if="useCan('announcements.delete')" type="button" aria-label="Eliminar convocatoria"
                                                 @click="deleteAnnouncement(announcement.id)"
                                                 class="p-2 text-red-600 border border-red-600 rounded-full hover:bg-red-600 hover:text-white transition cursor-pointer" title="Eliminar">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="20px"

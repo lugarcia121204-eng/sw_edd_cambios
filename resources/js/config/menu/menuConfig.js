@@ -178,117 +178,51 @@ export const menuConfigs = {
     superAdmin: [
         { label: "Inicio", icon: mdiHome, iconName: "Home", items: [{ label: "Panel principal", route: "superadmin.dashboard", icon: mdiHome, iconName: "Home" }] },
         { label: "Administración", icon: mdiOfficeBuilding, iconName: "Building2", items: [
+            { label: "Mensajes de contacto", route: "superadmin.contact-messages.index", icon: mdiBell, iconName: "Mail" },
             { label: "Control de Solicitudes", route: "superadmin.control-applications", icon: mdiFileDocumentMultiple, iconName: "FileText" },
             { label: "Convocatorias", route: "announcements.index", icon: mdiBullhorn, iconName: "Megaphone", permission: "announcements.index" },
         ] },
         { label: "Seguridad", icon: mdiSecurity, iconName: "Shield", items: getSecurityItems("security.").map((item, index) => ({ ...item, iconName: ["Layers", "Lock", "KeyRound", "Users"][index] })) },
         { label: "Catálogos", icon: mdiBookOpenPageVariant, iconName: "Folder", items: [
             ...getCatalogItems("catalog.").map((item, index) => ({ ...item, label: index === 4 ? "Rúbricas" : item.label, iconName: ["Building2", "Lightbulb", "ListTree", "FileText", "ClipboardList", "Files"][index] })),
-            { label: "Documentos de Trabajo", route: "catalog.admin.documents.index", icon: mdiFileDocumentMultiple, iconName: "FileText", permission: "documents.index" },
+            { label: "Documentos de Trabajo", route: "superadmin.work-documents.index", icon: mdiFileDocumentMultiple, iconName: "FileText" },
         ] },
         { label: "Respaldos", route: "superadmin.backup.index", icon: mdiDatabase, iconName: "Database" },
     ],
     admin: [
-        { type: "section", label: "Inicio" },
-        {
-            label: "Inicio",
-            route: "admin.dashboard",
-            icon: mdiHome,
-            permission: "admin.dashboard",
-        },
-        { type: "section", label: "Gestión" },
-        {
-            label: "Solicitudes",
-            route: "admin.applications.index",
-            icon: mdiFileDocumentMultiple,
-            permission: "applications.index",
-        },
-        {
-            label: "Seguridad",
-            icon: mdiSecurity,
-            items: [
-                {
-                    label: "Usuarios",
-                    route: "admin.evaluators.index",
-                    icon: mdiAccount,
-                    permission: "users.index",
-                },
-            ],
-        },
-        {
-            label: "Reconocimiento",
-            route: "admin.recognitions.index",
-            icon: mdiStar,
-            permission: "recognitions.index",
-        },
-        {
-            label: "Respaldos",
-            route: "superadmin.backup.index",
-            icon: mdiDatabase,
-            permission: "backup.index",
-        },
+        { label: "Inicio", icon: mdiHome, iconName: "Home", adminGroup: true, items: [
+            { label: "Panel principal", route: "admin.dashboard", iconName: "Home", icon: mdiHome, permission: "admin.dashboard" },
+        ] },
+        { label: "Gestión", icon: mdiOfficeBuilding, iconName: "Building2", adminGroup: true, items: [
+            { label: "Solicitudes", route: "admin.applications.index", iconName: "FileText", icon: mdiFileDocumentMultiple, permission: "applications.index" },
+            { label: "Reconocimiento", route: "admin.recognitions.index", iconName: "Award", icon: mdiStar, permission: "recognitions.index" },
+            { label: "Respaldos", route: "superadmin.backup.index", iconName: "Database", icon: mdiDatabase, permission: "backup.index" },
+        ] },
+        { label: "Seguridad", icon: mdiSecurity, iconName: "Shield", adminGroup: true, items: [
+            { label: "Usuarios", route: "admin.evaluators.index", iconName: "Users", icon: mdiAccount, permission: "users.index" },
+        ] },
     ],
     teacher: [
-        { type: "section", label: "Inicio" },
-        {
-            label: "Inicio",
-            route: "teacher.dashboard",
-            icon: mdiHome,
-        },
-        { type: "section", label: "Gestión" },
-        {
-            label: "Convocatorias",
-            route: "teacher.announcements.index",
-            icon: mdiBullhorn,
-            permission: "announcements.index",
-        },
-        {
-            label: "Reconocimientos",
-            route: "teacher.recognitions.index",
-            icon: mdiStar,
-            permission: "teacher.recognitions.index",
-        },
-        {
-            label: "Seguridad",
-            icon: mdiSecurity,
-            items: getSecurityItems("security."),
-        },
-        {
-            label: "Catálogo",
-            icon: mdiBookOpenPageVariant,
-            items: getCatalogItems("catalog."),
-        },
+        { label: "Inicio", icon: mdiHome, iconName: "Home", items: [
+            { label: "Panel principal", route: "teacher.dashboard", icon: mdiHome, iconName: "Home" },
+        ] },
+        { label: "Gestión", icon: mdiOfficeBuilding, iconName: "Building2", items: [
+            { label: "Convocatorias", route: "teacher.announcements.index", icon: mdiBullhorn, iconName: "Megaphone", permission: "announcements.index" },
+            { label: "Reconocimientos", route: "teacher.recognitions.index", icon: mdiStar, iconName: "Award", permission: "teacher.recognitions.index" },
+        ] },
+        { label: "Seguridad", icon: mdiSecurity, iconName: "Shield", items: getSecurityItems("security.").map((item, index) => ({ ...item, iconName: ["Layers", "Lock", "KeyRound", "Users"][index] })) },
+        { label: "Catálogo", icon: mdiBookOpenPageVariant, iconName: "Folder", items: getCatalogItems("catalog.").map((item, index) => ({ ...item, iconName: ["Building2", "Lightbulb", "ListTree", "FileText", "ClipboardList", "Files"][index] })) },
     ],
     evaluator: [
-        { type: "section", label: "Inicio" },
-        {
-            label: "Inicio",
-            route: "evaluator.dashboard",
-            icon: mdiHome,
-        },
-        { type: "section", label: "Gestión" },
-        {
-            label: "Evaluaciones",
-            route: "evaluator.evaluations.index",
-            icon: mdiSchool,
-            permission: "evaluator.evaluations.index",
-        },
-        {
-            label: "Reconocimientos",
-            route: "evaluator.recognitions.index",
-            icon: mdiStar,
-            permission: "evaluator.recognitions.index",
-        },
-        {
-            label: "Seguridad",
-            icon: mdiSecurity,
-            items: getSecurityItems("security."),
-        },
-        {
-            label: "Catálogo",
-            icon: mdiBookOpenPageVariant,
-            items: getCatalogItems("catalog."),
-        },
+        { label: "Inicio", icon: mdiHome, iconName: "Home", items: [
+            { label: "Panel principal", route: "evaluator.dashboard", icon: mdiHome, iconName: "Home" },
+        ] },
+        { label: "Gestión", icon: mdiOfficeBuilding, iconName: "Building2", items: [
+            { label: "Evaluaciones", route: "evaluator.evaluations.index", icon: mdiSchool, iconName: "ClipboardList", permission: "evaluator.evaluations.index" },
+            { label: "Reconocimientos", route: "evaluator.recognitions.index", icon: mdiStar, iconName: "Award", permission: "evaluator.recognitions.index" },
+        ] },
+        { label: "Seguridad", icon: mdiSecurity, iconName: "Shield", items: getSecurityItems("security.").map((item, index) => ({ ...item, iconName: ["Layers", "Lock", "KeyRound", "Users"][index] })) },
+        { label: "Catálogo", icon: mdiBookOpenPageVariant, iconName: "Folder", items: getCatalogItems("catalog.").map((item, index) => ({ ...item, iconName: ["Building2", "Lightbulb", "ListTree", "FileText", "ClipboardList", "Files"][index] })) },
     ],
 };
 

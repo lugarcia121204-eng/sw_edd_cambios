@@ -44,11 +44,16 @@ class ContactController extends Controller
                 'message' => $request->message,
             ];
 
-            // 1. Correo a la institución (configurado en .env MAIL_FROM_ADDRESS)
-            Mail::to(config('mail.from.address'))->queue(new ContactFormMail($data));
-
-            // 2. Correo de confirmación al usuario
-            Mail::to($request->email)->queue(new ContactConfirmationMail($data));
+            \App\Models\ContactMessage::create([
+                'name' => $data['name'], 'email' => $data['email'],
+                'institution_name' => $data['institucion'], 'message' => $data['message'],
+            ]);
+            try {
+                Mail::to(config('mail.from.address'))->queue(new ContactFormMail($data));
+                Mail::to($request->email)->queue(new ContactConfirmationMail($data));
+            } catch (\Throwable $mailError) {
+                report($mailError);
+            }
 
             return response()->json([
                 'success' => true,

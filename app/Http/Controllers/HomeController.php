@@ -63,6 +63,18 @@ class HomeController extends Controller
     /**
      * Show active or most recent announcement.
      */
+    public function previewAnnouncement(Announcement $announcement): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        abort_unless(in_array($announcement->status, ['activa', 'cerrada'], true), 404);
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+        $path = $announcement->file_path;
+        abort_unless($path && $disk->exists($path), 404);
+
+        return response()->file($disk->path($path), [
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
     public function showAnnouncement()
     {
         // Priority: Activa > Cerrada

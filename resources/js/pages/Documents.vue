@@ -5,7 +5,9 @@ import { ref, computed, watch } from 'vue';
 import { Files, Download, Eye, Search, X } from 'lucide-vue-next';
 
 const props = defineProps({
-    activeAnnouncement: Object
+    activeAnnouncement: Object,
+    managedDocumentIds: { type: Array, default: () => [] },
+    workDocuments: { type: Array, default: () => [] }
 });
 
 const announcementYear = computed(() => {
@@ -35,6 +37,8 @@ const closeDocument = () => {
     currentPdfTitle.value = '';
 };
 
+
+const documentColor = (category) => ({ formatos: '#2B579A', guias: '#059669', convocatoria: 'var(--institutional-primary)', privacidad: '#E9C81F' }[category] || '#1b396a');
 
 const selectedCategory = ref('todos');
 const searchQuery = ref('');
@@ -109,11 +113,11 @@ const searchIndex = [
     }
 ];
 const normalizeSearch = (value) => value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLocaleLowerCase('es-MX');
-const searchableDocuments = computed(() => searchIndex.filter(document => !document.variant || document.variant === (props.activeAnnouncement?.file_url ? 'dynamic' : 'static')));
+const searchableDocuments = computed(() => [...props.workDocuments, ...searchIndex.filter(document => !props.managedDocumentIds.includes(document.id) && (!document.variant || document.variant === (props.activeAnnouncement?.file_url ? 'dynamic' : 'static')))]);
 const matchesDocument = (id) => {
     const document = searchableDocuments.value.find(document => document.id === id);
     if (!document || (selectedCategory.value !== 'todos' && selectedCategory.value !== document.category)) return false;
-    const text = (document.title + ' ' + document.description).replaceAll('{{ announcementYear }}', String(announcementYear.value));
+    const text = (document.title + ' ' + (document.description || '')).replaceAll('{{ announcementYear }}', String(announcementYear.value));
     const terms = normalizeSearch(searchQuery.value).trim().split(/\s+/).filter(Boolean);
     return terms.every(term => normalizeSearch(text).includes(term));
 };
@@ -153,6 +157,9 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
                 <div class="documents-grid">
                     <div class="library-heading"><div><h2>Formatos y documentación</h2><p>Consulta la descripción de cada archivo y selecciona el documento que necesitas.</p></div><span class="library-badge" role="status" aria-live="polite">{{ resultCount }} {{ resultCount === 1 ? 'documento' : 'documentos' }}</span></div>
                     <div v-if="resultCount === 0" class="documents-empty"><Search :size="28" /><h3>No se encontraron documentos</h3><p>Prueba con otra búsqueda o categoría.</p><button type="button" @click="selectedCategory = 'todos'; searchQuery = ''">Mostrar todos</button></div>
+                    <article v-for="document in workDocuments" v-show="matchesDocument(document.id)" :key="document.id" class="document-card uploaded-document" :style="{ '--card-color': documentColor(document.category) }">
+                        <div class="shrink-0"><Files :size="25" class="uploaded-icon" /></div><div class="uploaded-body"><h3>{{ document.title }}</h3><p>{{ document.description }}</p><div class="document-card-footer"><span>{{ document.format }} · {{ Math.ceil(document.file_size / 1024) }} KB</span><div class="uploaded-actions"><button v-if="document.preview_url" type="button" @click="toggleDocument(document.id, document.preview_url, document.title)"><Eye :size="16" /> {{ activeDocument === document.id ? 'Cerrar vista' : 'Ver documento' }}</button><a :href="document.download_url"><Download :size="16" /> Descargar</a></div></div><iframe v-if="activeDocument === document.id && document.preview_url" :src="document.preview_url" :title="document.title" class="uploaded-preview"></iframe></div>
+                    </article>
                     <!-- 1. Carta de Exclusividad Laboral -->
                     <a v-show="matchesDocument('doc1')" :style="{ '--card-color': '#2B579A' }" href="https://edd.tecnm.mx/formatos/2025/CARTA_EXCLUSIVIDAD_EDD2025.docx" class="document-card flex items-start space-x-4 bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-[#2B579A] hover:shadow-xl transition-all group cursor-pointer">
                         <div class="flex-shrink-0">
@@ -487,6 +494,8 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
 </template>
 
 <style scoped>
+.uploaded-document{display:flex;align-items:flex-start;gap:18px}.uploaded-icon{color:var(--card-color);flex-shrink:0}.uploaded-body{flex:1;min-width:0}.uploaded-body h3{font-size:18px;font-weight:600;color:#102344}.uploaded-body>p{margin:8px 0 14px;font-size:13px;color:#64748b;white-space:pre-wrap;overflow-wrap:anywhere}.uploaded-actions{display:flex;flex-wrap:wrap;gap:14px}.uploaded-actions button,.uploaded-actions a{display:inline-flex;align-items:center;gap:6px;color:var(--card-color);font-size:12px;cursor:pointer}.uploaded-preview{width:100%;height:500px;border:1px solid #e2e8f0;border-radius:8px;margin-top:16px}
+
 .documents-hero { background:linear-gradient(115deg,var(--institutional-primary),var(--institutional-primary-dark)); color:white; }
 .documents-container { max-width:1280px; padding:0 24px; margin:auto; }
 .documents-breadcrumb { display:flex; align-items:center; gap:12px; padding-top:26px; font-size:12px; color:#c8d6e9; }
@@ -524,20 +533,20 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
 :global(.dark .documents-section .documents-empty) { color:var(--institutional-dark-text); border-color:#ffffff20; }
 @media(max-width:1100px) { .documents-toolbar { flex-wrap:wrap; } .document-search { width:100%; } }
 @media(max-width:639px) { .document-filters { gap:8px; } .document-filters button { padding:9px 13px; font-size:12px; } .documents-toolbar { gap:16px; margin-bottom:24px; } }
-.documents-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; align-items:stretch; }
+.documents-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:stretch; }
 .library-heading { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:6px; }
 .library-heading h2 { font-size:22px; font-weight:700; letter-spacing:-.02em; color:#142c4d; margin-bottom:7px; }
 .library-heading p { font-size:14px; line-height:1.7; color:#56677d; }
 .library-badge { flex-shrink:0; font-size:11px; font-weight:650; letter-spacing:.06em; border:1px solid #dce4ef; background:white; color:#56677d; padding:8px 12px; border-radius:8px; }
-.document-card { border:1px solid #e2e8f0; border-radius:18px; padding:26px; box-shadow:0 4px 18px #10234404; gap:18px; align-items:stretch; transition:border-color .2s,box-shadow .2s,transform .2s; }
+.document-card { border:1px solid #e2e8f0; border-radius:14px; padding:18px; background:#fff; box-shadow:0 4px 18px #10234404; gap:18px; align-items:stretch; transition:border-color .2s,box-shadow .2s,transform .2s; }
 .document-card:hover { border-color:#9badc7; box-shadow:0 8px 24px #1023440b; transform:translateY(-2px); }
 .document-card > div { margin-left:0; }
-.document-card > div:first-child { width:46px; height:50px; border:1px solid #e3eaf3; background:#f5f7fb; border-radius:12px; display:flex; align-items:center; justify-content:center; }
+.document-card > div:first-child { width:36px; height:40px; border:1px solid #e3eaf3; background:#f5f7fb; border-radius:12px; display:flex; align-items:center; justify-content:center; }
 .document-card > div:first-child svg { width:25px; height:25px; color:var(--card-color); }
 .document-card > div:last-child { display:flex; flex-direction:column; min-width:0; }
-.document-card h3 { font-size:17px; line-height:1.45; font-weight:700; letter-spacing:-.015em; color:#142c4d; }
-.document-card p { font-size:13px; line-height:1.85; color:#56677d; margin-bottom:22px; }
-.document-card-footer { margin-top:auto; border-top:1px solid #e2e8f0; padding-top:15px; gap:10px; }
+.document-card h3 { font-size:15px; line-height:1.4; font-weight:700; letter-spacing:-.015em; color:#142c4d; }
+.document-card p { font-size:12px; line-height:1.6; color:#56677d; margin-bottom:12px; }
+.document-card-footer { margin-top:auto; border-top:1px solid #e2e8f0; padding-top:10px; gap:10px; }
 .document-card-footer > span:first-child { font-size:11px; font-weight:650; color:#62748b; }
 .document-action { margin-left:auto; color:var(--card-color); font-size:12px; font-weight:700; }
 .document-card-footer svg { width:16px; height:16px; color:var(--card-color); flex-shrink:0; }
@@ -552,4 +561,11 @@ const currentPreviewIsImage = computed(() => isImageResource(currentPdfUrl.value
 :global(.dark .documents-section .document-card-footer > span:first-child) { color:#b8d8ff; }
 @media(max-width:767px) { .documents-grid { grid-template-columns:1fr; } .documents-container { padding:0 16px; } .documents-hero-icon { display:none; } .documents-hero-content { padding:26px 0; } .documents-formats { gap:18px; flex-wrap:wrap; } .documents-formats span { font-size:12px; } .documents-section { padding:26px 0 40px; } .document-card { padding:22px; gap:14px; } .library-heading { align-items:flex-start; } .library-badge { display:none; } .document-card h3 { font-size:16px; } }
 @media(prefers-reduced-motion:reduce) { .document-card { transition:none; } .document-card:hover { transform:none; } }
+</style>
+
+<style scoped>
+.uploaded-document .uploaded-body { width:auto; height:auto; border:0; background:transparent; border-radius:0; align-items:stretch; justify-content:initial; flex:1; }
+.uploaded-document .uploaded-body h3 { font-size:15px; line-height:1.4; }
+.uploaded-document .uploaded-body > p { margin:6px 0 12px; font-size:12px; line-height:1.6; }
+.uploaded-document .document-card-footer { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; }
 </style>

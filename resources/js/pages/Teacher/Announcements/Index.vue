@@ -19,10 +19,12 @@ const toggleDescription = (id) => {
 const showDocumentModal = ref(false);
 const currentDocumentUrl = ref('');
 const currentDocumentTitle = ref('');
+const currentDocumentFileUrl = ref('');
 
-const openDocumentModal = (url, title) => {
+const openDocumentModal = (url, title, fileUrl) => {
     if (!url) return;
     currentDocumentUrl.value = url;
+    currentDocumentFileUrl.value = fileUrl || url;
     currentDocumentTitle.value = title;
     showDocumentModal.value = true;
 };
@@ -30,14 +32,15 @@ const openDocumentModal = (url, title) => {
 const closeDocumentModal = () => {
     showDocumentModal.value = false;
     currentDocumentUrl.value = '';
+    currentDocumentFileUrl.value = '';
     currentDocumentTitle.value = '';
 };
 
 const isPdfResource = (url) => /\.pdf($|\?)/i.test(url || '');
 const isImageResource = (url) => /\.(png|jpe?g|gif|webp|bmp|svg)($|\?)/i.test(url || '');
 
-const currentDocumentIsPdf = computed(() => isPdfResource(currentDocumentUrl.value));
-const currentDocumentIsImage = computed(() => isImageResource(currentDocumentUrl.value));
+const currentDocumentIsPdf = computed(() => isPdfResource(currentDocumentFileUrl.value));
+const currentDocumentIsImage = computed(() => isImageResource(currentDocumentFileUrl.value));
 
 // Helper para parsear fecha "YYYY-MM-DD", "YYYY-MM-DD HH:MM:SS" o ISO "YYYY-MM-DDTHH:mm:ss"
 const parseDateLocal = (dateString) => {
@@ -201,7 +204,7 @@ const getFase = (announcement) => {
                             <button
                                 v-if="announcement.file_url"
                                 type="button"
-                                @click="openDocumentModal(announcement.file_url, announcement.name)"
+                                @click="openDocumentModal(route('teacher.announcements.preview', announcement.id), announcement.name, announcement.file_url)"
                                 class="text-[var(--institutional-primary)] font-semibold hover:underline flex items-center gap-2 group/link cursor-pointer"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -293,6 +296,7 @@ const getFase = (announcement) => {
                                 v-if="currentDocumentIsPdf"
                                 :src="currentDocumentUrl"
                                 class="w-full h-full"
+                                :title="currentDocumentTitle"
                                 frameborder="0"
                             ></iframe>
 

@@ -157,7 +157,7 @@ defineProps({
 const page = usePage();
 const supremeSidebar = computed(() => page.props.auth?.primaryRole === 'Super Admin');
 provide('supremeSidebar', supremeSidebar);
-const administrativeSidebar = computed(() => ['Super Admin', 'Admin'].includes(page.props.auth?.primaryRole));
+const administrativeSidebar = computed(() => ['Super Admin', 'Admin', 'Docente', 'Evaluador'].includes(page.props.auth?.primaryRole));
 provide('administrativeSidebar', administrativeSidebar);
 const sidebarOpen = inject('sidebarOpen', ref(false));
 const sidebarCollapsed = inject('sidebarCollapsed', ref(false));
@@ -239,4 +239,8 @@ onUnmounted(() => {
 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
 .custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.2) transparent; }
+</style>
+
+<style scoped>
+.administrative-sidebar { background:var(--institutional-primary, #1b396a); }
 </style>

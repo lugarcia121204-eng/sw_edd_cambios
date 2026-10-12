@@ -12,8 +12,8 @@ const contact = theme.footer.contactInfo;
 </script>
 
 <template>
-    <div class="landing-shell min-h-screen flex flex-col font-sans bg-gray-50 text-black dark:bg-[var(--institutional-dark-background)] dark:text-[var(--institutional-dark-text)]">
-        <header class="landing-header sticky top-0 z-50 shadow-md">
+    <div class="landing-shell flex flex-col font-sans bg-gray-50 text-black dark:bg-[var(--institutional-dark-background)] dark:text-[var(--institutional-dark-text)]">
+        <header class="landing-header z-50 shrink-0 shadow-md">
             <div class="header-content w-full 2xl:container mx-auto">
                 <Link :href="route('inicio')" class="brand" aria-label="Ir al inicio">
                     <img :src="theme.logos.navbar" :alt="theme.logos.alt" class="brand-logo" />
@@ -43,7 +43,7 @@ const contact = theme.footer.contactInfo;
                 <button type="button" class="mobile-appearance" @click="styleStore.setDarkMode()">{{ styleStore.darkMode ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro' }}</button>
             </nav>
         </header>
-        <main class="flex-grow"><slot /></main>
+        <main class="landing-main"><slot />
         <footer class="landing-footer">
             <div class="footer-container">
                 <div class="footer-grid">
@@ -70,11 +70,14 @@ const contact = theme.footer.contactInfo;
                 <div class="footer-copyright">{{ theme.footer.copyright }}</div>
             </div>
         </footer>
+        </main>
     </div>
 </template>
 
 <style scoped>
-.landing-header { width:100%; background: var(--institutional-navbar-bg); color: var(--institutional-navbar-text); }
+.landing-shell { position:fixed; inset:0; height:100dvh; overflow:hidden; }
+.landing-main { container-type:size; flex:1 1 0%; min-height:0; overflow-y:auto; overflow-x:hidden; overscroll-behavior-y:none; padding:0; margin:0; }
+.landing-header { position:relative; flex-shrink:0; z-index:50; width:100%; background: var(--institutional-navbar-bg); color: var(--institutional-navbar-text); }
 .header-content { display:flex; align-items:center; justify-content:flex-start; gap:20px; padding:14px 32px; min-height:76px; }
 .brand { display:flex; align-items:center; gap:16px; min-width:0; }
 .brand-logo { height:48px; width:34px; object-fit:contain; flex-shrink:0; }
@@ -89,8 +92,8 @@ const contact = theme.footer.contactInfo;
 .login-button,.register-button { display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:7px 12px; border-radius:8px; font-size:14px; font-weight:700; white-space:nowrap; }
 .login-button { background:#ffffff18; border:1px solid #ffffff80; }
 .login-button:hover { background:#ffffff28; }
-.register-button { background:var(--institutional-gold); color:var(--institutional-primary-dark); }
-.register-button:hover { filter:brightness(.94); }
+.register-button { background:var(--institutional-primary,#1b396a); color:#fff; border:1px solid #ffffff80; }
+.register-button:hover { background:var(--institutional-primary-light,#2c5282); }
 .appearance-control { display:flex; align-items:center; gap:6px; margin-left:6px; padding-left:12px; border-left:1px solid #ffffff40; }
 .theme-switch { width:40px; height:24px; background:#ffffff30; border:1px solid #ffffff50; border-radius:20px; padding:3px; cursor:pointer; }
 .theme-switch span { display:block; background:white; width:16px; height:16px; border-radius:50%; transition:transform .2s; }

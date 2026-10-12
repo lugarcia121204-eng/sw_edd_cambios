@@ -34,7 +34,11 @@ Route::get('/verify-recognition/{identifier}', [\App\Http\Controllers\Public\Ver
 Route::get('/recognitions/search', [\App\Http\Controllers\Public\RecognitionSearchController::class, 'index'])->name('recognitions.search');
 Route::get('/recognitions/download/{identifier}', [\App\Http\Controllers\Public\RecognitionSearchController::class, 'download'])->name('recognitions.public-download');
 
+Route::get('/announcement/{announcement}/document.pdf', [HomeController::class, 'previewAnnouncement'])->name('announcement.preview');
 Route::get('/announcement', [HomeController::class, 'showAnnouncement'])->name('announcement.show');
+
+Route::get('/work-documents/{workDocument}/download', [\App\Http\Controllers\SuperAdmin\WorkDocumentController::class, 'publicDownload'])->name('work-documents.download');
+Route::get('/work-documents/{workDocument}/preview', [\App\Http\Controllers\SuperAdmin\WorkDocumentController::class, 'preview'])->name('work-documents.preview');
 
 Route::get('/documents', function () { // /documentos -> /documents
     $activeAnnouncement = \App\Models\Announcement::with('calendar')
@@ -50,6 +54,8 @@ Route::get('/documents', function () { // /documentos -> /documents
     }
 
     return Inertia::render('Documents', [
+        'managedDocumentIds' => \App\Models\WorkDocument::withTrashed()->whereNotNull('source_key')->pluck('source_key'),
+        'workDocuments' => \App\Models\WorkDocument::where('published', true)->latest()->get()->map(fn ($document) => $document->publicData()),
         'activeAnnouncement' => $activeAnnouncement ? (new \App\Http\Resources\Catalog\AnnouncementResource($activeAnnouncement))->resolve() : null,
     ]);
 })->name('documents.index'); // documents.index
@@ -106,6 +112,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ========================
     Route::middleware(['role:Super Admin'])->prefix('superadmin')->name('superadmin.')->group(
         function () {
+            Route::get('contact-messages', [\App\Http\Controllers\SuperAdmin\ContactMessageController::class, 'index'])->name('contact-messages.index');
+            Route::patch('contact-messages/{contactMessage}', [\App\Http\Controllers\SuperAdmin\ContactMessageController::class, 'update'])->name('contact-messages.update');
+            Route::get('work-documents/{workDocument}/download', [\App\Http\Controllers\SuperAdmin\WorkDocumentController::class, 'download'])->name('work-documents.download');
+            Route::resource('work-documents', \App\Http\Controllers\SuperAdmin\WorkDocumentController::class)->only(['index', 'store', 'update', 'destroy']);
             Route::get('dashboard', [\App\Http\Controllers\SuperAdmin\DashboardController::class, 'index'])->name('dashboard');
             Route::get('dashboard/export', [\App\Http\Controllers\SuperAdmin\DashboardController::class, 'export'])->name('dashboard.export');
             Route::get('control-applications', [\App\Http\Controllers\SuperAdmin\RequestControlController::class, 'index'])->name('control-applications'); // control-solicitudes
@@ -185,6 +195,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Announcements Teacher
             Route::get('announcements', [TeacherController::class, 'convocatorias'])->name('announcements.index'); // convocatorias
+            Route::get('announcements/{id}/preview', [TeacherController::class, 'previewAnnouncement'])->name('announcements.preview');
             Route::get('announcements/{id}/apply', [TeacherController::class, 'solicitar'])->name('announcements.apply'); // solicitar
             Route::post('announcements/apply', [TeacherController::class, 'storeApplication'])->name('applications.store');
 
@@ -247,6 +258,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     );
 
     // Announcements
+    Route::get('announcements/{announcement}/preview', [AnnouncementController::class, 'preview'])->name('announcements.preview')->middleware('permission:announcements.index');
     Route::get('announcements/{announcement}/download', [AnnouncementController::class, 'download'])->name('announcements.download')->middleware('permission:announcements.index');
     Route::put('announcements/{announcement}/documents', [AnnouncementController::class, 'updateDocumentos'])->name('announcements.updateDocuments')->middleware('permission:announcements.edit');
     Route::resource('announcements', AnnouncementController::class)->names([

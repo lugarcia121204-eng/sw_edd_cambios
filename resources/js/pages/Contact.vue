@@ -5,8 +5,7 @@ import { ref, onMounted } from 'vue';
 import VueSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 import axios from 'axios';
-import theme from '@/config/theme.config';
-import { MessageSquare, Phone, Mail, MapPin, Globe, Send, LoaderCircle } from 'lucide-vue-next';
+import { MessageSquare, Send, LoaderCircle } from 'lucide-vue-next';
 import { alertaExito, alertaError, alertaCargando, cerrarAlerta } from '@/utils/alerts.js';
 
 const contactForm = ref({
@@ -107,13 +106,6 @@ const submitContact = async () => {
         <!-- CONTACTO Section -->
         <section class="contact-section">
             <div class="contact-container"><div class="contact-grid">
-                <aside class="contact-details" aria-label="Información de contacto">
-                    <div class="contact-intro"><span class="contact-eyebrow">CENIDET</span><h2>Estamos para ayudarte</h2><p>Consulta nuestros datos de contacto o envíanos tus comentarios y dudas sobre el programa.</p></div>
-                    <div class="contact-channel"><span class="channel-icon"><Phone :size="20" /></span><div><h3>Teléfono</h3><a :href="'tel:' + theme.footer.contactInfo.phone.replace(/[^0-9+]/g, '')">{{ theme.footer.contactInfo.phone }}</a></div></div>
-                    <div class="contact-channel"><span class="channel-icon"><Mail :size="20" /></span><div><h3>Correo electrónico</h3><a :href="'mailto:' + theme.footer.contactInfo.email">{{ theme.footer.contactInfo.email }}</a></div></div>
-                    <div class="contact-channel"><span class="channel-icon"><Globe :size="20" /></span><div><h3>Sitio institucional</h3><a :href="'https://' + theme.footer.contactInfo.website" target="_blank" rel="noopener noreferrer">{{ theme.footer.contactInfo.website }}</a></div></div>
-                    <div class="contact-location"><span class="channel-icon"><MapPin :size="20" /></span><div><h3>Ubicación</h3><p>{{ theme.footer.contactInfo.address }}</p></div></div>
-                </aside>
                 <div class="contact-form-card">
                     <form @submit.prevent="submitContact" class="contact-form space-y-6" :aria-busy="loading">
 
@@ -274,7 +266,7 @@ const submitContact = async () => {
 .contact-hero p { font-size:15px; line-height:1.7; color:#d8e5f6; }
 .contact-hero-icon { padding:22px; border:1px solid #ffffff25; background:#ffffff08; border-radius:24px; color:#d5e3f6; }
 .contact-section { --contact-surface:white; --contact-text:#142c4d; --contact-muted:#56677d; --contact-border:#e2e8f0; --contact-input:#fafbfd; background:#f5f7fb; padding:36px 0 64px; color:var(--contact-text); }
-.contact-grid { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.65fr); gap:28px; align-items:start; }
+.contact-grid { display:grid; grid-template-columns:minmax(0,1fr); max-width:1000px; margin-inline:auto; gap:28px; align-items:start; }
 .contact-details { background:linear-gradient(145deg,var(--institutional-primary),var(--institutional-primary-dark)); color:white; border-radius:18px; padding:24px; border-top:3px solid var(--institutional-gold); }
 .contact-intro h2 { font-size:23px; font-weight:700; letter-spacing:-.025em; line-height:1.3; margin:12px 0; }
 .contact-intro p { color:#d8e5f6; font-size:13px; line-height:1.7; margin-bottom:18px; }

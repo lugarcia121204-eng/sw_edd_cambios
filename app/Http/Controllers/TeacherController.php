@@ -119,6 +119,19 @@ class TeacherController extends Controller
         ]);
     }
 
+    public function previewAnnouncement($id): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $announcement = \App\Models\Announcement::activa()->findOrFail($id);
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+        $path = $announcement->file_path;
+
+        abort_unless($path && $disk->exists($path), 404);
+
+        return response()->file($disk->path($path), [
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
     public function solicitar($id)
     {
         $announcement = \App\Models\Announcement::with(['catalogDocuments', 'calendar'])->findOrFail($id);

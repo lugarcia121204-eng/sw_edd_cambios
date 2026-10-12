@@ -15,7 +15,7 @@ class CurpService
 
     public function __construct()
     {
-        $this->apiToken = 'ead4c15a-98c1-4910-99c0-e122f070a1cf';
+        $this->apiToken = (string) config('services.apimarket.token', '');
         $this->apiUrl = 'https://apimarket.mx/api/renapo/grupo/valida-curp';
     }
 

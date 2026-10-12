@@ -40,7 +40,7 @@ class AnnouncementController extends Controller
         $this->middleware("permission:{$this->permissionPrefix}create")->only(['store', 'create']);
         $this->middleware("permission:{$this->permissionPrefix}edit")->only(['update', 'edit', 'updateDocumentos']);
         $this->middleware("permission:{$this->permissionPrefix}delete")->only(['destroy']);
-        $this->middleware("permission:{$this->permissionPrefix}index")->only(['download']);
+        $this->middleware("permission:{$this->permissionPrefix}index")->only(['download', 'preview']);
     }
 
     /**
@@ -146,6 +146,20 @@ class AnnouncementController extends Controller
     /**
      * Download the announcement file.
      */
+    public function preview(Request $request, Announcement $announcement): BinaryFileResponse
+    {
+        $path = $request->query('type') === 'image'
+            ? $announcement->image_path
+            : $announcement->file_path;
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+
+        abort_unless($path && $disk->exists($path), 404);
+
+        return response()->file($disk->path($path), [
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
     public function download(Announcement $announcement)
     {
         return $this->fileService->download(

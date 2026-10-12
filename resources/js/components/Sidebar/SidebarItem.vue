@@ -1,6 +1,6 @@
 <template>
     <div v-if="isVisible">
-        <template v-if="supremeSidebar">
+        <template v-if="supremeSidebar || administrativeSidebar || item.adminGroup">
             <template v-if="item.items?.length">
                 <button v-if="!collapsed || isMobile" type="button" class="supreme-group" :aria-expanded="isExpanded" @click="toggleGroup">
                     <component :is="supremeIcon" :size="20" :stroke-width="1.7" class="supreme-group-icon" />
@@ -12,7 +12,8 @@
                 </div>
             </template>
             <Link v-else :href="resolveRoute(item.route)" :aria-current="isActive ? 'page' : undefined" :title="item.label" :class="['supreme-single', { 'supreme-child': isChild, 'supreme-large': largeMenuOption, 'supreme-active': isActive, 'supreme-icon-only': collapsed && !isMobile }]" @click="closeSidebarOnMobileNavigate">
-                <component :is="supremeIcon" :size="20" :stroke-width="1.7" />
+                <svg v-if="!supremeSidebar && item.icon && !item.iconName" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" :d="item.icon" /></svg>
+                <component v-else :is="supremeIcon" :size="20" :stroke-width="1.7" />
                 <span v-if="!collapsed || isMobile">{{ item.label }}</span>
             </Link>
         </template>
@@ -109,7 +110,7 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, inject, ref, onMounted } from 'vue';
-import { Home, Building2, Shield, Folder, Database, Layers, Lock, KeyRound, Users, Lightbulb, ListTree, FileText, ClipboardList, Files, Megaphone, ChevronDown, ChevronRight } from 'lucide-vue-next';
+import { Award, Home, Building2, Shield, Folder, Database, Layers, Lock, KeyRound, Users, Lightbulb, ListTree, FileText, ClipboardList, Files, Megaphone, ChevronDown, ChevronRight } from 'lucide-vue-next';
 import { mdiViewModule } from "@mdi/js";
 
 const props = defineProps({
@@ -127,7 +128,7 @@ const page = usePage();
 const supremeSidebar = inject('supremeSidebar', ref(false));
 const administrativeSidebar = inject('administrativeSidebar', ref(false));
 const largeMenuOption = computed(() => ['Mensajes de contacto', 'Control de Solicitudes', 'Convocatorias', 'Respaldos'].includes(props.item.label));
-const supremeIcons = { Home, Building2, Shield, Folder, Database, Layers, Lock, KeyRound, Users, Lightbulb, ListTree, FileText, ClipboardList, Files, Megaphone };
+const supremeIcons = { Award, Home, Building2, Shield, Folder, Database, Layers, Lock, KeyRound, Users, Lightbulb, ListTree, FileText, ClipboardList, Files, Megaphone };
 const supremeIcon = computed(() => supremeIcons[props.item.iconName] || FileText);
 const firstVisibleChild = computed(() => props.item.items?.find(child => hasPermission(child.permission)));
 const collapsed = inject('sidebarCollapsed', ref(false));
@@ -206,4 +207,9 @@ onMounted(() => {
 .supreme-single:hover,.supreme-active { background:#ffffff07; color:white; }
 .supreme-icon-only { justify-content:center; padding:20px 12px; }
 .supreme-group:focus-visible,.supreme-single:focus-visible { outline:2px solid var(--institutional-gold); outline-offset:-3px; }
+</style>
+
+<style scoped>
+.supreme-submenu .supreme-child { margin-bottom:5px; border-radius:9px; color:#fff; font-size:12px; font-weight:650; padding:14px 12px; }
+.supreme-submenu .supreme-child:hover,.supreme-submenu .supreme-active { background:#ffffff08; }
 </style>

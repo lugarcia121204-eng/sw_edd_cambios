@@ -165,7 +165,7 @@ const etapas = computed(() => {
                         <div class="featured-top"><span class="document-icon"><FileText :size="24" /></span><span class="featured-label">CONVOCATORIA</span></div>
                         <h2>{{ announcementData.name }}</h2>
                         <p class="announcement-description">{{ announcementData.description || 'Sin descripción disponible.' }}</p>
-                        <button v-if="announcementData.file_url && announcementData.status !== 'pendiente'" @click="openPdfModal(announcementData.file_url, announcementData.name)" class="document-button"><FileText :size="18" /> Ver Convocatoria PDF <ArrowUpRight :size="18" /></button>
+                        <button v-if="announcementData.file_url && announcementData.status !== 'pendiente'" @click="openPdfModal(route('announcement.preview', announcementData.id), announcementData.name)" class="document-button"><FileText :size="18" /> Ver Convocatoria PDF <ArrowUpRight :size="18" /></button>
                         <div v-else-if="announcementData.status === 'pendiente'" class="document-notice"><Clock3 :size="18" /> Convocatoria Próximamente</div>
                         <div v-else class="document-notice"><FileText :size="18" /> Sin PDF disponible</div>
                     </article>

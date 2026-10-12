@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'apimarket' => [
+        'token' => env('APIMARKET_TOKEN', ''),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
