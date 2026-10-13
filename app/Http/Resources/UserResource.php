@@ -18,6 +18,12 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'evaluator_level' => $this->evaluator_level,
+            'evaluator_status' => $this->evaluator_status,
+            'evaluator_institution_id' => $this->evaluator_institution_id,
+            'evaluator_state_id' => $this->evaluator_state_id,
+            'evaluator_scope' => $this->evaluator_level === 'local' ? $this->evaluatorInstitution?->name : ($this->evaluator_level === 'state' ? $this->evaluatorState?->name : null),
+            'email_verified' => $this->hasVerifiedEmail(),
             'id'            => $this->id,
             'name'          => $this->name,
             'email'         => $this->email,

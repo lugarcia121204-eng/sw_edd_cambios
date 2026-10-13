@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import Pagination from '@/Shared/Pagination.vue';
 import { ref, watch } from 'vue';
@@ -11,6 +11,8 @@ import { mdiSecurity } from '@mdi/js';
 import { alertaExito, alertaPregunta } from '@/utils/alerts.js';
 
 const props = defineProps({
+    institutions: { type: Array, default: () => [] },
+    states: { type: Array, default: () => [] },
     users: {
         type: Object,
         required: true,
@@ -23,6 +25,27 @@ const props = defineProps({
         type: String,
         required: true,
     }
+});
+
+const editing = ref(null);
+const levelNames = { local: 'Local', state: 'Estatal', national: 'Nacional' };
+const statusNames = { pending: 'Pendiente', authorized: 'Autorizado', suspended: 'Suspendido' };
+const configuration = useForm({ evaluator_level: '', evaluator_status: 'pending', evaluator_institution_id: null, evaluator_state_id: null });
+const configure = (user) => {
+    editing.value = user;
+    configuration.clearErrors();
+    configuration.evaluator_level = user.evaluator_level || '';
+    configuration.evaluator_status = user.evaluator_status || 'pending';
+    configuration.evaluator_institution_id = user.evaluator_institution_id;
+    configuration.evaluator_state_id = user.evaluator_state_id;
+};
+const saveConfiguration = () => configuration.put(route('admin.evaluators.configuration', editing.value.id), {
+    preserveScroll: true,
+    onSuccess: () => { editing.value = null; alertaExito('Configuración guardada', 'El nivel y la autorización del evaluador fueron actualizados.'); },
+});
+watch(() => configuration.evaluator_level, () => {
+    if (configuration.evaluator_level !== 'local') configuration.evaluator_institution_id = null;
+    if (configuration.evaluator_level !== 'state') configuration.evaluator_state_id = null;
 });
 
 const search = ref(props.filters.search || '');
@@ -191,6 +214,38 @@ const deleteUser = async (id, name) => {
                 </div>
             </div>
 
+            <section v-if="editing" class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm" aria-labelledby="configuration-title">
+                <h2 id="configuration-title" class="text-xl font-semibold text-[#1b396a]">Configurar evaluador — {{ editing.name }}</h2>
+                <p class="mt-2 text-sm text-slate-600">La institución de procedencia del registro es independiente del ámbito autorizado.</p>
+                <p v-if="!editing.email_verified" class="mt-2 text-sm text-amber-700">El correo todavía no está verificado. Puedes configurar el nivel, pero no autorizar el acceso.</p>
+                <form @submit.prevent="saveConfiguration" class="mt-5 space-y-4">
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <label class="space-y-2">Nivel
+                            <select v-model="configuration.evaluator_level" class="block w-full rounded-lg border border-slate-300 p-3">
+                                <option value="">Sin asignar</option><option value="local">Local</option><option value="state">Estatal</option><option value="national">Nacional</option>
+                            </select>
+                        </label>
+                        <label class="space-y-2">Autorización
+                            <select v-model="configuration.evaluator_status" class="block w-full rounded-lg border border-slate-300 p-3">
+                                <option value="pending">Pendiente</option><option value="authorized" :disabled="!editing.email_verified">Autorizado</option><option value="suspended">Suspendido</option>
+                            </select>
+                        </label>
+                        <label v-if="configuration.evaluator_level === 'local'" class="space-y-2">Institución autorizada
+                            <select v-model="configuration.evaluator_institution_id" required class="block w-full rounded-lg border border-slate-300 p-3">
+                                <option :value="null">Selecciona una institución</option><option v-for="institution in institutions" :key="institution.id" :value="institution.id">{{ institution.name }}</option>
+                            </select>
+                        </label>
+                        <label v-if="configuration.evaluator_level === 'state'" class="space-y-2">Estado autorizado
+                            <select v-model="configuration.evaluator_state_id" required class="block w-full rounded-lg border border-slate-300 p-3">
+                                <option :value="null">Selecciona un estado</option><option v-for="state in states" :key="state.id" :value="state.id">{{ state.name }}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <p v-for="(error, field) in configuration.errors" :key="field" role="alert" class="text-sm text-red-600">{{ error }}</p>
+                    <div class="flex gap-3"><button :disabled="configuration.processing" type="submit" class="rounded-lg bg-[#1b396a] px-5 py-3 text-white disabled:opacity-50">Guardar configuración</button><button type="button" @click="editing = null" class="rounded-lg border border-slate-300 px-5 py-3">Cancelar</button></div>
+                </form>
+            </section>
+
             <!-- Table -->
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
@@ -214,17 +269,19 @@ const deleteUser = async (id, name) => {
                                         </svg>
                                     </div>
                                 </th>
-                                <th scope="col" class="px-6 py-4 text-center tracking-wider">Acciones</th>
+                                <th class="px-6 py-4">Nivel</th><th class="px-6 py-4">Ámbito</th><th class="px-6 py-4">Autorización</th><th scope="col" class="px-6 py-4 text-center tracking-wider">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             <tr v-for="(user, index) in users.data" :key="user.id" class="hover:bg-gray-50 transition">
                                 <td class="px-6 py-4 font-medium text-gray-900">{{ (users.meta.current_page - 1) * users.meta.per_page + index + 1 }}</td>
                                 <td class="px-6 py-4 font-semibold text-gray-800">{{ user.name }}</td>
-                                <td class="px-6 py-4 text-gray-600">{{ user.email }}</td>
+                                <td class="px-6 py-4 text-gray-600">{{ user.email }}<span v-if="!user.email_verified" class="block text-xs text-amber-700">Correo sin verificar</span></td>
+                                <td class="px-6 py-4">{{ levelNames[user.evaluator_level] || 'Sin asignar' }}</td><td class="px-6 py-4">{{ user.evaluator_scope || (user.evaluator_level === 'national' ? 'Nacional' : 'Sin asignar') }}</td><td class="px-6 py-4">{{ statusNames[user.evaluator_status] || 'Pendiente' }}</td>
 
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex items-center justify-center gap-2">
+                                        <button type="button" @click="configure(user)" class="rounded-lg border border-[#1b396a] px-3 py-2 text-[#1b396a] hover:bg-blue-50">Configurar</button>
                                         <button v-if="useCan('users.delete')" @click="deleteUser(user.id, user.name)" class="p-2 text-red-600 border border-red-600 rounded-full hover:bg-red-600 hover:text-white transition group cursor-pointer" title="Eliminar">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                                                 <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
@@ -234,7 +291,7 @@ const deleteUser = async (id, name) => {
                                 </td>
                             </tr>
                             <tr v-if="!users.data || users.data.length === 0">
-                                <td colspan="4" class="px-6 py-12 text-center text-gray-500">
+                                <td colspan="7" class="px-6 py-12 text-center text-gray-500">
                                     No se encontraron evaluadores
                                 </td>
                             </tr>

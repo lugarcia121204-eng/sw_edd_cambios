@@ -2,7 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
 import { ref, computed } from 'vue';
-import { Users, ClipboardCheck, CalendarDays, FileText, ArrowRight, ArrowUpRight, Clock3 } from 'lucide-vue-next';
+import { Users, ClipboardCheck, CalendarDays, FileText, ArrowRight, ArrowUpRight, Clock3, Megaphone, FileUp, ChartColumnIncreasing, Monitor, Eye } from 'lucide-vue-next';
 
 const props = defineProps({
     announcement: Object, // Changed from convocatoria to match web.php
@@ -55,28 +55,28 @@ const etapas = computed(() => {
             id: 1,
             titulo: 'Publicación de Convocatoria',
             dateStartKey: 'publication_start',
-            color: '#1B396A'
+            color: 'var(--institutional-primary)'
         },
         {
             id: 2,
             titulo: 'Registro y Carga de Documentos',
             dateStartKey: 'registration_start',
             dateEndKey: 'registration_end',
-            color: '#10A558'
+            color: 'var(--institutional-success)'
         },
         {
             id: 3,
             titulo: 'Evaluación y Dictaminación',
             dateStartKey: 'evaluation_start',
             dateEndKey: 'evaluation_end',
-            color: '#E9C81F'
+            color: 'var(--institutional-gold)'
         },
         {
             id: 4,
             titulo: 'Publicación de Resultados',
             dateStartKey: 'results_start',
             dateEndKey: 'results_end',
-            color: '#2B6CB0'
+            color: 'var(--institutional-primary-light)'
         }
     ];
 
@@ -122,7 +122,7 @@ const etapas = computed(() => {
                     <div class="hero-heading">
                         <div>
                             <span class="hero-eyebrow">PROGRAMA DE ESTÍMULOS DOCENTES</span>
-                            <h1>Información de Convocatoria</h1>
+                            <h1><span>Información de</span> Convocatoria</h1>
                             <p>Detalles y requisitos para participar en el proceso actual para los Institutos Tecnológicos Federales y Centros</p>
                         </div>
                         <div class="hero-mark" aria-hidden="true"><FileText :size="44" :stroke-width="1.4" /></div>
@@ -145,16 +145,17 @@ const etapas = computed(() => {
                     <article id="bases" class="information-card requirements-card">
                         <div class="card-heading"><span class="heading-icon"><ClipboardCheck :size="23" /></span><h2>Bases de Participación</h2></div>
                         <ol class="requirements-list">
-                            <li><span class="requirement-number">01</span><p>Haber cubierto la carga horaria reglamentaria frente a grupo durante los dos semestres de 2024 y en el primer semestre de 2026.</p></li>
-                            <li><span class="requirement-number">02</span><p>Personal docente titular en subdirección, jefatura de departamento o área administrativa (50% docencia, 50% funciones directivas).</p></li>
-                            <li><span class="requirement-number">03</span><p>Personal docente titular en Docencia e Investigación con mínimo 20 horas-semana en los últimos dos semestres de 2024 y primer semestre de 2026.</p></li>
-                            <li><span class="requirement-number">04</span><p>Personal docente que haya disfrutado licencia sin goce de sueldo según Artículo 12 de los Lineamientos del Programa.</p></li>
-                            <li><span class="requirement-number">05</span><p>Personal con nombramiento de tiempo parcial no podrá participar.</p></li>
-                            <li><span class="requirement-number">06</span><p>Integrar expediente virtual completo según período establecido.</p></li>
+                            <li><span class="requirement-number">1</span><p>Haber cubierto la carga horaria reglamentaria frente a grupo durante los dos semestres de 2024 y en el primer semestre de 2026.</p></li>
+                            <li><span class="requirement-number">2</span><p>Personal docente titular en subdirección, jefatura de departamento o área administrativa (50% docencia, 50% funciones directivas).</p></li>
+                            <li><span class="requirement-number">3</span><p>Personal docente titular en Docencia e Investigación con mínimo 20 horas-semana en los últimos dos semestres de 2024 y primer semestre de 2026.</p></li>
+                            <li><span class="requirement-number">4</span><p>Personal docente que haya disfrutado licencia sin goce de sueldo según Artículo 12 de los Lineamientos del Programa.</p></li>
+                            <li><span class="requirement-number">5</span><p>Personal con nombramiento de tiempo parcial no podrá participar.</p></li>
+                            <li><span class="requirement-number">6</span><p>Integrar expediente virtual completo según período establecido.</p></li>
                         </ol>
                     </article>
 
                     <article class="participation-card">
+                        <span class="participation-icon" aria-hidden="true"><Monitor :size="30" /></span>
                         <div><h2>¿Listo para participar?</h2><p>Si cumples con los requisitos, inicia tu trámite hoy mismo.</p></div>
                         <Link :href="route('login')" class="participation-button">Iniciar Sesión <ArrowRight :size="18" /></Link>
                     </article>
@@ -162,10 +163,11 @@ const etapas = computed(() => {
 
                 <aside class="calendar-column" aria-label="Documento y calendario">
                     <article v-if="announcementData" class="featured-announcement">
+                        <div class="pdf-art" aria-hidden="true"><div class="pdf-sheet"><FileText :size="94" :stroke-width="1.1" /></div><span class="pdf-badge">PDF</span></div>
                         <div class="featured-top"><span class="document-icon"><FileText :size="24" /></span><span class="featured-label">CONVOCATORIA</span></div>
                         <h2>{{ announcementData.name }}</h2>
                         <p class="announcement-description">{{ announcementData.description || 'Sin descripción disponible.' }}</p>
-                        <button v-if="announcementData.file_url && announcementData.status !== 'pendiente'" @click="openPdfModal(route('announcement.preview', announcementData.id), announcementData.name)" class="document-button"><FileText :size="18" /> Ver Convocatoria PDF <ArrowUpRight :size="18" /></button>
+                        <button v-if="announcementData.file_url && announcementData.status !== 'pendiente'" @click="openPdfModal(route('announcement.preview', announcementData.id), announcementData.name)" class="document-button"><Eye :size="20" /> Ver Convocatoria PDF <ArrowRight :size="20" /></button>
                         <div v-else-if="announcementData.status === 'pendiente'" class="document-notice"><Clock3 :size="18" /> Convocatoria Próximamente</div>
                         <div v-else class="document-notice"><FileText :size="18" /> Sin PDF disponible</div>
                     </article>
@@ -176,7 +178,8 @@ const etapas = computed(() => {
                         <ol class="stages-list">
                             <li v-for="etapa in etapas" :key="etapa.id" class="stage-item" :style="{ '--stage-color': etapa.color }">
                                 <span class="stage-number">{{ etapa.id }}</span>
-                                <div><span class="stage-label">FASE {{ etapa.id }}</span><h3>{{ etapa.titulo }}</h3><p class="stage-date"><CalendarDays :size="14" /><span>{{ etapa.fechas }}</span></p></div>
+                                <div><span class="stage-label">Fase {{ etapa.id }}</span><h3>{{ etapa.titulo }}</h3><p class="stage-date"><CalendarDays :size="14" /><span>{{ etapa.fechas }}</span></p></div>
+                                <span class="stage-icon" aria-hidden="true"><component :is="[Megaphone, FileUp, ClipboardCheck, ChartColumnIncreasing][etapa.id - 1]" :size="25" /></span>
                             </li>
                         </ol>
                     </article>
@@ -241,64 +244,168 @@ const etapas = computed(() => {
 </template>
 
 <style scoped>
-.announcement-page { --page-surface:#ffffff; --page-background:#f5f7fb; --page-text:#142c4d; --page-muted:#56677d; --page-border:#e2e8f0; background:var(--page-background); color:var(--page-text); }
-.announcement-container { max-width:1280px; margin:0 auto; padding-left:24px; padding-right:24px; }
-.announcement-hero { background:linear-gradient(115deg,var(--institutional-primary),var(--institutional-primary-dark)); color:white; padding:26px 0 0; }
-.announcement-breadcrumb { display:flex; gap:12px; align-items:center; color:#c8d6e9; font-size:12px; }
-.announcement-breadcrumb a:hover { color:white; }
-.hero-heading { display:flex; align-items:center; justify-content:space-between; gap:32px; padding:32px 0; }
-.hero-eyebrow { font-size:11px; font-weight:700; letter-spacing:.13em; color:var(--institutional-gold); }
-.hero-heading h1 { font-size:clamp(28px,3.4vw,40px); font-weight:750; line-height:1.2; letter-spacing:-.025em; margin:12px 0; }
-.hero-heading p { max-width:700px; color:#d8e5f6; font-size:15px; line-height:1.7; }
-.hero-mark { padding:22px; border:1px solid #ffffff25; background:#ffffff08; border-radius:24px; color:#d5e3f6; }
-.section-navigation { display:flex; gap:30px; border-top:1px solid #ffffff20; padding:19px 0; flex-wrap:wrap; }
-.section-navigation a { display:inline-flex; align-items:center; gap:9px; font-size:13px; color:#edf4ff; }
+.announcement-page { --page-surface:#fff; --page-background:#f1f5fa; --page-text:var(--institutional-primary-dark); --page-muted:#4c6281; --page-border:#e2eaf4; color:var(--page-text); background:linear-gradient(135deg,transparent 65%,#dce7f340 65%,transparent 85%),linear-gradient(45deg,#e3edf680,transparent 40%),var(--page-background); min-height:100%; }
+.announcement-container { max-width:1560px; margin:0 auto; padding-left:32px; padding-right:32px; }
+.announcement-hero { position:relative; isolation:isolate; overflow:hidden; color:white; background:var(--institutional-primary-dark); }
+.announcement-hero::before { content:''; position:absolute; z-index:-2; inset:0 0 0 38%; background:url('/images/cenidet-official-panorama.jpg') center 48%/cover no-repeat; }
+.announcement-hero::after { content:''; position:absolute; z-index:-1; inset:0; background:linear-gradient(53deg,transparent 9%,#ffffff05 9% 13%,transparent 13% 32%,#2c528255 32% 39%,transparent 39%),linear-gradient(90deg,var(--institutional-primary-dark) 0%,var(--institutional-primary-dark) 32%,#1b396aee 43%,#1b396a70 56%,transparent 76%); }
+.announcement-breadcrumb { display:flex; gap:10px; font-size:11px; color:#dce7f5; padding-top:15px; }
+.announcement-breadcrumb a:hover { color:var(--institutional-gold); }
+.hero-heading { padding:20px 0 28px; }
+.hero-eyebrow,.hero-mark { display:none; }
+.hero-heading h1 { font-weight:750; line-height:1.05; font-size:clamp(38px,4vw,62px); letter-spacing:-.025em; max-width:650px; margin:0 0 15px; }
+.hero-heading h1 span { display:block; font-size:.67em; font-weight:400; letter-spacing:0; margin-bottom:3px; }
+.hero-heading h1::after { content:''; display:block; width:56px; height:3px; margin-top:17px; background:var(--institutional-gold); }
+.hero-heading p { max-width:530px; font-size:16px; line-height:1.55; color:#f1f5fc; }
+.section-navigation { display:flex; gap:24px; flex-wrap:wrap; padding:0 0 14px; }
+.section-navigation a { display:inline-flex; align-items:center; gap:7px; font-size:11px; color:#dce7f5; }
 .section-navigation a:hover { color:var(--institutional-gold); }
-.announcement-content { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); align-items:start; gap:28px; padding-top:36px; padding-bottom:64px; }
-.details-column,.calendar-column { display:grid; gap:24px; min-width:0; }
-.information-card { background:var(--page-surface); border:1px solid var(--page-border); border-radius:18px; padding:28px; box-shadow:0 4px 18px #10234404; scroll-margin-top:120px; }
-.card-heading { display:flex; align-items:center; gap:13px; margin-bottom:20px; }
-.heading-icon { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:#1b396a0a; color:var(--institutional-primary); flex-shrink:0; }
-.card-heading h2 { font-size:19px; font-weight:700; line-height:1.35; letter-spacing:-.02em; }
-.audience-copy { font-size:15px; line-height:1.85; color:var(--page-muted); }
-.requirements-list { list-style:none; margin:0; padding:0; }
-.requirements-list li { display:flex; gap:16px; padding:19px 0; border-bottom:1px solid var(--page-border); align-items:flex-start; }
-.requirements-list li:first-child { padding-top:3px; }
-.requirements-list li:last-child { padding-bottom:0; border-bottom:0; }
-.requirement-number { flex-shrink:0; font-size:12px; font-weight:750; color:var(--institutional-primary); background:#1b396a0a; border-radius:8px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
-.requirements-list p { font-size:14px; color:var(--page-muted); line-height:1.8; }
-.participation-card { display:flex; justify-content:space-between; align-items:center; gap:20px; border:1px solid var(--page-border); border-radius:18px; padding:26px 28px; background:var(--page-surface); }
-.participation-card h2 { font-size:18px; font-weight:700; margin-bottom:6px; }
-.participation-card p { font-size:13px; color:var(--page-muted); line-height:1.65; }
-.participation-button { background:var(--institutional-primary); color:white; border-radius:10px; padding:12px 16px; display:inline-flex; align-items:center; justify-content:center; gap:12px; font-size:13px; font-weight:650; flex-shrink:0; }
-.participation-button:hover { background:var(--institutional-primary-dark); }
-.featured-announcement { background:linear-gradient(135deg,var(--institutional-primary),var(--institutional-primary-dark)); color:white; border-radius:18px; padding:28px; border-top:3px solid var(--institutional-gold); }
-.featured-top { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
-.document-icon { padding:10px; display:flex; border:1px solid #ffffff25; border-radius:12px; background:#ffffff08; }
-.featured-label { color:#cadcf4; font-size:11px; letter-spacing:.12em; font-weight:700; }
-.featured-announcement h2 { font-size:26px; line-height:1.3; font-weight:750; letter-spacing:-.02em; overflow-wrap:anywhere; margin-bottom:14px; }
-.announcement-description { font-size:14px; line-height:1.8; color:#d6e4f8; white-space:pre-line; overflow-wrap:anywhere; margin-bottom:26px; }
-.document-button { width:100%; display:flex; gap:10px; align-items:center; justify-content:center; background:white; color:var(--institutional-primary); font-size:13px; font-weight:700; padding:14px; border-radius:10px; cursor:pointer; transition:background .2s; }
-.document-button:hover { background:#e8eef7; }
-.document-notice { display:flex; gap:9px; align-items:center; font-size:13px; background:#ffffff0d; border:1px solid #ffffff20; padding:14px; border-radius:10px; }
-.empty-announcement { text-align:center; padding:36px 24px; }
-.empty-announcement svg { margin:0 auto 16px; color:var(--page-muted); }
-.empty-announcement h2 { font-size:19px; font-weight:700; margin-bottom:8px; }
-.empty-announcement p { color:var(--page-muted); font-size:14px; }
-.stages-list { list-style:none; padding:4px 0 0; margin:0; }
-.stage-item { position:relative; display:grid; grid-template-columns:36px minmax(0,1fr); gap:16px; padding-bottom:30px; }
-.stage-item:last-child { padding-bottom:0; }
-.stage-item:not(:last-child)::before { content:''; position:absolute; top:38px; bottom:2px; left:17px; width:1px; background:var(--page-border); }
-.stage-number { width:36px; height:36px; display:flex; justify-content:center; align-items:center; border-radius:11px; color:var(--page-text); background:var(--page-background); border:1px solid var(--page-border); border-top:3px solid var(--stage-color); font-size:13px; font-weight:750; }
-.stage-label { font-size:10px; color:var(--page-muted); letter-spacing:.09em; font-weight:650; }
-.stage-item h3 { font-size:14px; font-weight:700; line-height:1.5; margin:4px 0 8px; }
-.stage-date { display:flex; align-items:center; gap:7px; color:var(--page-muted); font-size:12px; line-height:1.6; }
+.announcement-content { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); align-items:start; gap:20px; padding-top:20px; padding-bottom:36px; }
+.details-column,.calendar-column { display:grid; gap:16px; min-width:0; }
+.information-card { border-radius:18px; padding:22px 26px; background:var(--page-surface); border:1px solid var(--page-border); box-shadow:0 6px 22px #1b396a0a; scroll-margin-top:24px; }
+.card-heading { display:flex; align-items:center; gap:20px; margin-bottom:12px; }
+.heading-icon { display:flex; align-items:center; justify-content:center; flex-shrink:0; width:56px; height:56px; border-radius:12px; color:white; background:linear-gradient(135deg,var(--institutional-primary-light),var(--institutional-primary)); box-shadow:inset 0 1px 2px #ffffff45,0 3px 8px #1b396a15; }
+.card-heading h2 { font-size:clamp(19px,1.7vw,24px); line-height:1.25; font-weight:750; letter-spacing:-.02em; }
+.card-heading h2::after { content:''; display:block; width:44px; height:3px; background:var(--institutional-primary-light); margin-top:8px; }
+#participantes { display:grid; grid-template-columns:56px minmax(0,1fr); column-gap:20px; }
+#participantes .card-heading { display:contents; }
+#participantes .heading-icon { grid-column:1; grid-row:1 / span 2; }
+#participantes h2 { grid-column:2; }
+.audience-copy { grid-column:2; font-size:14px; line-height:1.55; margin-top:8px; color:var(--page-muted); }
+.requirements-card { position:relative; overflow:hidden; }
+.requirements-card::after { content:''; position:absolute; width:58px; height:72px; border-radius:7px; right:30px; top:24px; transform:rotate(18deg); background:repeating-linear-gradient(0deg,transparent 0 8px,#ffffffb0 8px 12px),#e8f0fa80; pointer-events:none; }
+.requirements-card .card-heading { position:relative; z-index:1; margin-bottom:10px; }
+.requirements-list { padding:0; margin:0; list-style:none; }
+.requirements-list li { display:grid; grid-template-columns:56px minmax(0,1fr); column-gap:20px; align-items:start; }
+.requirement-number { display:flex; align-items:center; justify-content:center; width:36px; height:36px; justify-self:center; border-radius:50%; font-size:18px; font-weight:750; background:#e3ecf7; color:var(--institutional-primary); margin:7px 0; }
+.requirements-list p { font-size:14px; line-height:1.5; padding:8px 0; color:var(--page-muted); border-bottom:1px solid var(--page-border); }
+.requirements-list li:last-child p { border-bottom:0; }
+.participation-card { display:flex; gap:20px; align-items:center; padding:20px 26px; border-radius:18px; color:white; background:linear-gradient(110deg,var(--institutional-primary),var(--institutional-primary-dark) 55%,var(--institutional-primary-light)); box-shadow:0 4px 16px #1b396a25; border-top:2px solid #ffffff30; }
+.participation-icon { display:flex; flex-shrink:0; justify-content:center; align-items:center; width:58px; height:58px; border:1px solid #b4d5f7; border-radius:50%; background:linear-gradient(140deg,#ffffff25,#ffffff05); box-shadow:inset 0 0 12px #ffffff20; }
+.participation-card h2 { font-size:21px; font-weight:750; line-height:1.25; margin-bottom:5px; }
+.participation-card p { font-size:13px; color:#e4eefb; line-height:1.5; }
+.participation-button { display:inline-flex; flex-shrink:0; align-items:center; justify-content:center; gap:16px; background:white; color:var(--institutional-primary); padding:14px 18px; border-radius:12px; font-weight:700; font-size:13px; margin-left:auto; box-shadow:0 3px 8px #00000015; }
+.participation-button:hover,.document-button:hover { background:#e8eff9; }
+.featured-announcement { position:relative; overflow:hidden; isolation:isolate; padding:25px 26px; min-height:220px; border-radius:18px; background:linear-gradient(115deg,var(--institutional-primary),var(--institutional-primary-dark) 60%,var(--institutional-primary-light)); color:white; box-shadow:0 5px 16px #1b396a15; border:1px solid #ffffff30; }
+.featured-announcement::before { content:''; position:absolute; z-index:-1; inset:0; background:linear-gradient(115deg,transparent 65%,#ffffff08 65% 70%,transparent 70% 79%,#ffffff08 79% 84%,transparent 84%); }
+.featured-top { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.document-icon { display:flex; color:var(--institutional-gold); }
+.featured-label { font-size:10px; letter-spacing:.12em; color:#d1e1f6; }
+.featured-announcement h2 { font-size:clamp(27px,2.8vw,40px); font-weight:750; line-height:1.15; margin:0 0 12px; max-width:67%; overflow-wrap:anywhere; }
+.announcement-description { white-space:pre-line; overflow-wrap:anywhere; color:#e7effa; font-size:14px; line-height:1.5; max-width:65%; margin-bottom:16px; }
+.document-button { display:inline-flex; align-items:center; gap:10px; background:white; color:var(--institutional-primary-dark); border-radius:12px; padding:14px 18px; font-size:13px; font-weight:750; cursor:pointer; position:relative; z-index:2; }
+.document-notice { display:flex; align-items:center; gap:8px; font-size:13px; color:#e7effa; position:relative; z-index:2; }
+.pdf-art { position:absolute; right:24px; bottom:10px; width:145px; height:165px; transform:rotate(15deg); z-index:-1; }
+.pdf-art::before { content:''; position:absolute; width:110px; height:150px; border:1px solid #ffffff30; background:linear-gradient(135deg,#8cb7e66b,#1b396a99); border-radius:15px; top:-17px; right:-6px; }
+.pdf-sheet { display:flex; justify-content:center; align-items:center; position:absolute; inset:10px 20px 0 0; border-radius:12px; color:#7e9cbe; background:linear-gradient(120deg,#ffffff,#c6d9ed); box-shadow:0 8px 15px #00000020; }
+.pdf-badge { position:absolute; right:0; bottom:22px; padding:18px 14px; font-size:18px; font-weight:800; border-radius:12px; background:var(--institutional-primary-dark); color:white; box-shadow:0 5px 15px #00000030; }
+.empty-announcement { text-align:center; }
+.empty-announcement svg { margin:0 auto 12px; }
+.empty-announcement h2 { font-size:20px; font-weight:700; }
+.empty-announcement p { font-size:14px; color:var(--page-muted); margin-top:8px; }
+.calendar-card { padding-top:20px; padding-bottom:18px; }
+.calendar-card .card-heading { gap:18px; margin-bottom:8px; }
+.calendar-card .heading-icon { width:48px; height:48px; }
+.stages-list { list-style:none; padding:0; margin:0; }
+.stage-item { position:relative; display:grid; grid-template-columns:56px minmax(0,1fr) 50px; gap:18px; align-items:center; min-height:83px; }
+.stage-item:not(:last-child)::before { content:''; position:absolute; left:27px; top:50%; bottom:-50%; width:2px; background:#a9bdd8; }
+.stage-number { position:relative; z-index:1; width:42px; height:42px; display:flex; align-items:center; justify-content:center; justify-self:center; border-radius:50%; color:white; font-weight:750; font-size:18px; background:var(--stage-color); box-shadow:0 2px 5px #10234415; }
+.stage-item:nth-child(3) .stage-number { color:var(--institutional-primary-dark); }
+.stage-item > div { border-top:1px solid var(--page-border); padding:9px 0; }
+.stage-label { font-size:11px; color:var(--page-muted); }
+.stage-item h3 { font-size:15px; font-weight:750; line-height:1.35; margin:2px 0 5px; }
+.stage-date { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--page-muted); line-height:1.5; }
 .stage-date svg { flex-shrink:0; }
+.stage-icon { display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:50%; background:#e5edf7; color:var(--institutional-primary); }
 .announcement-page a:focus-visible,.announcement-page button:focus-visible { outline:3px solid var(--institutional-gold); outline-offset:4px; }
 :global(.dark .announcement-page) { --page-background:var(--institutional-dark-background); --page-surface:var(--institutional-dark-surface); --page-text:var(--institutional-dark-text); --page-muted:#bbc8dd; --page-border:#ffffff18; }
-:global(.dark .announcement-page .heading-icon),:global(.dark .announcement-page .requirement-number) { background:#ffffff08; color:#b8d8ff; }
-@media(max-width:1023px) { .announcement-content { grid-template-columns:1fr; } .calendar-column { grid-template-columns:1fr 1fr; align-items:start; } .participation-card { flex-wrap:wrap; } }
-@media(max-width:639px) { .announcement-container { padding-left:16px; padding-right:16px; } .hero-heading { padding:26px 0; } .hero-mark { display:none; } .hero-heading p { font-size:14px; } .section-navigation { gap:14px 20px; } .section-navigation a { font-size:12px; } .announcement-content { padding-top:24px; padding-bottom:40px; gap:20px; } .calendar-column { grid-template-columns:1fr; } .information-card,.featured-announcement,.participation-card { padding:22px; } .card-heading h2 { font-size:17px; } .participation-button { width:100%; } }
+:global(.dark .announcement-page .requirement-number),:global(.dark .announcement-page .stage-icon) { background:#ffffff10; color:#c6ddff; }
+@media(max-width:1200px) { .participation-card { flex-wrap:wrap; gap:14px; } .participation-button { margin-left:78px; } .participation-card > div { flex:1; } }
+@media(max-width:900px) { .announcement-content { grid-template-columns:1fr; } .announcement-hero::before { inset-inline-start:25%; } .hero-heading p { max-width:65%; } .hero-heading h1 { font-size:44px; } .participation-card { flex-wrap:nowrap; } .participation-button { margin-left:auto; } }
+@media(max-width:600px) { .announcement-container { padding-left:16px; padding-right:16px; } .hero-heading h1 { font-size:36px; } .hero-heading p { max-width:100%; font-size:14px; } .announcement-hero::after { background:linear-gradient(90deg,#102344f5,#102344cc); } .section-navigation { gap:12px; } .announcement-content { gap:16px; } .information-card { padding:20px 16px; } #participantes { grid-template-columns:42px minmax(0,1fr); column-gap:12px; } .heading-icon { width:42px; height:46px; } .card-heading { gap:12px; } .card-heading h2 { font-size:19px; } .requirements-list li { grid-template-columns:34px minmax(0,1fr); gap:12px; } .requirement-number { width:30px; height:30px; font-size:16px; } .requirements-list p,.audience-copy { font-size:13px; } .participation-card { flex-wrap:wrap; padding:20px; } .participation-icon { width:46px; height:46px; } .participation-card h2 { font-size:19px; } .participation-button { width:100%; margin:0; } .featured-announcement { padding:22px; } .featured-announcement h2 { max-width:70%; font-size:28px; } .announcement-description { max-width:70%; font-size:13px; } .pdf-art { right:5px; width:100px; height:145px; opacity:.6; } .pdf-sheet { right:5px; } .pdf-sheet svg { width:70px; } .pdf-art::before { width:90px; } .pdf-badge { font-size:14px; padding:14px 10px; } .document-button { font-size:12px; padding:13px; gap:7px; } .stage-item { grid-template-columns:38px minmax(0,1fr) 34px; gap:10px; } .stage-number { width:34px; height:34px; font-size:16px; } .stage-item:not(:last-child)::before { left:18px; } .stage-icon { width:34px; height:34px; } .stage-icon svg { width:20px; } .stage-item h3 { font-size:14px; } .stage-date { font-size:12px; } }
+/* Keep the reference composition readable across screen sizes. */
+.featured-top,.featured-announcement h2,.announcement-description { position:relative; z-index:1; }
+.featured-announcement h2::after { content:''; display:block; width:46px; height:3px; margin-top:10px; background:var(--institutional-gold); }
+.featured-label::after { content:''; display:inline-block; width:64px; height:1px; margin-left:12px; vertical-align:middle; background:#ffffff35; }
+.participation-card > div { min-width:0; }
+.document-button,.participation-button { min-height:48px; transition:background .2s,box-shadow .2s; }
+.document-button:hover,.participation-button:hover { box-shadow:0 5px 16px #00000025; }
+.requirements-card::after { opacity:.55; }
+:global(.dark .announcement-page .requirements-card::after) { opacity:.12; }
+:global(.dark .announcement-page .stage-item:not(:last-child)::before) { background:#ffffff30; }
+:global(.dark .announcement-page .card-heading h2::after) { background:var(--institutional-gold); }
+@media(min-width:1400px) {
+ .information-card { padding:24px 28px; }
+ .requirements-list p,.audience-copy { font-size:15px; }
+ .stage-item { min-height:88px; }
+ .stage-item h3 { font-size:17px; }
+ .stage-date { font-size:14px; }
+ .stage-label { font-size:12px; }
+ .featured-announcement { min-height:232px; }
+ .pdf-art { width:170px; height:185px; right:30px; }
+ .participation-button,.document-button { font-size:14px; }
+}
+@media(max-width:420px) {
+ .featured-announcement h2,.announcement-description { max-width:100%; }
+ .pdf-art { opacity:.15; }
+ .featured-label::after { width:36px; }
+ .stage-item { grid-template-columns:38px minmax(0,1fr); }
+ .stage-icon { display:none; }
+}
+/* Compact public announcement layout. */
+.announcement-container { max-width:1400px; padding-left:24px; padding-right:24px; }
+.hero-heading { padding:12px 0 18px; }
+.hero-heading h1 { font-size:clamp(34px,3.5vw,48px); margin-bottom:10px; }
+.hero-heading h1::after { margin-top:12px; }
+.hero-heading p { font-size:14px; max-width:490px; }
+.announcement-breadcrumb { padding-top:10px; }
+.section-navigation { padding-bottom:10px; gap:20px; }
+.announcement-content { gap:16px; padding-top:16px; padding-bottom:24px; }
+.details-column,.calendar-column { gap:12px; }
+.information-card { padding:18px 22px; border-radius:15px; }
+.card-heading { gap:14px; margin-bottom:8px; }
+.heading-icon { width:46px; height:46px; border-radius:10px; }
+.card-heading h2 { font-size:20px; }
+.card-heading h2::after { margin-top:6px; height:2px; }
+#participantes { grid-template-columns:46px minmax(0,1fr); column-gap:14px; }
+.audience-copy { font-size:13px; line-height:1.5; margin-top:6px; }
+.requirements-list li { grid-template-columns:46px minmax(0,1fr); column-gap:14px; }
+.requirement-number { width:30px; height:30px; font-size:16px; margin:5px 0; }
+.requirements-list p { font-size:13px; line-height:1.45; padding:6px 0; }
+.participation-card { padding:16px 22px; gap:14px; border-radius:15px; }
+.participation-icon { width:46px; height:46px; }
+.participation-card h2 { font-size:19px; }
+.participation-card p { font-size:12px; }
+.participation-button,.document-button { min-height:42px; font-size:12px; padding:11px 14px; gap:10px; }
+.featured-announcement { min-height:195px; padding:20px 22px; border-radius:15px; }
+.featured-top { margin-bottom:8px; }
+.featured-announcement h2 { font-size:30px; margin-bottom:8px; }
+.featured-announcement h2::after { margin-top:7px; height:2px; }
+.announcement-description { font-size:13px; line-height:1.45; margin-bottom:12px; }
+.pdf-art { width:125px; height:150px; right:20px; }
+.pdf-badge { font-size:15px; padding:14px 11px; }
+.calendar-card { padding-top:16px; padding-bottom:14px; }
+.calendar-card .heading-icon { width:42px; height:42px; }
+.stage-item { min-height:72px; grid-template-columns:46px minmax(0,1fr) 42px; gap:14px; }
+.stage-number { width:36px; height:36px; font-size:16px; }
+.stage-item:not(:last-child)::before { left:22px; }
+.stage-item h3 { font-size:14px; margin:2px 0 4px; }
+.stage-label { font-size:10px; }
+.stage-date { font-size:12px; gap:6px; }
+.stage-icon { width:42px; height:42px; }
+.stage-icon svg { width:22px; }
+@media(max-width:600px) {
+ .announcement-container { padding-left:16px; padding-right:16px; }
+ .information-card,.featured-announcement,.participation-card { padding:16px; }
+ .hero-heading h1 { font-size:34px; }
+ .card-heading h2 { font-size:18px; }
+ .participation-button { width:100%; margin:0; }
+ .stage-item { grid-template-columns:34px minmax(0,1fr) 30px; gap:10px; }
+ .stage-number { width:30px; height:30px; font-size:14px; }
+ .stage-item:not(:last-child)::before { left:16px; }
+ .stage-icon { width:30px; height:30px; }
+ .stage-icon svg { width:18px; }
+}
 .modal-enter-active,
 .modal-leave-active {
     transition: opacity 0.3s ease;

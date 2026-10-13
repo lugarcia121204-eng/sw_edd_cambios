@@ -324,7 +324,7 @@ const getFileIcon = (type) => {
                             </thead>
                             <tbody class="divide-y divide-gray-100">
                                 <tr v-for="(ev, index) in application.evaluations" :key="ev.id">
-                                    <td class="px-3 md:px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ index + 1 }}</td>
+                                    <td class="px-3 md:px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ index + 1 }}<span class="block text-xs text-blue-800">{{ {local:'Local',state:'Estatal',national:'Nacional'}[ev.review_level] || 'Histórica' }}</span></td>
                                     <td class="px-3 md:px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">{{ ev.evaluator?.name }}</td>
                                     <td class="px-3 md:px-6 py-4 text-sm whitespace-normal break-words max-w-xs">
                                         <div v-if="ev.comment" class="text-gray-800">
@@ -389,45 +389,10 @@ const getFileIcon = (type) => {
                     </div>
                 </div>
 
-                 <div class="flex flex-col gap-4 pt-4" v-if="application.status === 'pending'">
-                    <div v-if="!isValidVerdictStage" class="relative flex items-center gap-4 px-5 py-4 rounded-lg bg-white shadow-sm border border-gray-100" style="border-left: 5px solid #C9A800">
-                        <div class="flex-shrink-0" style="color: #C9A800">
-                            <svg viewBox="0 0 24 24" class="w-6 h-6" style="fill: currentColor"><path :d="mdiClockOutline"/></svg>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-[10px] uppercase font-bold tracking-widest opacity-60 mb-0.5" style="color: #C9A800">Veredicto No Disponible</span>
-                            <div class="flex flex-col gap-1">
-                                <span class="text-sm font-bold leading-tight text-gray-800">Etapa actual: <strong>{{ application.announcement?.current_stage || 'Desconocida' }}</strong></span>
-                                <p class="text-[13px] text-gray-600 leading-snug">Solo se puede emitir un veredicto definitivo durante las etapas de <strong>Evaluación</strong> o <strong>Resultados</strong>.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-else class="w-full flex flex-col sm:flex-row gap-4">
-                        <button 
-                            @click="approveRequest"
-                            class="flex-1 bg-[var(--institutional-primary)] text-white py-2.5 rounded-lg text-[11px] font-bold uppercase tracking-wider hover:bg-[var(--institutional-primary-dark)] transition shadow-md cursor-pointer transform hover:-translate-y-0.5"
-                            :disabled="processing"
-                        >
-                            Aprobar
-                        </button>
-                        
-                        <button 
-                             @click="rejectRequest"
-                            class="flex-1 bg-[#d32f2f] text-white py-2.5 rounded-lg text-[11px] font-bold uppercase tracking-wider hover:bg-[#b71c1c] transition shadow-md cursor-pointer transform hover:-translate-y-0.5"
-                            :disabled="processing"
-                        >
-                            Rechazar
-                        </button>
-                        
-                        <Link
-                            :href="route('admin.applications.index')"
-                            class="w-full sm:w-auto px-6 py-2.5 bg-white border border-[var(--institutional-primary)] rounded-lg text-[11px] font-bold uppercase tracking-wider text-[var(--institutional-primary)] hover:bg-gray-50 transition shadow-sm text-center cursor-pointer"
-                        >
-                            Cancelar
-                        </Link>
-                    </div>
-                </div>
+                 <div class="rounded-lg bg-blue-50 p-4 text-blue-900" v-if="application.status === 'pending'">
+                    Etapa de revisión: <strong>{{ application.review_stage_label }}</strong>.
+                    El resultado se determina con las evaluaciones Local, Estatal y Nacional.
+                 </div>
                 <!-- If already decided, show status (Optional: removed to avoid duplication with top banner, or kept simple) -->
                  <div v-else class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
                     <p class="text-gray-600 font-medium">Esta solicitud ya ha sido completada con estado: 

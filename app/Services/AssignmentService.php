@@ -26,17 +26,30 @@ class AssignmentService
     public function assignEvaluators(int $applicationId, array $evaluatorIds): void
     {
         DB::transaction(function () use ($applicationId, $evaluatorIds) {
+            $application = \App\Models\Application::lockForUpdate()->findOrFail($applicationId);
             foreach ($evaluatorIds as $userId) {
+                $evaluator = \App\Models\User::findOrFail($userId);
+                if (!$evaluator->canEvaluateApplication($application)) {
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'evaluator_ids' => 'El evaluador no está autorizado para el ámbito de esta solicitud.',
+                    ]);
+                }
                 // Verificamos que no exista una evaluación previa para ese dúo
                 $exists = Evaluation::where('application_id', $applicationId)
                     ->where('evaluator_id', $userId)
                     ->exists();
 
+                if ($exists) {
+                    Evaluation::where('application_id', $applicationId)->where('evaluator_id', $userId)
+                        ->where('status', 'pending')->whereNull('review_level')
+                        ->update(['review_level' => $application->review_stage]);
+                }
                 if (!$exists) {
                     Evaluation::create([
                         'application_id' => $applicationId,
                         'evaluator_id'   => $userId,
                         'status'         => 'pending',
+                        'review_level'   => $application->review_stage,
                         'deadline_at'    => Carbon::now()->addWeekdays(7),
                     ]);
 
@@ -61,8 +74,14 @@ class AssignmentService
      */
     public function removeEvaluator(int $applicationId, int $evaluatorId): void
     {
-        Evaluation::where('application_id', $applicationId)
-            ->where('evaluator_id', $evaluatorId)
-            ->delete();
+        DB::transaction(function () use ($applicationId, $evaluatorId) {
+            \App\Models\Application::lockForUpdate()->findOrFail($applicationId);
+            $evaluation = Evaluation::where('application_id', $applicationId)->where('evaluator_id', $evaluatorId)->firstOrFail();
+            if (!in_array($evaluation->status, ['pending', 'expired'])) {
+                throw \Illuminate\Validation\ValidationException::withMessages(['evaluator_id' => 'Una evaluación concluida forma parte del historial y no se puede retirar.']);
+            }
+            $evaluation->delete();
+            app(ReviewWorkflowService::class)->advance($applicationId);
+        });
     }
 }

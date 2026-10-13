@@ -18,8 +18,8 @@ class EvaluatorController extends Controller
 
         // Statistics using advanced Eloquent relationship scopes (1 Query)
         $user->loadCount([
-            'evaluations as total',
-            'evaluations as pendientes' => fn($q) => $q->pending()->whereHas('application', fn($q2) => $q2->where('status', 'pending'))
+            'evaluations as total' => fn ($q) => $q->visibleTo($user),
+            'evaluations as pendientes' => fn($q) => $q->visibleTo($user)->pending()->whereHas('application', fn($q2) => $q2->where('status', 'pending'))
         ]);
         
         $totalAsignadas = $user->total;
@@ -27,7 +27,7 @@ class EvaluatorController extends Controller
         $evaluadas = $totalAsignadas - $pendientes;
 
         // Pending Applications
-        $applications = \App\Models\Evaluation::where('evaluator_id', $user->id)
+        $applications = \App\Models\Evaluation::visibleTo($user)
             ->pending()
             ->whereHas('application', function ($q) {
                 $q->where('status', 'pending');
@@ -74,8 +74,8 @@ class EvaluatorController extends Controller
     public function show($id)
     {
         $evaluation = \App\Models\Evaluation::where('id', $id)
-            ->where('evaluator_id', Auth::id())
-            ->where('status', 'pending')
+            ->visibleTo(Auth::user())
+            ->pending()
             ->whereHas('application', function ($q) {
                 $q->where('status', 'pending');
             })
@@ -113,19 +113,14 @@ class EvaluatorController extends Controller
     {
 
         $evaluation = \App\Models\Evaluation::where('id', $id)
-            ->where('evaluator_id', Auth::id())
-            ->where('status', 'pending')
+            ->visibleTo(Auth::user())
+            ->pending()
             ->whereHas('application', function ($q) {
                 $q->where('status', 'pending');
             })
             ->firstOrFail();
 
-        $evaluation->update([
-            'status' => $request->status,
-            'score' => $request->score,
-            'answers' => $request->answers,
-            'comment' => $request->comment,
-        ]);
+        app(\App\Services\ReviewWorkflowService::class)->submit((int) $id, $request->validated(), $request->user());
 
         return redirect()->route('evaluator.dashboard')->with('success', 'Solicitud evaluada exitosamente.');
     }
@@ -135,7 +130,7 @@ class EvaluatorController extends Controller
         $document = \App\Models\Document::findOrFail($id);
         
         // Authorization: Check if the evaluator is assigned to the application this document belongs to
-        $hasAccess = \App\Models\Evaluation::where('evaluator_id', Auth::id())
+        $hasAccess = \App\Models\Evaluation::visibleTo(Auth::user())
             ->where('application_id', $document->application_id)
             ->exists();
             
@@ -155,10 +150,10 @@ class EvaluatorController extends Controller
 
         // Statistics using loadCount (1 Query instead of 4)
         $user->loadCount([
-            'evaluations as total',
-            'evaluations as pendientes' => fn($q) => $q->pending()->whereHas('application', fn($q2) => $q2->where('status', 'pending')),
-            'evaluations as aprobadas' => fn($q) => $q->approved(),
-            'evaluations as rechazadas' => fn($q) => $q->rejected(),
+            'evaluations as total' => fn ($q) => $q->visibleTo($user),
+            'evaluations as pendientes' => fn($q) => $q->visibleTo($user)->pending()->whereHas('application', fn($q2) => $q2->where('status', 'pending')),
+            'evaluations as aprobadas' => fn($q) => $q->visibleTo($user)->approved(),
+            'evaluations as rechazadas' => fn($q) => $q->visibleTo($user)->rejected(),
         ]);
 
         $totalAsignadas = $user->total;
@@ -168,9 +163,9 @@ class EvaluatorController extends Controller
         $rechazadas = $user->rechazadas;
 
         // Completed Applications (History)
-        $query = \App\Models\Evaluation::where('evaluator_id', $user->id)
+        $query = \App\Models\Evaluation::visibleTo($user)
             ->where(function ($q) {
-                $q->where('status', '!=', 'pending')
+                $q->where('status', '!=', 'pending')->orWhereNull('review_level')
                   ->orWhereHas('application', function ($q2) {
                       $q2->where('status', '!=', 'pending');
                   });
@@ -238,7 +233,7 @@ class EvaluatorController extends Controller
     public function showHistory($id)
     {
         $evaluation = \App\Models\Evaluation::where('id', $id)
-            ->where('evaluator_id', Auth::id())
+            ->visibleTo(Auth::user())
             ->with([
                 'application.announcement',
                 'application.user.subArea',

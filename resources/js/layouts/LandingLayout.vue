@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { LogIn, Sun, Moon, Menu, X, Phone, Mail, Globe, MapPin } from 'lucide-vue-next';
 import theme from '@/config/theme.config';
 import { useStyleStore } from '@/stores/style';
@@ -9,6 +9,18 @@ defineProps({ canLogin: Boolean, canRegister: Boolean });
 const styleStore = useStyleStore();
 const menuOpen = ref(false);
 const contact = theme.footer.contactInfo;
+let desktopQuery;
+const closeDesktopMenu = (event) => { if (event.matches) menuOpen.value = false; };
+const closeOnEscape = (event) => { if (event.key === 'Escape') menuOpen.value = false; };
+onMounted(() => {
+    desktopQuery = window.matchMedia('(min-width: 1440px)');
+    desktopQuery.addEventListener('change', closeDesktopMenu);
+    window.addEventListener('keydown', closeOnEscape);
+});
+onBeforeUnmount(() => {
+    desktopQuery?.removeEventListener('change', closeDesktopMenu);
+    window.removeEventListener('keydown', closeOnEscape);
+});
 </script>
 
 <template>
@@ -37,10 +49,19 @@ const contact = theme.footer.contactInfo;
                 <button type="button" class="mobile-menu-button" :aria-expanded="menuOpen" aria-controls="public-mobile-menu" aria-label="Abrir o cerrar menú" @click="menuOpen = !menuOpen"><X v-if="menuOpen" /><Menu v-else /></button>
             </div>
             <nav v-if="menuOpen" id="public-mobile-menu" class="mobile-navigation" aria-label="Navegación móvil">
-                <Link v-for="item in theme.publicNavigation" :key="item.route" :href="route(item.route)" @click="menuOpen = false">{{ item.label }}</Link>
-                <Link :href="route('login')" @click="menuOpen = false">Iniciar Sesión</Link>
-                <Link :href="route('register')" class="register-button" @click="menuOpen = false">REGISTRARSE</Link>
-                <button type="button" class="mobile-appearance" @click="styleStore.setDarkMode()">{{ styleStore.darkMode ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro' }}</button>
+                <div class="mobile-links">
+                    <Link v-for="item in theme.publicNavigation" :key="item.route" :href="route(item.route)" :aria-current="route().current(item.route) ? 'page' : undefined" @click="menuOpen = false">{{ item.label }}</Link>
+                </div>
+                <div class="mobile-appearance">
+                    <Sun :size="18" aria-hidden="true" />
+                    <button type="button" role="switch" :aria-checked="styleStore.darkMode" :aria-label="styleStore.darkMode ? 'Activar tema claro' : 'Activar tema oscuro'" class="theme-switch" @click="styleStore.setDarkMode()"><span :class="{ enabled: styleStore.darkMode }" /></button>
+                    <Moon :size="18" aria-hidden="true" />
+                    <span>Modo (Luz / Noche)</span>
+                </div>
+                <div class="mobile-account-actions">
+                    <Link :href="route('register')" class="register-button" @click="menuOpen = false">REGISTRARSE</Link>
+                    <Link :href="route('login')" class="login-button" @click="menuOpen = false"><LogIn :size="20" /> Iniciar Sesión</Link>
+                </div>
             </nav>
         </header>
         <main class="landing-main"><slot />
@@ -99,8 +120,18 @@ const contact = theme.footer.contactInfo;
 .theme-switch span { display:block; background:white; width:16px; height:16px; border-radius:50%; transition:transform .2s; }
 .theme-switch span.enabled { transform:translateX(16px); }
 .mobile-menu-button { margin-left:auto; display:none; cursor:pointer; padding:8px; }
-.mobile-navigation { background:var(--institutional-mobile-drawer-bg); padding:20px; }
-.mobile-navigation a,.mobile-appearance { display:block; padding:12px; font-size:16px; }
+.mobile-navigation { display:none; position:absolute; top:100%; left:24px; right:24px; background:var(--institutional-mobile-drawer-bg); padding:20px; max-height:calc(100dvh - 112px); overflow-y:auto; box-shadow:0 12px 24px #10234435; }
+.mobile-links { display:grid; }
+.mobile-links a { display:block; padding:18px 20px; font-size:18px; font-weight:650; border-radius:8px; }
+.mobile-links a:hover,.mobile-links a[aria-current="page"] { background:#ffffff0a; color:var(--institutional-gold); }
+.mobile-appearance { display:flex; align-items:center; gap:10px; padding:18px 20px; margin-top:10px; border-top:1px solid #ffffff20; border-bottom:1px solid #ffffff20; font-size:16px; }
+.mobile-appearance span { font-weight:600; }
+.mobile-appearance .theme-switch span { font-weight:normal; }
+.mobile-account-actions { display:grid; gap:14px; padding-top:14px; }
+.mobile-account-actions a { min-height:54px; font-size:17px; border-radius:10px; }
+.mobile-menu-button { border:1px solid #ffffff40; border-radius:10px; background:#ffffff10; }
+@media(min-width:1440px) { .mobile-navigation { display:none!important; } }
+
 .landing-footer { background:var(--institutional-primary-dark); color:#b8d8ff; }
 .footer-container { max-width:1280px; margin:auto; padding:48px 32px 24px; }
 .footer-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:32px; padding-bottom:48px; }
@@ -116,6 +147,6 @@ const contact = theme.footer.contactInfo;
 :global(.dark) .landing-footer, :global(.dark) .landing-footer h2, :global(.dark) .brand-title span { color:var(--institutional-white); }
 a:focus-visible,button:focus-visible { outline:2px solid var(--institutional-gold); outline-offset:4px; }
 @media(max-width:1650px) { .header-content { gap:16px; padding:14px 32px; } .brand-subtitle { max-width:none; font-size:12px; } .desktop-navigation { gap:28px; } .desktop-navigation a { font-size:14px; } .login-button,.register-button { padding:7px 12px; } }
-@media(max-width:1439px) { .header-content { padding:12px 24px; min-height:96px; } .footer-container { padding:48px 24px 24px; } .desktop-navigation,.header-actions { display:none; } .mobile-menu-button { display:block; } .brand-subtitle { max-width:none; white-space:normal; } .footer-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media(max-width:639px) { .header-content { padding:12px 16px; } .brand-logo { width:36px; height:46px; } .brand { gap:10px; } .brand-copy { padding-left:10px; } .brand-title { font-size:18px; } .brand-subtitle { font-size:12px; max-width:240px; } .footer-grid { grid-template-columns:1fr; gap:30px; padding-bottom:36px; } .footer-container { padding:48px 16px 24px; } }
+@media(max-width:1439px) { .header-content { padding:12px 24px; min-height:96px; } .footer-container { padding:48px 24px 24px; } .desktop-navigation,.header-actions { display:none; } .mobile-menu-button { display:block; } .mobile-navigation { display:block; } .brand-subtitle { max-width:none; white-space:normal; } .footer-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:639px) { .mobile-navigation { left:12px; right:12px; padding:14px; } .mobile-links a { padding:14px 12px; font-size:16px; } .mobile-appearance { padding:16px 12px; font-size:14px; } .header-content { padding:12px 16px; } .brand-logo { width:36px; height:46px; } .brand { gap:10px; } .brand-copy { padding-left:10px; } .brand-title { font-size:18px; } .brand-subtitle { font-size:12px; max-width:240px; } .footer-grid { grid-template-columns:1fr; gap:30px; padding-bottom:36px; } .footer-container { padding:48px 16px 24px; } }
 </style>

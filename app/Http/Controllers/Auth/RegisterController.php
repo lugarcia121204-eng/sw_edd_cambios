@@ -120,6 +120,9 @@ class RegisterController extends Controller
 
         // Asignar rol según el tipo de registro
         if ($roleType === 'evaluador') {
+            $user->forceFill(['evaluator_status' => 'pending', 'evaluator_level' => null,
+                'evaluator_institution_id' => null, 'evaluator_state_id' => null,
+                'evaluator_authorized_by' => null, 'evaluator_authorized_at' => null])->save();
             if (!$user->hasRole('Evaluador')) {
                 $user->assignRole('Evaluador');
                 Log::info('👨‍🏫 Rol asignado: Evaluador');

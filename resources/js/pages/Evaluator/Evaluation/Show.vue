@@ -256,6 +256,8 @@ const formatDate = (dateString) => {
 
 <template>
     <EvaluatorLayout>
+        <div class="mx-6 my-4 rounded-lg bg-blue-50 p-4 text-blue-900">Etapa: <strong>{{ {local:'Local',state:'Estatal',national:'Nacional',completed:'Concluida'}[application.review_stage] }}</strong>. Cada nivel registra una revisión independiente.</div>
+
         <Head title="Evaluar Solicitud" />
 
         <div class="space-y-6">

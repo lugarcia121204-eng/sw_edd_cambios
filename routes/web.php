@@ -150,6 +150,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('evaluators', [\App\Http\Controllers\Admin\EvaluatorController::class, 'index'])->name('evaluators.index'); // evaluadores
             Route::delete('evaluators/{id}', [\App\Http\Controllers\Admin\EvaluatorController::class, 'destroy'])->name('evaluators.destroy');
 
+            Route::put('evaluators/{user}/configuration', [\App\Http\Controllers\Admin\EvaluatorController::class, 'updateConfiguration'])->name('evaluators.configuration');
+
             // Recognitions
             Route::get('recognitions', [\App\Http\Controllers\Admin\RecognitionController::class, 'index'])->name('recognitions.index'); // reconocimientos
             Route::post('recognitions/toggle', [\App\Http\Controllers\Admin\RecognitionController::class, 'toggle'])->name('recognitions.toggle');
@@ -162,7 +164,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         }
     );
 
-    Route::middleware(['role:Evaluador'])->prefix('evaluator')->name('evaluator.')->group(
+    Route::get('/evaluator/pending', fn () => \Inertia\Inertia::render('Evaluator/Pending', [
+        'authorizationStatus' => auth()->user()->evaluator_status,
+    ]))->middleware('role:Evaluador')->name('evaluator.pending');
+
+    Route::middleware(['role:Evaluador', \App\Http\Middleware\EnsureEvaluatorAuthorized::class])->prefix('evaluator')->name('evaluator.')->group(
         function () { // prefix evaluador -> evaluator
             Route::get('dashboard', [EvaluatorController::class, 'inicio'])->name('dashboard'); // inicio -> dashboard
             Route::get('evaluation/{id}', [EvaluatorController::class, 'show'])->name('evaluation.show');
@@ -172,6 +178,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // Evaluation History
             Route::get('evaluations', [EvaluatorController::class, 'index'])->name('evaluations.index'); // evaluaciones
             Route::get('evaluations/{id}', [EvaluatorController::class, 'showHistory'])->name('evaluations.show');
+
 
             // Recognitions
             Route::get('recognitions', [\App\Http\Controllers\Evaluator\RecognitionController::class, 'index'])->name('recognitions.index');

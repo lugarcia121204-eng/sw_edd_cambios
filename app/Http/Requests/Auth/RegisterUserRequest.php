@@ -25,6 +25,12 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'evaluator_status' => 'prohibited',
+            'evaluator_level' => 'prohibited',
+            'evaluator_institution_id' => 'prohibited',
+            'evaluator_state_id' => 'prohibited',
+            'evaluator_authorized_by' => 'prohibited',
+            'evaluator_authorized_at' => 'prohibited',
             'curp' => 'required|string|size:18',
             'name' => 'required|string|max:255',
             'email' => [

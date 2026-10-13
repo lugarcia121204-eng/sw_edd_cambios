@@ -41,6 +41,8 @@ class ApplicationResource extends JsonResource
             'user_id' => $this->user_id,
             'announcement_id' => $this->announcement_id,
             'status' => $status,
+            'review_stage' => $this->review_stage,
+            'review_stage_label' => ['local'=>'Local','state'=>'Estatal','national'=>'Nacional','completed'=>'Concluida'][$this->review_stage] ?? $this->review_stage,
             'via' => $this->via,
             'position_type_id' => $this->position_type_id,
             'position_type_name' => $this->positionType?->name,

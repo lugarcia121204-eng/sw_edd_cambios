@@ -48,7 +48,7 @@ class ApplicationController extends Controller
         $applications = $query->paginate($filters->rows)->withQueryString();
 
         // Get Evaluators for the Assignment Modal
-        $evaluators = User::role('Evaluador')->with('institution')->get();
+        $evaluators = User::role('Evaluador')->where('evaluator_status', 'authorized')->whereNotNull('email_verified_at')->with('institution')->get();
 
         // Add rows to filters for the view
         $filters->rows = (int) $filters->rows;
@@ -98,10 +98,8 @@ class ApplicationController extends Controller
         ])
             ->findOrFail($id);
 
-        $evaluators = User::role('Evaluador')
-            ->where('id', '!=', $application->user_id)
-            ->with('institution')
-            ->get();
+        $evaluators = User::role('Evaluador')->with('institution')->get()
+            ->filter(fn ($user) => $user->canEvaluateApplication($application))->values();
 
         return Inertia::render('Admin/Applications/AssignEvaluator', [
             'application' => (new ApplicationResource($application))->resolve(),
@@ -135,63 +133,7 @@ class ApplicationController extends Controller
      */
     public function verdict(\App\Http\Requests\SubmitAdminVerdictRequest $request, $id)
     {
-        $application = \App\Models\Application::findOrFail($id);
-
-        $validated = $request->validated();
-
-        $application->status = $validated['status'];
-        if ($validated['status'] === 'rejected') {
-            $application->admin_comment = $validated['comentario'];
-        }
-        $application->save();
-
-        if ($validated['status'] === 'approved') {
-            $recognition = \App\Models\Recognition::firstOrNew([
-                'user_id' => $application->user_id,
-                'announcement_id' => $application->announcement_id,
-                'type' => 'postulante',
-            ]);
-
-            // Make sure approved teacher recognitions are immediately visible and searchable.
-            if (!$recognition->exists || !$recognition->active) {
-                $recognition->active = true;
-                $recognition->sent_at = now();
-            }
-
-            $recognition->save();
-
-            // Generate snapshot, folio and cryptoseal automatically
-            $pdfService = app(\App\Services\PdfGenerationService::class);
-            $pdfService->freezeAcceptanceLetter($application);
-            $pdfService->freezeTeacherRecognition($recognition, $application->user);
-        } else {
-            // If admin changes verdict to rejected, make sure any prior teacher recognition is disabled.
-            $recognition = \App\Models\Recognition::where('user_id', $application->user_id)
-                ->where('announcement_id', $application->announcement_id)
-                ->first();
-
-            if ($recognition && $recognition->active) {
-                $recognition->active = false;
-                $recognition->save();
-            }
-        }
-
-        $application->loadMissing('announcement.calendar');
-        $stage = $application->announcement->current_stage;
-
-        if (in_array($stage, ['resultados', 'terminada'])) {
-            // Enviar notificación al docente si ya estamos en resultados
-            $this->notificationService->notifyApplicationVerdict(
-                $application->id,
-                $application->user_id,
-                $validated['status'],
-                $application->announcement->name // Use 'name' instead of 'title' as seen in model
-            );
-        } else {
-            \Illuminate\Support\Facades\Log::info("Veredicto silenciado para solicitud {$application->id}. Se enviará en étapa de resultados.");
-        }
-
-        return to_route('admin.applications.index')->with('success', 'Veredicto registrado correctamente.');
+        throw \Illuminate\Validation\ValidationException::withMessages(['status' => 'El resultado definitivo se emite mediante las evaluaciones Local, Estatal y Nacional.']);
     }
 
     /**

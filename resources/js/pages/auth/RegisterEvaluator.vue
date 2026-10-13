@@ -255,6 +255,7 @@ const buscarCurp = async () => {
                     <!-- Title -->
                     <div class="text-center">
                         <h2 class="text-2xl sm:text-3xl font-semibold text-[var(--institutional-primary)]">Registro de Evaluador</h2>
+                        <p class="mt-3 text-sm text-slate-600">Este registro es común para evaluadores Locales, Estatales y Nacionales. Después de verificar tu correo, un administrador autorizará tu cuenta y asignará tu nivel e institución o estado.</p>
                     </div>
 
                     <!-- Form -->
